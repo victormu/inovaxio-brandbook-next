@@ -1,0 +1,78 @@
+export interface NavSubItem {
+  label: string;
+  href: string;
+}
+
+export interface NavSection {
+  id: string;
+  label: string;
+  href: string;
+  subitems: NavSubItem[];
+}
+
+export const NAV_SECTIONS: NavSection[] = [
+  {
+    id: "fundamentos",
+    label: "01 Fundamentos",
+    href: "/fundamentos",
+    subitems: [
+      { label: "Essência da marca", href: "/fundamentos#essencia" },
+      { label: "Big Idea", href: "/fundamentos#big-idea" },
+      { label: "As duas dimensões", href: "/fundamentos#dimensoes" },
+      { label: "Posicionamento", href: "/fundamentos#posicionamento" },
+      { label: "Analogia oficial", href: "/fundamentos#analogia" },
+    ],
+  },
+  {
+    id: "verbal",
+    label: "02 Sistema Verbal",
+    href: "/verbal",
+    subitems: [
+      { label: "Tom de voz", href: "/verbal#tom" },
+      { label: "7 princípios", href: "/verbal#principios" },
+      { label: "Linguagem", href: "/verbal#linguagem" },
+      { label: "Voz AI-first", href: "/verbal#ai-first" },
+      { label: "Frases-chave", href: "/verbal#frases" },
+      { label: "Segmentação", href: "/verbal#segmentacao" },
+      { label: "Checklist", href: "/verbal#checklist" },
+    ],
+  },
+  {
+    id: "visual",
+    label: "03 Sistema Visual",
+    href: "/visual",
+    subitems: [
+      { label: "Logo", href: "/visual#logo" },
+      { label: "Cor", href: "/visual#cor" },
+      { label: "Tipografia", href: "/visual#tipografia" },
+      { label: "Fotografia", href: "/visual#fotografia" },
+      { label: "Grid e layout", href: "/visual#grid" },
+      { label: "Ícones", href: "/visual#icones" },
+      { label: "Aplicações da marca", href: "/visual/aplicacoes" },
+    ],
+  },
+  {
+    id: "aplicacoes",
+    label: "04 Aplicações",
+    href: "/aplicacoes",
+    subitems: [
+      { label: "Anúncios", href: "/aplicacoes#anuncios" },
+      { label: "Legendas", href: "/aplicacoes#legendas" },
+      { label: "Site", href: "/aplicacoes#site" },
+      { label: "Voz por canal", href: "/aplicacoes#canais" },
+      { label: "Setor público", href: "/aplicacoes#licitacao" },
+    ],
+  },
+  {
+    id: "recursos",
+    label: "05 Recursos",
+    href: "/recursos",
+    subitems: [
+      { label: "Logo", href: "/recursos#logo" },
+      { label: "Paleta", href: "/recursos#paleta" },
+      { label: "Templates", href: "/recursos#templates" },
+      { label: "Banco de fotos", href: "/recursos#fotos" },
+      { label: "Apresentações", href: "/recursos#apresentacoes" },
+    ],
+  },
+];

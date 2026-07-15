@@ -1,26 +1,550 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "../styles/tokens.css";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-text);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* trava o scroll horizontal da página inteira (mesma regra do site) */
+html, body {
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout shell ── */
+.site-shell {
+  display: grid;
+  /* minmax(0, 1fr) impede que um filho largo (tabela, pill, string longa)
+     estoure a coluna além da viewport e seja cortado pelo overflow-x: clip. */
+  grid-template-columns: var(--nav-width) minmax(0, 1fr);
+  min-height: 100dvh;
+  overflow-x: clip;
+}
+
+.site-content {
+  max-width: var(--content-max);
+  padding: var(--space-12) var(--space-10) var(--space-16);
+}
+
+/* ── Tipografia ──
+   Quicksand (display): títulos, subtítulos e labels.
+   Inter (body): corpo de leitura. Escala enxuta do site. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); }
+h5 { font-size: var(--text-lg); }
+
+p {
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+  text-wrap: pretty;
+}
+
+/* ── Utilitários ── */
+
+.lead {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+  max-width: 68ch;
+}
+
+/* Meta estrutural em Quicksand, caixa normal (a gramática de eyebrow
+   uppercase saiu junto com o resto do visual antigo). */
+.label {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: var(--tracking-normal);
+  color: var(--color-text-faint);
+}
+
+.caption {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  color: var(--color-text-faint);
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--space-8) 0;
+}
+
+/* ── Intro de seção (espelha o section-intro do site) ── */
+.section-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 172px) minmax(0, 1fr);
+  gap: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  margin-bottom: var(--space-10);
+}
+
+.section-intro[data-flush="true"] {
+  border-top: none;
+  padding-top: 0;
+}
+
+.section-intro__meta {
+  padding-top: var(--space-1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.section-intro__index {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-primary-text);
+  letter-spacing: var(--tracking-normal);
+}
+
+.section-intro__body {
+  min-width: 0;
+}
+
+.section-intro__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-4xl);
+  line-height: 1.12;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+  text-wrap: balance;
+  margin: 0;
+}
+
+.section-intro__lead {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+  text-wrap: pretty;
+  max-width: 60ch;
+  margin: var(--space-4) 0 0;
+}
+
+@media (max-width: 768px) {
+  .section-intro {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    padding-top: var(--space-10);
+  }
+  .section-intro__meta {
+    padding-top: 0;
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+}
+
+/* ── Placeholder de imagem (Victor substitui depois) ── */
+.img-placeholder {
+  background: var(--color-surface-2);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.img-placeholder::after {
+  content: attr(data-label);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+/* ── Banner full-bleed de topo de seção: banda escura navy, como os
+      heroes do site (glow azul no canto, texto branco via .ctx-dark). ── */
+.page-hero {
+  position: relative;
+  width: calc(100vw - var(--nav-width));
+  margin-left: calc(-1 * var(--space-10));
+  margin-top: calc(-1 * var(--space-12));
+  height: 64vh;
+  min-height: 420px;
+  max-height: 720px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 80% at 85% 20%, rgb(46 46 254 / 0.38), transparent 70%),
+    linear-gradient(200deg, #06062a 0%, #000000 70%);
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    width: calc(100% + 2 * var(--space-4));
+    margin-left: calc(-1 * var(--space-4));
+    margin-top: calc(-1 * var(--space-6));
+    height: 56vh;
+    min-height: 340px;
+  }
+}
+
+/* ── Bloco sólido de marca ── */
+.block-blue {
+  background: var(--gradient-card-azul);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.25), var(--glow-primary);
+}
+
+/* ── Cartão claro grande (assinatura do site): gradiente suave,
+      raio 1.75rem, rim de luz. Use em cards de destaque. ── */
+.card-site {
+  background: var(--gradient-celula-clara);
+  border-radius: var(--radius-2xl);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9);
+}
+
+/* ── Navegação lateral (desktop): sempre escura, como o header do site ── */
+.sidenav {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  overflow-y: auto;
+  background: #050507;
+  border-right: 1px solid var(--color-border);
+  padding: var(--space-6) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* item de página atual: mini pill azul (linguagem do site) */
+.nav-subitem {
+  border-radius: var(--radius-full);
+}
+
+.nav-subitem[aria-current="page"] {
+  background: rgb(46 46 254 / 0.16);
+}
+
+/* ── Top bar / drawer mobile (ocultos no desktop) ── */
+.mobile-topbar { display: none; }
+.drawer-close { display: none; }
+.sidenav-backdrop { display: none; }
+
+/* ── Responsivo ── */
+@media (max-width: 768px) {
+  .site-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .site-content {
+    padding: calc(56px + var(--space-6)) var(--space-4) var(--space-12);
+  }
+
+  .mobile-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    padding: 0 var(--space-4);
+    background: rgb(5 5 7 / 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    z-index: 50;
+  }
+
+  .sidenav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    width: min(82vw, 320px);
+    transform: translateX(-100%);
+    transition: transform var(--duration-normal) var(--ease-out);
+    z-index: 60;
+    box-shadow: var(--shadow-lg);
+  }
+  .sidenav[data-open="true"] {
+    transform: translateX(0);
+  }
+
+  .drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    width: 36px;
+    height: 36px;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    color: var(--color-text-muted);
+    cursor: pointer;
+  }
+
+  .sidenav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgb(0 0 0 / 0.6);
+    z-index: 55;
+    animation: fade-in var(--duration-fast) var(--ease-out);
+  }
+
+  .stack-mobile {
+    grid-template-columns: 1fr !important;
+  }
+
+  .copyblock {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .copyblock .btn-secondary {
+    align-self: flex-start;
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Skip navigation ── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 100;
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: var(--space-4);
+  top: var(--space-4);
+}
+
+/* ── Focus visível global (azul da marca; ciano não é acento de UI) ── */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.ctx-dark :focus-visible {
+  outline-color: var(--color-primary-bright);
+}
+
+/* ── Movimento reduzido ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── Aparição no scroll (Reveal) ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+}
+.reveal[data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ── Hover premium (contexto claro: sombras azuladas suaves) ── */
+.hover-card {
+  transition: transform var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out);
+  will-change: transform;
+}
+.hover-card:hover {
+  transform: translateY(-4px);
+  border-color: rgb(46 46 254 / 0.35);
+  box-shadow: var(--shadow-md), 0 0 0 1px rgb(46 46 254 / 0.22);
+}
+.hover-media img {
+  transition: transform var(--duration-slow) var(--ease-out);
+  will-change: transform;
+}
+.hover-media:hover img {
+  transform: scale(1.045);
+}
+
+/* ── Botões (pill, como no site) ── */
+.btn-primary,
+.download-btn {
+  border-radius: var(--radius-full) !important;
+}
+
+.btn-secondary {
+  border-radius: var(--radius-full) !important;
+}
+
+.btn-secondary:hover {
+  background: var(--color-surface-2) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-border-strong) !important;
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
+}
+
+.download-btn:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 10px 24px rgb(46 46 254 / 0.35);
+  transform: translateY(-1px);
+}
+
+.download-btn:active {
+  transform: scale(0.97) translateY(0);
+}
+
+/* ── Nav blocks da home ── */
+.nav-block {
+  transition: transform var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.nav-block:hover {
+  box-shadow: var(--shadow-md), 0 0 0 1px rgb(46 46 254 / 0.25);
+  transform: translateY(-2px);
+}
+
+.nav-block-title:hover {
+  color: var(--color-primary-text) !important;
+}
+
+.nav-block-link:hover {
+  color: var(--color-text) !important;
+}
+
+.nav-subitem:hover {
+  color: var(--color-text) !important;
+}
+
+.token-chip:hover {
+  box-shadow: var(--shadow-md), 0 0 0 1px rgb(46 46 254 / 0.35);
+  transform: translateY(-1px);
+}
+
+.token-chip:active {
+  transform: scale(0.97);
+}
+
+.nav-block-num {
+  transition: color var(--duration-normal) var(--ease-out),
+    opacity var(--duration-normal) var(--ease-out);
+}
+
+.nav-block:hover .nav-block-num {
+  color: var(--color-primary-text);
+}
+
+.nav-block-arrow {
+  transition: transform var(--duration-normal) var(--ease-out),
+    opacity var(--duration-normal) var(--ease-out);
+}
+
+.nav-block:hover .nav-block-arrow {
+  transform: translate(3px, -3px);
+  opacity: 1;
+  color: var(--color-primary-text);
+}
+
+/* ── Rodapé de marca (wordmark gigante, assinatura compartilhada com o site).
+      Sobre o fundo branco: sem bloco, o nome sangra de borda a borda da
+      área de conteúdo, em azul fantasma com fade na base. ── */
+.brand-footer {
+  overflow: hidden;
+  margin-top: var(--space-24);
+  /* sangra o padding lateral e o max-width da coluna, como o .page-hero */
+  width: calc(100vw - var(--nav-width));
+  margin-left: calc(-1 * var(--space-10));
+}
+
+.brand-footer__marca {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  /* "Inovaxio" mede 3,865em em Quicksand 700: a fonte deriva da largura
+     disponível e o nome enche a tela inteira, sem corte */
+  font-size: calc((100vw - var(--nav-width)) / 3.95);
+  line-height: 0.82;
+  letter-spacing: var(--tracking-tight);
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  color: rgb(46 46 254 / 0.12);
+  -webkit-mask-image: linear-gradient(to bottom, black 15%, transparent 96%);
+  mask-image: linear-gradient(to bottom, black 15%, transparent 96%);
+}
+
+@media (max-width: 768px) {
+  .brand-footer {
+    width: calc(100% + 2 * var(--space-4));
+    margin-left: calc(-1 * var(--space-4));
+  }
+
+  .brand-footer__marca {
+    font-size: calc(100vw / 3.95);
+  }
 }
