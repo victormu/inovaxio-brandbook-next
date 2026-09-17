@@ -55,6 +55,8 @@
   --font-display: 'Quicksand', sans-serif;
   --font-body:    'Inter', sans-serif;
 
+  /* Piso da escala: legenda de imagem e ficha tecnica. Nao use para leitura. */
+  --text-caption: 0.75rem;   /* 12 */
   --text-xs:   0.8125rem;  /* 13 */
   --text-sm:   0.875rem;   /* 14 */
   --text-base: 0.9375rem;  /* 15 */
@@ -64,7 +66,8 @@
   --text-3xl:  clamp(1.5rem, 1.2rem + 1.1vw, 2rem);      /* 24-32 título */
   --text-4xl:  clamp(1.9rem, 1.3rem + 2vw, 2.75rem);     /* 30-44 display */
   --text-5xl:  clamp(2.5rem, 1.5rem + 3.2vw, 4.25rem);   /* 40-68 hero */
-  --text-6xl:  var(--text-5xl);
+  /* Topo da escala: numero do capitulo no trilho. So isso. */
+  --text-6xl:  clamp(4rem, 2rem + 6vw, 8rem);            /* 64-128 capitulo */
 
   --leading-tight:   1.1;
   --leading-snug:    1.3;
@@ -88,6 +91,8 @@
   --space-16: 64px;
   --space-24: 96px;
   --space-32: 128px;
+  --space-40: 160px;   /* entre secoes */
+  --space-56: 224px;   /* entre capitulos, antes do rodape */
 
   /* ── Bordas (assinatura do site: cards 1.75rem, pill em tudo) ── */
   --radius-sm:  4px;
