@@ -75,7 +75,7 @@ export function GridSection() {
       id="grid"
       index="05 / 06"
       title="Grid e layout"
-      band="navy"
+      band="light"
       lead="Um grid organiza qualquer peça da marca: documento, post, apresentação. Margem generosa, alinhamento às colunas e ritmo constante no espaçamento."
     >
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-10)" }}>

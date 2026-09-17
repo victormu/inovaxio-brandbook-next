@@ -168,7 +168,7 @@ export default function FundamentosPage() {
         id="essencia"
         index="01 / 05"
         title="Essência da marca"
-        band="dark"
+        band="light"
         lead="A Inovaxio não vende código. A Inovaxio é o time técnico que constrói e sustenta o software de quem está lançando um negócio novo ou operando um sistema que não pode falhar."
       >
       </Panel>
@@ -177,7 +177,7 @@ export default function FundamentosPage() {
         id="big-idea"
         index="02 / 05"
         title="Big Idea"
-        band="light"
+        band="dark"
         lead="A ideia central que organiza toda a comunicação de marca. É o racional explicador, não uma linha de copy."
       >
 
@@ -252,7 +252,7 @@ export default function FundamentosPage() {
         id="dimensoes"
         index="03 / 05"
         title="As duas dimensões"
-        band="dark"
+        band="light"
         lead="Lançar e sustentar. Todo cliente entra por uma das duas portas."
       >
         <div
@@ -280,7 +280,7 @@ export default function FundamentosPage() {
         id="posicionamento"
         index="04 / 05"
         title="Posicionamento estratégico"
-        band="light-dim"
+        band="dim"
         lead="Onde a Inovaxio se coloca no mercado, e contra o que ela não compete."
       >
         <div style={{ marginBottom: "var(--space-6)" }}>
@@ -334,7 +334,7 @@ export default function FundamentosPage() {
         id="analogia"
         index="05 / 05"
         title="Analogia oficial"
-        band="navy"
+        band="light"
         lead="A imagem que explica o modelo de trabalho sem jargão."
       >
         <blockquote

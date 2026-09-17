@@ -328,7 +328,7 @@ export function TypographySection() {
       id="tipografia"
       index="03 / 06"
       title="Tipografia"
-      band="dark"
+      band="dim"
       lead="Duas famílias. Quicksand carrega os títulos e o display. Inter carrega o texto e a legenda. Os tamanhos em pt são referência e escalam com a peça: um pôster parte da base maior, um cartão da menor."
     >
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>

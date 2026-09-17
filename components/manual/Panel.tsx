@@ -1,9 +1,9 @@
-export type Band = "dark" | "light" | "light-dim" | "navy";
+export type Band = "light" | "dim" | "dark" | "navy";
 
 const BAND_CLASS: Record<Band, string> = {
-  dark: "",
-  light: "ctx-light",
-  "light-dim": "ctx-light ctx-light-dim",
+  light: "",
+  dim: "ctx-dim",
+  dark: "ctx-dark",
   navy: "ctx-navy",
 };
 
@@ -15,7 +15,10 @@ interface PanelProps {
   title: string;
   /** Texto de abertura, na coluna que gruda. Curto: cabe em 46ch. */
   lead?: string;
-  /** Banda de fundo. Alterne ao longo do capítulo, como o site faz. */
+  /**
+   * Banda de fundo. O claro é o padrão; use "dark" no máximo uma vez por
+   * capítulo, como respiro. Mais que isso e o manual vira listra.
+   */
   band?: Band;
   /** Conteúdo do tópico. Opcional: um tópico pode ser só a afirmação. */
   children?: React.ReactNode;
@@ -32,16 +35,18 @@ export function Panel({
   index,
   title,
   lead,
-  band = "dark",
+  band = "light",
   children,
 }: PanelProps) {
   const cls = BAND_CLASS[band];
+  // Tópico sem conteúdo é uma declaração: ocupa a largura toda e o lead
+  // cresce, em vez de deixar três quartos de tela vazios ao lado.
+  const isStatement = !children;
+  const classes = ["panel", isStatement ? "panel--statement" : "", cls]
+    .filter(Boolean)
+    .join(" ");
   return (
-    <section
-      id={id}
-      className={cls ? `panel ${cls}` : "panel"}
-      aria-labelledby={`${id}-title`}
-    >
+    <section id={id} className={classes} aria-labelledby={`${id}-title`}>
       <div className="panel__inner">
         <header className="panel__head">
           {index ? <span className="panel__num">{index}</span> : null}

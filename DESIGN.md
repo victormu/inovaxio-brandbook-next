@@ -188,14 +188,14 @@ components:
 
 ## Overview
 
-The Inovaxio brandbook is a **dark, photography-first brand reference built on a pure black canvas**. It is a manual, not a marketing site: every screen documents a rule and, where it matters, the counter-rule (faca / nao faca). Chrome recedes so content and product imagery lead. Quicksand carries the headlines, Inter carries the reading, and a single blue-to-cyan brand family provides the only accent on the page.
+The Inovaxio brandbook is a **light, photography-first brand reference punctuated by dark**. The canvas is white; black and navy are used deliberately, not as the default. It is a manual, not a marketing site: every screen documents a rule and, where it matters, the counter-rule (faca / nao faca). Chrome recedes so content and product imagery lead. Quicksand carries the headlines, Inter carries the reading, and a single blue-to-cyan brand family provides the only accent on the page.
 
 Density is deliberately low. Sections stack with generous vertical rhythm (48 to 96px), content caps around 900px so paragraphs stay readable, and there is no decorative frame: no side-stripe accents, no gradient text, no decorative grid overlays. Depth comes from surface-color change (black canvas to near-black surface) and from restrained hover elevation on interactive cards, never from chrome for its own sake.
 
 The system is expressed at two volumes. The **site UI** (this reference) is the digital layer: tokens, components, motion. The **brand content** it presents is a graphic manual: logo rules, print CMYK and Pantone, an editorial grid, a typographic hierarchy in points. This DESIGN.md governs the first: how to build the interface consistently.
 
 **Key Characteristics:**
-- Pure black canvas (`{colors.canvas}`) with near-black surfaces (`{colors.surface}`, `{colors.surface-2}`) for cards and rows.
+- White canvas (`{colors.canvas}`) with light surfaces for cards and rows. Dark appears in four places only: the cover, each chapter opener, the chapter-end link, and at most one breathing panel per chapter.
 - One accent family: Action Blue (`{colors.primary}`) moving to Cyan (`{colors.cyan}`). No second brand color. On dark backgrounds, text uses the lighter `{colors.primary-text}` for contrast.
 - Quicksand (display) + Inter (body). Tight tracking on display, generous leading on body.
 - Hairline borders (`{colors.border}`) do the separating. Elevation is surface change plus a soft hover lift, not stacked shadows.
@@ -214,7 +214,7 @@ The system is expressed at two volumes. The **site UI** (this reference) is the 
 - **Primary Text** (`{colors.primary-text}` - #7186FE): A lighter blue used whenever the brand blue must be TEXT on the black canvas. Action Blue (#2E2EFE) fails contrast as body text on black (2.9:1); this lighter blue clears WCAG AA (about 6.7:1). Use it for active nav labels, eyebrows-as-text, and inline blue copy on dark.
 
 ### Surface
-- **Canvas** (`{colors.canvas}` - #000000): The base. The whole app sits on pure black.
+- **Canvas** (`{colors.canvas}` - #FFFFFF): The base. The manual sits on white; `.ctx-dim`, `.ctx-dark` and `.ctx-navy` are the bands that punctuate it.
 - **Surface** (`{colors.surface}` - #121212): Cards, the sidebar, copy blocks, download cards. The default raised surface.
 - **Surface 2** (`{colors.surface-2}` - #1C1C1C): Hover fills, secondary buttons, image-placeholder backgrounds, table header rows. One micro-step lighter than Surface.
 
@@ -409,7 +409,7 @@ The system uses a single structural breakpoint at **768px**, plus fluid `auto-fi
 
 ## Known Gaps
 
-- **Light is a band, not a theme.** The manual is dark-canvas by default and alternates bands (`.ctx-light`, `.ctx-light-dim`, `.ctx-navy`) exactly as the institutional site does: black, white, #F4F4F7, #080830. There is no user-facing light/dark toggle.
+- **Dark is punctuation, not the base.** The manual is light by default. `.ctx-dim` (#F4F4F7), `.ctx-dark` (#000000) and `.ctx-navy` (#080830) are bands applied deliberately: the cover and chapter openers are dark, and each chapter gets at most one dark panel as breathing room. More than that and the manual reads as stripes. There is no user-facing light/dark toggle.
 - **Every topic is a full-viewport panel.** A chapter opens with a full-screen cover (number, name, table of contents), each topic fills at least one viewport with its title sticky on the left, and the chapter closes with a link into the next one. This replaced the document-with-margins layout in the 2026-09-17 round.
 - **Chapters 04 and 05** still use the pre-redesign internal layout. They have the new cover and chapter-end link, but their topics are not panels yet.
 - **Real imagery** is pending. All product, logo, and application mockups are `IMG --` placeholders for Victor to replace; only the placeholder frame is specified.

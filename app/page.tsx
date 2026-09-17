@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <>
       {/* Capa: preto puro, tipografia ocupando a tela */}
-      <section className="cover" aria-labelledby="cover-title">
+      <section className="cover ctx-dark" aria-labelledby="cover-title">
         <div className="cover__meta">
           <span>Inovaxio</span>
           <span className="cover__meta-right">

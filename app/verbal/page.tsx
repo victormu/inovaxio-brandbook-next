@@ -242,7 +242,7 @@ export default function VerbalPage() {
         id="tom"
         index="01 / 07"
         title="Tom de voz"
-        band="dark"
+        band="light"
         lead="O tom da Inovaxio é humano, consultivo, direto, profissional, estratégico e maduro. A comunicação parece uma conversa entre parceiros de negócio, não entre fornecedor e contratante."
       >
         <div
@@ -291,7 +291,7 @@ export default function VerbalPage() {
         id="principios"
         index="02 / 07"
         title="7 Princípios de comunicação"
-        band="light"
+        band="dim"
         lead="Os sete critérios que todo texto da marca precisa passar antes de ser publicado."
       >
         <div
@@ -311,7 +311,7 @@ export default function VerbalPage() {
         id="linguagem"
         index="03 / 07"
         title="Linguagem"
-        band="dark"
+        band="light"
         lead="O que a marca fala, e o vocabulário que ela recusa."
       >
         <div
@@ -385,7 +385,7 @@ export default function VerbalPage() {
         id="ai-first"
         index="04 / 07"
         title="Voz AI-first"
-        band="light-dim"
+        band="light"
         lead="Como a marca fala de inteligência artificial sem virar promessa vazia."
       >
         <div
@@ -433,7 +433,7 @@ export default function VerbalPage() {
         id="frases"
         index="05 / 07"
         title="Frases-chave"
-        band="navy"
+        band="dark"
         lead="As linhas prontas, aprovadas, para usar direto."
       >
         <div
@@ -454,7 +454,7 @@ export default function VerbalPage() {
         id="segmentacao"
         index="06 / 07"
         title="Segmentação: duas dimensões"
-        band="dark"
+        band="light"
         lead="A mesma marca, dois compradores. O que muda no discurso."
       >
         <a
@@ -479,7 +479,7 @@ export default function VerbalPage() {
         id="checklist"
         index="07 / 07"
         title="Checklist: antes de publicar"
-        band="light"
+        band="dim"
         lead="Passe por aqui antes de qualquer texto sair."
       >
         <div

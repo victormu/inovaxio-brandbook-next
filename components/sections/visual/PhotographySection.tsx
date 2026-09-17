@@ -25,7 +25,7 @@ export function PhotographySection() {
       id="fotografia"
       index="04 / 06"
       title="Fotografia"
-      band="light-dim"
+      band="dark"
     >
       <div
         className="stack-mobile"

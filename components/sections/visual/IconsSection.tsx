@@ -125,7 +125,7 @@ export function IconsSection() {
       id="icones"
       index="06 / 06"
       title="Ícones"
-      band="light"
+      band="dim"
       lead="Estilo: outline geométrico com terminais suavizados. Base Material Symbols (Rounded), ajustada ao padrão Inovaxio: traço uniforme, cantos sutis e o azul da marca."
     >
 

@@ -86,7 +86,7 @@ export function LogoSection() {
       id="logo"
       index="01 / 06"
       title="Logo"
-      band="dark"
+      band="light"
       lead="O símbolo é a âncora visual da marca. Use sempre os arquivos originais, sem recolorização, distorção ou efeitos adicionais."
     >
       <div

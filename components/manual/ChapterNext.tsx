@@ -3,9 +3,9 @@ import { NAV_SECTIONS } from "@/lib/nav";
 import type { Band } from "@/components/manual/Panel";
 
 const BAND_CLASS: Record<Band, string> = {
-  dark: "",
-  light: "ctx-light",
-  "light-dim": "ctx-light ctx-light-dim",
+  light: "",
+  dim: "ctx-dim",
+  dark: "ctx-dark",
   navy: "ctx-navy",
 };
 
