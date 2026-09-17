@@ -427,6 +427,67 @@ p {
   outline-color: var(--color-primary-bright);
 }
 
+/* ── Unidade do manual ── */
+.entry {
+  margin-bottom: var(--space-40);
+}
+
+.entry:last-child {
+  margin-bottom: 0;
+}
+
+.entry__eyebrow {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  margin-bottom: var(--space-6);
+}
+
+.entry__media {
+  width: 100%;
+}
+
+/* legenda cola na mídia: 12px de distância é o que diz "isto pertence àquilo" */
+.entry__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+  max-width: 62ch;
+  margin-top: var(--space-3);
+}
+
+.entry__specs {
+  font-family: var(--font-display);
+  font-size: var(--text-caption);
+  letter-spacing: 0.04em;
+  color: var(--color-text-faint);
+  margin-top: var(--space-2);
+}
+
+/* ── Título e lead de capítulo ── */
+.manual__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-5xl);
+  line-height: 1.02;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+  margin-bottom: var(--space-6);
+}
+
+.manual__lead {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+  max-width: 62ch;
+  margin-bottom: var(--space-40);
+}
+
 /* ── Trilho de capítulo (sticky no desktop) ── */
 .rail {
   position: sticky;
