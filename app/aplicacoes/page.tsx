@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import { PageBanner } from "@/components/sections/PageBanner";
+import { ChapterCover } from "@/components/manual/ChapterCover";
+import { ChapterNext } from "@/components/manual/ChapterNext";
 import { SectionHeader } from "@/components/sections/SectionHeader";
 import { CopyBlock } from "@/components/ui/CopyBlock";
 
@@ -370,11 +371,17 @@ function LicitacaoSection() {
 export default function AplicacoesPage() {
   return (
     <>
-      <PageBanner
-        kicker="04 Aplicações"
-        title="Copy em contexto"
-        description="Como aplicar a linguagem da Inovaxio em cada canal, formato e documento."
-        mediaBase="/assets/banners/aplicacoes"
+      <ChapterCover
+        num="04"
+        title="Aplicações"
+        lead="Como a marca se comporta em anúncio, legenda, site e licitação."
+        topics={[
+          "Anúncios",
+          "Legendas",
+          "Site",
+          "Voz por canal",
+          "Setor público",
+        ]}
       />
       <div
         style={{
@@ -389,6 +396,7 @@ export default function AplicacoesPage() {
         <CanaisSection />
         <LicitacaoSection />
       </div>
+      <ChapterNext current="aplicacoes" />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { ManualEntry } from "@/components/manual/ManualEntry";
+import { Panel } from "@/components/manual/Panel";
 import { Reveal } from "@/components/ui/Reveal";
 
 /* ============================================================
@@ -121,11 +121,12 @@ function Block({
 
 export function IconsSection() {
   return (
-    <ManualEntry
+    <Panel
       id="icones"
-      eyebrow="Ícones"
+      index="06 / 06"
+      title="Ícones"
+      band="light"
       lead="Estilo: outline geométrico com terminais suavizados. Base Material Symbols (Rounded), ajustada ao padrão Inovaxio: traço uniforme, cantos sutis e o azul da marca."
-      specs={["Material Symbols Rounded", "24x24", "traço 2px"]}
     >
 
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
@@ -309,6 +310,6 @@ export function IconsSection() {
           </div>
         </Block>
       </div>
-    </ManualEntry>
+    </Panel>
   );
 }

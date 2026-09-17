@@ -1,4 +1,4 @@
-import { ManualEntry } from "@/components/manual/ManualEntry";
+import { Panel } from "@/components/manual/Panel";
 import { PhotoCard } from "@/components/ui/PhotoCard";
 
 const PHOTOS = [
@@ -21,11 +21,11 @@ const PHOTOS = [
 
 export function PhotographySection() {
   return (
-    <ManualEntry
+    <Panel
       id="fotografia"
-      eyebrow="Fotografia"
-      description="Fotografia real, não stock. Sem sorriso posado, sem banco de imagens genérico. Cada foto reforça um atributo da marca: prático, próximo, técnico. Priorize luz natural e ambiente de trabalho real."
-      specs={["3 atributos", "luz natural", "pessoas identificáveis"]}
+      index="04 / 06"
+      title="Fotografia"
+      band="light-dim"
     >
       <div
         className="stack-mobile"
@@ -45,6 +45,6 @@ export function PhotographySection() {
           />
         ))}
       </div>
-    </ManualEntry>
+    </Panel>
   );
 }

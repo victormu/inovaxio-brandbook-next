@@ -1,5 +1,6 @@
-import { PageBanner } from "@/components/sections/PageBanner";
-import { SectionHeader } from "@/components/sections/SectionHeader";
+import { ChapterCover } from "@/components/manual/ChapterCover";
+import { Panel } from "@/components/manual/Panel";
+import { ChapterNext } from "@/components/manual/ChapterNext";
 import { CopyBlock } from "@/components/ui/CopyBlock";
 
 interface PillarItemProps {
@@ -150,39 +151,35 @@ const AUDIENCES = [
 export default function FundamentosPage() {
   return (
     <>
-      <PageBanner
-        kicker="01 Fundamentos"
-        title="A base da marca Inovaxio"
-        description="Essência, posicionamento, Big Idea e a analogia que explica o modelo de trabalho."
-        mediaBase="/assets/banners/fundamentos"
+      <ChapterCover
+        num="01"
+        title="Fundamentos"
+        lead="Essência, posicionamento, Big Idea e a analogia que explica o modelo de trabalho."
+        topics={[
+          "Essência da marca",
+          "Big Idea",
+          "As duas dimensões",
+          "Posicionamento",
+          "Analogia oficial",
+        ]}
       />
 
-      <section
+      <Panel
         id="essencia"
-        aria-labelledby="essencia-heading"
-        style={{ marginBottom: "var(--space-16)" }}
+        index="01 / 05"
+        title="Essência da marca"
+        band="dark"
+        lead="A Inovaxio não vende código. A Inovaxio é o time técnico que constrói e sustenta o software de quem está lançando um negócio novo ou operando um sistema que não pode falhar."
       >
-        <SectionHeader
-          level={2}
-          eyebrow="Essência"
-          titleId="essencia-heading"
-          title="Essência da marca"
-          description="A Inovaxio não vende código. A Inovaxio é o time técnico que constrói e sustenta o software de quem está lançando um negócio novo ou operando um sistema que não pode falhar."
-        />
-      </section>
+      </Panel>
 
-      <section
+      <Panel
         id="big-idea"
-        aria-labelledby="big-idea-heading"
-        style={{ marginBottom: "var(--space-16)" }}
+        index="02 / 05"
+        title="Big Idea"
+        band="light"
+        lead="A ideia central que organiza toda a comunicação de marca. É o racional explicador, não uma linha de copy."
       >
-        <SectionHeader
-          level={2}
-          eyebrow="Conceito"
-          titleId="big-idea-heading"
-          title="Big Idea"
-          description="A ideia central que organiza toda a comunicação de marca. É o racional explicador, não uma linha de copy."
-        />
 
         <div style={{ marginBottom: "var(--space-8)" }}>
           <CopyBlock
@@ -249,19 +246,15 @@ export default function FundamentosPage() {
             ))}
           </div>
         </div>
-      </section>
+      </Panel>
 
-      <section
+      <Panel
         id="dimensoes"
-        aria-labelledby="dimensoes-heading"
-        style={{ marginBottom: "var(--space-16)" }}
+        index="03 / 05"
+        title="As duas dimensões"
+        band="dark"
+        lead="Lançar e sustentar. Todo cliente entra por uma das duas portas."
       >
-        <SectionHeader
-          level={2}
-          eyebrow="Dimensões"
-          titleId="dimensoes-heading"
-          title="As duas dimensões"
-        />
         <div
           className="stack-mobile"
           style={{
@@ -281,19 +274,15 @@ export default function FundamentosPage() {
             description="Construir e manter de pé sistemas que exigem estabilidade, integração e escala."
           />
         </div>
-      </section>
+      </Panel>
 
-      <section
+      <Panel
         id="posicionamento"
-        aria-labelledby="posicionamento-heading"
-        style={{ marginBottom: "var(--space-16)" }}
+        index="04 / 05"
+        title="Posicionamento estratégico"
+        band="light-dim"
+        lead="Onde a Inovaxio se coloca no mercado, e contra o que ela não compete."
       >
-        <SectionHeader
-          level={2}
-          eyebrow="Posição"
-          titleId="posicionamento-heading"
-          title="Posicionamento estratégico"
-        />
         <div style={{ marginBottom: "var(--space-6)" }}>
           <CopyBlock
             text="Parceira técnica para construir e sustentar o software que o cliente quer lançar e operar no mercado."
@@ -339,15 +328,15 @@ export default function FundamentosPage() {
             </li>
           ))}
         </ul>
-      </section>
+      </Panel>
 
-      <section id="analogia" aria-labelledby="analogia-heading">
-        <SectionHeader
-          level={2}
-          eyebrow="Analogia"
-          titleId="analogia-heading"
-          title="Analogia oficial"
-        />
+      <Panel
+        id="analogia"
+        index="05 / 05"
+        title="Analogia oficial"
+        band="navy"
+        lead="A imagem que explica o modelo de trabalho sem jargão."
+      >
         <blockquote
           style={{
             margin: 0,
@@ -389,7 +378,8 @@ export default function FundamentosPage() {
             Inovaxio constrói software.
           </p>
         </blockquote>
-      </section>
+      </Panel>
+      <ChapterNext current="fundamentos" />
     </>
   );
 }

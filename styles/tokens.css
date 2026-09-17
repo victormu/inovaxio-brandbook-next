@@ -1,7 +1,10 @@
 /* ============================================================
  * Inovaxio Brandbook — Design Tokens
- * Alinhado 1:1 à linguagem do site institucional (inovaxio-site):
- * claro-primeiro, cards grandes 1.75rem, pills, tipografia enxuta.
+ * Alinhado 1:1 à linguagem do site institucional (inovaxio-site), que
+ * roda em PRETO PURO (--color-bg: #000, texto branco, azul #2E2EFE).
+ * Verificado em inovaxio-site.vercel.app. O site alterna bandas:
+ * preto, branco, navy #080830, cinza-claro #F4F4F7. Aqui é igual:
+ * escuro-primeiro no :root, claro por contexto com .ctx-light.
  * O ciano NÃO é cor principal: existe só dentro do gradiente
  * documentado da marca (--gradient-brand-h) e nas amostras da
  * seção Cor. Nunca como acento de UI.
@@ -19,25 +22,26 @@
   --c-warning:        40 90% 38%;
   --c-error:          0 72% 46%;
 
-  /* ── Semânticos (contexto claro, padrão do miolo) ── */
-  --color-bg:            #ffffff;
-  --color-bg-dim:        #f4f4f7;
-  --color-surface:       #f4f4f7;
-  --color-surface-2:     #ecedf4;
-  --color-border:        rgb(10 10 12 / 0.1);
-  --color-border-strong: rgb(10 10 12 / 0.2);
+  /* ── Semânticos (contexto ESCURO, padrão do manual) ── */
+  --color-bg:            #000000;
+  --color-bg-dim:        #080830;
+  --color-surface:       #101014;
+  --color-surface-2:     #17171d;
+  --color-border:        rgb(255 255 255 / 0.12);
+  --color-border-strong: rgb(255 255 255 / 0.24);
 
   --color-primary:        hsl(var(--c-primary));
   --color-accent:         hsl(var(--c-accent));
   --color-primary-bright: hsl(var(--c-primary-bright));
   --color-navy:           hsl(var(--c-navy));
-  /* Azul legível como TEXTO no contexto atual (claro: o próprio primário,
-     7.1:1 no branco; o contexto escuro sobrescreve para o azul-claro). */
-  --color-primary-text:   var(--color-primary);
+  /* Azul legível como TEXTO no contexto atual. No escuro o primário não
+     tem contraste suficiente, então vale o azul-claro; .ctx-light
+     sobrescreve de volta para o primário. */
+  --color-primary-text:   var(--color-primary-bright);
 
-  --color-text:       #0a0a0c;
-  --color-text-muted: #51535c;
-  --color-text-faint: #6b6d78;
+  --color-text:       #ffffff;
+  --color-text-muted: #c2c4cb;
+  --color-text-faint: #8c8f9b;
 
   --color-success: hsl(var(--c-success));
   --color-warning: hsl(var(--c-warning));
@@ -103,9 +107,9 @@
   --radius-full: 9999px;
 
   /* ── Sombras (contexto claro, azuladas como no site) ── */
-  --shadow-sm:  0 1px 2px rgb(10 10 40 / 0.08);
-  --shadow-md:  0 14px 30px rgb(10 10 40 / 0.12);
-  --shadow-lg:  0 24px 50px rgb(10 10 40 / 0.16);
+  --shadow-sm:  0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md:  0 14px 30px rgb(0 0 0 / 0.5);
+  --shadow-lg:  0 24px 50px rgb(0 0 0 / 0.6);
   --glow-primary: 0 24px 50px rgb(46 46 254 / 0.25);
 
   /* ── Transições ── */
@@ -115,27 +119,43 @@
   --ease-out:        cubic-bezier(0.16, 1, 0.3, 1);
 
   /* ── Layout ── */
-  --nav-width:    260px;
-  --content-max:  980px;
+  --content-max:  1200px;
+  --topbar-h:     56px;
+  --gutter:       clamp(1.25rem, 4vw, 3rem);
+  /* ritmo de banda do site institucional: padding-top medido em 150px */
+  --space-section: clamp(5rem, 4rem + 6vw, 10rem);
 }
 
-/* ── Contexto escuro (sidebar, heroes, footer): mesmas variáveis,
-      valores do lado escuro do site. Qualquer componente dentro
-      de .ctx-dark herda a paleta certa sem CSS próprio. ── */
-.ctx-dark {
-  --color-bg:            #000000;
-  --color-bg-dim:        #080830;
-  --color-surface:       #101014;
-  --color-surface-2:     #17171d;
-  --color-border:        rgb(255 255 255 / 0.1);
-  --color-border-strong: rgb(255 255 255 / 0.2);
+/* ── Contexto claro (bandas brancas e cinza do manual): mesmas
+      variáveis, valores do lado claro do site. Qualquer componente
+      dentro de .ctx-light herda a paleta certa sem CSS próprio. ── */
+.ctx-light {
+  --color-bg:            #ffffff;
+  --color-bg-dim:        #f4f4f7;
+  --color-surface:       #f4f4f7;
+  --color-surface-2:     #ecedf4;
+  --color-border:        rgb(10 10 12 / 0.1);
+  --color-border-strong: rgb(10 10 12 / 0.2);
 
-  --color-text:       #ffffff;
-  --color-text-muted: #c3c4cb;
-  --color-text-faint: #8c8f9b;
-  --color-primary-text: var(--color-primary-bright);
+  --color-text:       #0a0a0c;
+  --color-text-muted: #51535c;
+  --color-text-faint: #6b6d78;
+  --color-primary-text: var(--color-primary);
 
-  --shadow-sm:  0 1px 2px rgb(0 0 0 / 0.4);
-  --shadow-md:  0 14px 30px rgb(0 0 0 / 0.5);
-  --shadow-lg:  0 24px 50px rgb(0 0 0 / 0.6);
+  --shadow-sm:  0 1px 2px rgb(10 10 40 / 0.08);
+  --shadow-md:  0 14px 30px rgb(10 10 40 / 0.12);
+  --shadow-lg:  0 24px 50px rgb(10 10 40 / 0.16);
+}
+
+/* Banda cinza-claro: igual à clara, com o fundo um passo abaixo. */
+.ctx-light-dim {
+  --color-bg: #f4f4f7;
+  --color-surface: #ffffff;
+}
+
+/* Banda navy: escura, mas com o fundo do azul profundo do site. */
+.ctx-navy {
+  --color-bg: #080830;
+  --color-surface: #101040;
+  --color-surface-2: #16164a;
 }

@@ -1,4 +1,4 @@
-import { ManualEntry } from "@/components/manual/ManualEntry";
+import { Panel } from "@/components/manual/Panel";
 import { TokenChip } from "@/components/ui/TokenChip";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -363,11 +363,12 @@ const monoCell = {
 
 export function ColorSection() {
   return (
-    <ManualEntry
+    <Panel
       id="cor"
-      eyebrow="Cor"
+      index="02 / 06"
+      title="Cor"
+      band="light"
       lead="A paleta expressa energia e movimento. O azul no núcleo, o preto como base e o ciano como faísca. Clique nos tokens para copiar: os valores CSS são a fonte única de verdade."
-      specs={["HEX, RGB, CMYK, Pantone", "tokens copiáveis"]}
     >
 
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
@@ -548,6 +549,6 @@ export function ColorSection() {
           </div>
         </Block>
       </div>
-    </ManualEntry>
+    </Panel>
   );
 }

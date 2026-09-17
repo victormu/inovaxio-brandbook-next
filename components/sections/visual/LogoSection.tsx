@@ -1,4 +1,4 @@
-import { ManualEntry } from "@/components/manual/ManualEntry";
+import { Panel } from "@/components/manual/Panel";
 import { DoDontCard } from "@/components/ui/DoDontCard";
 import { assetExists } from "@/lib/asset";
 
@@ -82,11 +82,12 @@ const LOGO_CONSTRUCTION = [
 
 export function LogoSection() {
   return (
-    <ManualEntry
+    <Panel
       id="logo"
-      eyebrow="Símbolo"
+      index="01 / 06"
+      title="Logo"
+      band="dark"
       lead="O símbolo é a âncora visual da marca. Use sempre os arquivos originais, sem recolorização, distorção ou efeitos adicionais."
-      specs={["SVG e PNG", "4 versões", "área de proteção 1x"]}
     >
       <div
         style={{
@@ -242,6 +243,6 @@ export function LogoSection() {
           </div>
         </div>
       </div>
-    </ManualEntry>
+    </Panel>
   );
 }

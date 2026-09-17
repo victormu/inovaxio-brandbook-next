@@ -1,5 +1,6 @@
-import { PageBanner } from "@/components/sections/PageBanner";
-import { SectionHeader } from "@/components/sections/SectionHeader";
+import { Panel } from "@/components/manual/Panel";
+import { ChapterCover } from "@/components/manual/ChapterCover";
+import { ChapterNext } from "@/components/manual/ChapterNext";
 import { CopyBlock } from "@/components/ui/CopyBlock";
 import { ChecklistItem } from "@/components/ui/ChecklistItem";
 
@@ -222,21 +223,28 @@ export default function VerbalPage() {
         gap: "var(--space-16)",
       }}
     >
-      <PageBanner
-        kicker="02 Sistema Verbal"
-        title="Como a Inovaxio se comunica"
-        description="Tom de voz, princípios, linguagem aprovada e frases que ativam reconhecimento no leitor."
-        mediaBase="/assets/banners/verbal"
+      <ChapterCover
+        num="02"
+        title="Sistema Verbal"
+        lead="Tom de voz, princípios, linguagem e as frases que a marca usa."
+        topics={[
+          "Tom de voz",
+          "7 princípios",
+          "Linguagem",
+          "Voz AI-first",
+          "Frases-chave",
+          "Segmentação",
+          "Checklist",
+        ]}
       />
 
-      <section aria-labelledby="tom">
-        <SectionHeader
-          level={2}
-          eyebrow="Voz"
-          titleId="tom"
-          title="Tom de voz"
-          description="O tom da Inovaxio é humano, consultivo, direto, profissional, estratégico e maduro. A comunicação parece uma conversa entre parceiros de negócio, não entre fornecedor e contratante."
-        />
+      <Panel
+        id="tom"
+        index="01 / 07"
+        title="Tom de voz"
+        band="dark"
+        lead="O tom da Inovaxio é humano, consultivo, direto, profissional, estratégico e maduro. A comunicação parece uma conversa entre parceiros de negócio, não entre fornecedor e contratante."
+      >
         <div
           style={{
             backgroundColor: "hsl(0 60% 55% / 0.05)",
@@ -277,15 +285,15 @@ export default function VerbalPage() {
             ))}
           </div>
         </div>
-      </section>
+      </Panel>
 
-      <section aria-labelledby="principios">
-        <SectionHeader
-          level={2}
-          eyebrow="Princípios"
-          titleId="principios"
-          title="7 Princípios de comunicação"
-        />
+      <Panel
+        id="principios"
+        index="02 / 07"
+        title="7 Princípios de comunicação"
+        band="light"
+        lead="Os sete critérios que todo texto da marca precisa passar antes de ser publicado."
+      >
         <div
           style={{
             display: "grid",
@@ -297,16 +305,15 @@ export default function VerbalPage() {
             <PrincipioCard key={p.n} n={p.n} title={p.title} body={p.body} />
           ))}
         </div>
-      </section>
+      </Panel>
 
-      <section aria-labelledby="linguagem">
-        <SectionHeader
-          level={2}
-          eyebrow="Léxico"
-          titleId="linguagem"
-          title="Linguagem"
-          description="Termos técnicos crus perdem o cliente no meio do caminho. Use a linguagem do negócio: o que o sistema faz, não como ele foi construído."
-        />
+      <Panel
+        id="linguagem"
+        index="03 / 07"
+        title="Linguagem"
+        band="dark"
+        lead="O que a marca fala, e o vocabulário que ela recusa."
+      >
         <div
           className="stack-mobile"
           style={{
@@ -372,15 +379,15 @@ export default function VerbalPage() {
             </div>
           </div>
         </div>
-      </section>
+      </Panel>
 
-      <section aria-labelledby="ai-first">
-        <SectionHeader
-          level={2}
-          eyebrow="IA"
-          titleId="ai-first"
-          title="Voz AI-first"
-        />
+      <Panel
+        id="ai-first"
+        index="04 / 07"
+        title="Voz AI-first"
+        band="light-dim"
+        lead="Como a marca fala de inteligência artificial sem virar promessa vazia."
+      >
         <div
           style={{
             backgroundColor: "var(--color-surface)",
@@ -420,16 +427,15 @@ export default function VerbalPage() {
             IA ou não.
           </p>
         </div>
-      </section>
+      </Panel>
 
-      <section aria-labelledby="frases">
-        <SectionHeader
-          level={2}
-          eyebrow="Copy"
-          titleId="frases"
-          title="Frases-chave"
-          description="Clique para copiar qualquer frase e usar em apresentações, propostas ou conteúdo."
-        />
+      <Panel
+        id="frases"
+        index="05 / 07"
+        title="Frases-chave"
+        band="navy"
+        lead="As linhas prontas, aprovadas, para usar direto."
+      >
         <div
           style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}
         >
@@ -442,16 +448,15 @@ export default function VerbalPage() {
             />
           ))}
         </div>
-      </section>
+      </Panel>
 
-      <section aria-labelledby="segmentacao">
-        <SectionHeader
-          level={2}
-          eyebrow="Segmentos"
-          titleId="segmentacao"
-          title="Segmentação: duas dimensões"
-          description="A comunicação da Inovaxio varia conforme o perfil do interlocutor e o setor de atuação. Os detalhes de posicionamento por segmento estão na seção Fundamentos."
-        />
+      <Panel
+        id="segmentacao"
+        index="06 / 07"
+        title="Segmentação: duas dimensões"
+        band="dark"
+        lead="A mesma marca, dois compradores. O que muda no discurso."
+      >
         <a
           href="/fundamentos#posicionamento"
           style={{
@@ -468,16 +473,15 @@ export default function VerbalPage() {
           Ver posicionamento por segmento
           <span aria-hidden="true">&#8594;</span>
         </a>
-      </section>
+      </Panel>
 
-      <section aria-labelledby="checklist">
-        <SectionHeader
-          level={2}
-          eyebrow="Revisão"
-          titleId="checklist"
-          title="Checklist: antes de publicar"
-          description="Passe por este checklist antes de aprovar qualquer copy para a Inovaxio."
-        />
+      <Panel
+        id="checklist"
+        index="07 / 07"
+        title="Checklist: antes de publicar"
+        band="light"
+        lead="Passe por aqui antes de qualquer texto sair."
+      >
         <div
           style={{
             backgroundColor: "var(--color-surface)",
@@ -493,7 +497,8 @@ export default function VerbalPage() {
             <ChecklistItem key={item.id} id={item.id} label={item.label} />
           ))}
         </div>
-      </section>
+      </Panel>
+      <ChapterNext current="verbal" />
     </div>
   );
 }

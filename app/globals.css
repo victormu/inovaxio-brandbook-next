@@ -15,6 +15,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* o topbar é translúcido e fica sobre o html, não sobre o body:
+     sem isso o branco padrão do documento vaza por baixo dele */
+  background: var(--color-bg);
 }
 
 /* trava o scroll horizontal da página inteira (mesma regra do site) */
@@ -43,7 +46,7 @@ body {
   gap: var(--space-4);
   height: 56px;
   padding: 0 var(--space-6);
-  background: rgb(255 255 255 / 0.82);
+  background: rgb(0 0 0 / 0.72);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
@@ -82,6 +85,10 @@ body {
   letter-spacing: var(--tracking-normal);
 }
 
+.topbar__topic {
+  color: var(--color-text-muted);
+}
+
 .topbar__index {
   margin-left: auto;
   font-family: var(--font-display);
@@ -91,14 +98,9 @@ body {
   color: var(--color-text-faint);
 }
 
-/* ── Grid do manual: trilho + conteúdo ── */
+/* ── Fluxo do manual: painéis full-bleed empilhados ── */
 .manual {
-  display: grid;
-  grid-template-columns: 200px minmax(0, 1fr);
-  gap: var(--space-16);
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--space-16) var(--space-10) var(--space-56);
+  display: block;
   overflow-x: clip;
 }
 
@@ -106,18 +108,131 @@ body {
   min-width: 0;
 }
 
+/* ── Painel: um tópico ocupa a tela inteira, sangrando de ponta a ponta.
+      Título pinado à esquerda, conteúdo correndo à direita. ── */
+.panel {
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: var(--space-section) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.panel__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+  gap: var(--space-16);
+  align-items: start;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  min-height: calc(100dvh - 2 * var(--space-section));
+}
+
+/* a coluna que gruda: número, título e lead do tópico */
+.panel__head {
+  position: sticky;
+  top: calc(var(--topbar-h) + var(--space-10));
+  align-self: start;
+}
+
+.panel__num {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  color: var(--color-primary-text);
+  margin-bottom: var(--space-6);
+}
+
+.panel__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-4xl);
+  line-height: 1.04;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+  text-wrap: balance;
+  margin: 0;
+}
+
+.panel__lead {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+  max-width: 46ch;
+  margin-top: var(--space-6);
+}
+
+.panel__flow > * + * {
+  margin-top: var(--space-16);
+}
+
 @media (max-width: 1023px) {
-  .manual {
+  .panel__inner {
     grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-    padding: var(--space-10) var(--space-6) var(--space-32);
+    gap: var(--space-10);
+    min-height: 0;
+  }
+  .panel__head {
+    position: static;
+  }
+  .panel {
+    padding: var(--space-16) 0;
   }
 }
 
+/* ── Fim de capítulo: leva para o próximo ── */
+.chapter-next {
+  display: block;
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-section) 0;
+  text-decoration: none;
+}
+
+.chapter-next__inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.chapter-next__label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  margin-bottom: var(--space-4);
+}
+
+.chapter-next__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-5xl);
+  line-height: 1.02;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  transition: gap var(--duration-normal) var(--ease-out),
+    color var(--duration-normal) var(--ease-out);
+}
+
+.chapter-next:hover .chapter-next__title {
+  gap: var(--space-10);
+  color: var(--color-primary-text);
+}
+
+.chapter-next__arrow {
+  flex-shrink: 0;
+}
+
 @media (max-width: 640px) {
-  .manual {
-    padding: var(--space-8) var(--space-4) var(--space-24);
-  }
   .topbar {
     padding: 0 var(--space-4);
   }
@@ -268,40 +383,246 @@ p {
   color: var(--color-text-faint);
 }
 
-/* ── Banner full-bleed de topo de seção: banda escura navy, como os
-      heroes do site (glow azul no canto, texto branco via .ctx-dark). ── */
-.page-hero {
-  position: relative;
-  width: calc(100% + 2 * var(--space-10));
-  margin-left: calc(-1 * var(--space-10));
-  margin-top: calc(-1 * var(--space-16));
-  height: 64vh;
-  min-height: 420px;
-  max-height: 720px;
+/* ── Sumário da home: um capítulo por linha, tela cheia ── */
+.index-panel {
+  min-height: calc(100dvh - var(--topbar-h));
   display: flex;
-  align-items: flex-end;
-  overflow: hidden;
-  background:
-    radial-gradient(60% 80% at 85% 20%, rgb(46 46 254 / 0.38), transparent 70%),
-    linear-gradient(200deg, #06062a 0%, #000000 70%);
+  align-items: center;
+  background: var(--color-bg);
+  padding: var(--space-section) 0;
+  border-top: 1px solid var(--color-border);
 }
 
-@media (max-width: 1023px) {
-  .page-hero {
-    width: calc(100% + 2 * var(--space-6));
-    margin-left: calc(-1 * var(--space-6));
-    margin-top: calc(-1 * var(--space-10));
-    height: 56vh;
-    min-height: 340px;
-  }
+.index-panel__inner {
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.index-panel__head {
+  margin-bottom: var(--space-16);
+}
+
+.index-list {
+  list-style: none;
+}
+
+.index-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) 0;
+  border-top: 1px solid var(--color-border);
+  text-decoration: none;
+  transition: padding-left var(--duration-normal) var(--ease-out);
+}
+
+.index-list li:last-child .index-row {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.index-row:hover {
+  padding-left: var(--space-4);
+}
+
+.index-row__num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-2xl);
+  line-height: 1;
+  color: var(--color-text-faint);
+  transition: color var(--duration-normal) var(--ease-out);
+}
+
+.index-row:hover .index-row__num {
+  color: var(--color-primary-text);
+}
+
+.index-row__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.index-row__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-3xl);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+}
+
+.index-row__subs {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  line-height: var(--leading-snug);
+  color: var(--color-text-faint);
+}
+
+.index-row__arrow {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-text-faint);
+  transition: transform var(--duration-normal) var(--ease-out),
+    color var(--duration-normal) var(--ease-out);
+}
+
+.index-row:hover .index-row__arrow {
+  transform: translateX(8px);
+  color: var(--color-primary-text);
+}
+
+.index-empty {
+  margin-top: var(--space-8);
+  font-size: var(--text-sm);
+  color: var(--color-text-faint);
 }
 
 @media (max-width: 640px) {
-  .page-hero {
-    width: calc(100% + 2 * var(--space-4));
-    margin-left: calc(-1 * var(--space-4));
-    margin-top: calc(-1 * var(--space-8));
+  .index-row {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-4);
   }
+  .index-row__arrow { display: none; }
+}
+
+/* ── Abertura de capítulo em tela cheia ── */
+.chapter-cover {
+  min-height: calc(100dvh - var(--topbar-h));
+  display: flex;
+  align-items: flex-end;
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: var(--space-section) 0;
+}
+
+.chapter-cover__inner {
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.chapter-cover__num {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-6xl);
+  line-height: 0.85;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-primary-text);
+  margin-bottom: var(--space-4);
+}
+
+.chapter-cover__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-5xl);
+  line-height: 1.0;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.chapter-cover__lead {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+  max-width: 56ch;
+  margin-top: var(--space-6);
+}
+
+.chapter-cover__toc {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-8);
+  margin-top: var(--space-12);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.chapter-cover__toc li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.chapter-cover__toc span {
+  font-size: var(--text-caption);
+  color: var(--color-primary-text);
+}
+
+/* ── Capa: preto puro, tipografia ocupando a tela, meta nos cantos.
+      Sem gradiente e sem imagem: a capa de um manual impresso. ── */
+.cover {
+  position: relative;
+  min-height: calc(100dvh - var(--topbar-h));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--color-bg);
+  padding: var(--space-16) var(--gutter);
+}
+
+.cover__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-6);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.cover__meta-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.cover__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  /* "Brandbook" mede ~6,1em em Quicksand 700: a fonte deriva da largura
+     disponível e o nome enche a linha inteira, sem corte. */
+  font-size: min(calc((100vw - 2 * var(--gutter)) / 6.1), 16rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.cover__rule {
+  height: 1px;
+  background: var(--color-border);
+  margin-top: var(--space-8);
+}
+
+.cover__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: var(--color-text-faint);
 }
 
 /* ── Bloco sólido de marca ── */
@@ -423,8 +744,8 @@ p {
   border-radius: var(--radius-sm);
 }
 
-.ctx-dark :focus-visible {
-  outline-color: var(--color-primary-bright);
+.ctx-light :focus-visible {
+  outline-color: var(--color-primary);
 }
 
 /* ── Unidade do manual ── */
@@ -495,90 +816,6 @@ p {
   color: var(--color-text-muted);
   max-width: 62ch;
   margin-bottom: var(--space-40);
-}
-
-/* ── Trilho de capítulo (sticky no desktop) ── */
-.rail {
-  position: sticky;
-  top: calc(56px + var(--space-8));
-  align-self: start;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.rail__num {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: var(--text-6xl);
-  line-height: 0.85;
-  letter-spacing: var(--tracking-tight);
-  color: var(--color-border-strong);
-}
-
-.rail__name {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: var(--text-xl);
-  line-height: var(--leading-tight);
-  color: var(--color-text);
-  margin: 0 0 var(--space-4);
-  padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.rail__list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.rail__item {
-  display: block;
-  padding: var(--space-1) 0;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: var(--text-xs);
-  color: var(--color-text-faint);
-  text-decoration: none;
-  transition: color var(--duration-fast) var(--ease-out);
-}
-
-.rail__item:hover {
-  color: var(--color-text-muted);
-}
-
-.rail__item[data-active] {
-  color: var(--color-primary-text);
-}
-
-/* marcador do item ativo, sem deslocar o texto */
-.rail__item[data-active]::before {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin-right: var(--space-2);
-  margin-left: -14px;
-  border-radius: var(--radius-full);
-  background: var(--color-primary);
-  vertical-align: middle;
-}
-
-@media (max-width: 1023px) {
-  .rail {
-    position: static;
-    margin-bottom: var(--space-12);
-  }
-  .rail__list {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-4);
-  }
-  .rail__item[data-active]::before {
-    margin-left: 0;
-  }
 }
 
 /* ── Movimento reduzido ── */
@@ -719,8 +956,7 @@ p {
   overflow: hidden;
   margin-top: var(--space-24);
   /* sangra o padding lateral e o max-width da coluna, como o .page-hero */
-  width: calc(100vw - var(--nav-width));
-  margin-left: calc(-1 * var(--space-10));
+  width: 100%;
 }
 
 .brand-footer__marca {
@@ -729,7 +965,7 @@ p {
   font-weight: 700;
   /* "Inovaxio" mede 3,865em em Quicksand 700: a fonte deriva da largura
      disponível e o nome enche a tela inteira, sem corte */
-  font-size: calc((100vw - var(--nav-width)) / 3.95);
+  font-size: calc(100vw / 3.95);
   line-height: 0.82;
   letter-spacing: var(--tracking-tight);
   text-align: center;

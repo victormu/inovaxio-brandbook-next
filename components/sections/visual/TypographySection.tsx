@@ -1,4 +1,4 @@
-import { ManualEntry } from "@/components/manual/ManualEntry";
+import { Panel } from "@/components/manual/Panel";
 
 interface TypeLevel {
   role: string;
@@ -324,11 +324,12 @@ function HierarchyRow({ level, isFirst }: { level: TypeLevel; isFirst: boolean }
 
 export function TypographySection() {
   return (
-    <ManualEntry
+    <Panel
       id="tipografia"
-      eyebrow="Texto"
+      index="03 / 06"
+      title="Tipografia"
+      band="dark"
       lead="Duas famílias. Quicksand carrega os títulos e o display. Inter carrega o texto e a legenda. Os tamanhos em pt são referência e escalam com a peça: um pôster parte da base maior, um cartão da menor."
-      specs={["Quicksand + Inter", "Google Fonts", "2 famílias"]}
     >
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
         {/* Specimens âncora das duas famílias */}
@@ -533,6 +534,6 @@ export function TypographySection() {
           </div>
         </div>
       </div>
-    </ManualEntry>
+    </Panel>
   );
 }

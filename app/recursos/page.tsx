@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
-import { PageBanner } from "@/components/sections/PageBanner";
+import { ChapterCover } from "@/components/manual/ChapterCover";
+import { ChapterNext } from "@/components/manual/ChapterNext";
 import { SectionHeader } from "@/components/sections/SectionHeader";
 import { DownloadCard } from "@/components/ui/DownloadCard";
 
@@ -66,11 +67,17 @@ function SectionAnchor({ id }: { id: string }) {
 export default function RecursosPage() {
   return (
     <>
-      <PageBanner
-        kicker="05 Recursos"
-        title="Central de Downloads"
-        description="Tudo o que sua equipe precisa para aplicar a marca com consistência. Faça o download dos arquivos oficiais."
-        mediaBase="/assets/banners/recursos"
+      <ChapterCover
+        num="05"
+        title="Recursos"
+        lead="Logo, paleta, templates, fotos e apresentações para baixar."
+        topics={[
+          "Logo",
+          "Paleta",
+          "Templates",
+          "Banco de fotos",
+          "Apresentações",
+        ]}
       />
 
       <div style={{ marginTop: "var(--space-12)" }}>
@@ -196,6 +203,7 @@ export default function RecursosPage() {
         </div>
 
       </div>
+      <ChapterNext current="recursos" />
     </>
   );
 }

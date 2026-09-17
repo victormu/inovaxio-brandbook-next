@@ -2,10 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { SideNav } from "@/components/nav/SideNav";
-import { SectionRail } from "@/components/manual/SectionRail";
+import { useActiveSection } from "@/hooks/useActiveSection";
 import { NAV_SECTIONS } from "@/lib/nav";
+
+/** "/visual#logo" -> "logo"; "/visual/aplicacoes" -> null. */
+function anchorId(href: string): string | null {
+  const i = href.indexOf("#");
+  return i === -1 ? null : href.slice(i + 1);
+}
 
 export function ManualShell({ children }: { children: React.ReactNode }) {
   const [navOpen, setNavOpen] = useState(false);
@@ -13,6 +19,18 @@ export function ManualShell({ children }: { children: React.ReactNode }) {
 
   const index = NAV_SECTIONS.findIndex((s) => pathname.startsWith(s.href));
   const section = index === -1 ? null : NAV_SECTIONS[index];
+
+  const topics = useMemo(
+    () =>
+      (section?.subitems ?? [])
+        .map((i) => ({ label: i.label, anchor: anchorId(i.href) }))
+        .filter((i): i is { label: string; anchor: string } => i.anchor !== null),
+    [section],
+  );
+
+  const ids = useMemo(() => topics.map((t) => t.anchor), [topics]);
+  const activeId = useActiveSection(ids);
+  const activeLabel = topics.find((t) => t.anchor === activeId)?.label ?? null;
 
   return (
     <>
@@ -31,21 +49,24 @@ export function ManualShell({ children }: { children: React.ReactNode }) {
           INOVAXIO <span className="topbar__brand-sub">Brandbook</span>
         </Link>
         <span className="topbar__index">
-          {section
-            ? `${String(index + 1).padStart(2, "0")} / ${String(NAV_SECTIONS.length).padStart(2, "0")}`
-            : "2026"}
+          {section ? (
+            <>
+              {String(index + 1).padStart(2, "0")} / {String(NAV_SECTIONS.length).padStart(2, "0")}
+              {activeLabel ? (
+                <span className="topbar__topic"> · {activeLabel}</span>
+              ) : null}
+            </>
+          ) : (
+            "2026 · v1.0"
+          )}
         </span>
       </header>
 
       <SideNav open={navOpen} onClose={() => setNavOpen(false)} />
 
       <div className="manual">
-        {section ? <SectionRail section={section} /> : <div />}
         <main id="main-content" className="manual__content">
           {children}
-          <footer className="brand-footer" aria-hidden="true">
-            <span className="brand-footer__marca">Inovaxio</span>
-          </footer>
         </main>
       </div>
     </>

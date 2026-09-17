@@ -1,4 +1,4 @@
-import { ManualEntry } from "@/components/manual/ManualEntry";
+import { Panel } from "@/components/manual/Panel";
 
 const FORMATS = [
   { name: "Documento A4", size: "210 x 297 mm", margin: "20 mm", cols: "12 colunas" },
@@ -71,11 +71,12 @@ function ColumnDiagram() {
 
 export function GridSection() {
   return (
-    <ManualEntry
+    <Panel
       id="grid"
-      eyebrow="Estrutura"
+      index="05 / 06"
+      title="Grid e layout"
+      band="navy"
       lead="Um grid organiza qualquer peça da marca: documento, post, apresentação. Margem generosa, alinhamento às colunas e ritmo constante no espaçamento."
-      specs={["12 colunas", "margem generosa", "ritmo constante"]}
     >
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-10)" }}>
         <div>
@@ -246,6 +247,6 @@ export function GridSection() {
           </ul>
         </div>
       </div>
-    </ManualEntry>
+    </Panel>
   );
 }
