@@ -33,18 +33,94 @@ body {
 }
 
 /* ── Layout shell ── */
-.site-shell {
+/* ── Topbar ── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 56px;
+  padding: 0 var(--space-6);
+  background: rgb(255 255 255 / 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.topbar__menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.topbar__menu:hover {
+  background: var(--color-surface);
+}
+
+.topbar__brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.topbar__brand-sub {
+  font-weight: 500;
+  color: var(--color-text-faint);
+  letter-spacing: var(--tracking-normal);
+}
+
+.topbar__index {
+  margin-left: auto;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+  color: var(--color-text-faint);
+}
+
+/* ── Grid do manual: trilho + conteúdo ── */
+.manual {
   display: grid;
-  /* minmax(0, 1fr) impede que um filho largo (tabela, pill, string longa)
-     estoure a coluna além da viewport e seja cortado pelo overflow-x: clip. */
-  grid-template-columns: var(--nav-width) minmax(0, 1fr);
-  min-height: 100dvh;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: var(--space-16);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-10) var(--space-56);
   overflow-x: clip;
 }
 
-.site-content {
-  max-width: var(--content-max);
-  padding: var(--space-12) var(--space-10) var(--space-16);
+.manual__content {
+  min-width: 0;
+}
+
+@media (max-width: 1023px) {
+  .manual {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: var(--space-10) var(--space-6) var(--space-32);
+  }
+}
+
+@media (max-width: 640px) {
+  .manual {
+    padding: var(--space-8) var(--space-4) var(--space-24);
+  }
+  .topbar {
+    padding: 0 var(--space-4);
+  }
 }
 
 /* ── Tipografia ──
@@ -196,9 +272,9 @@ p {
       heroes do site (glow azul no canto, texto branco via .ctx-dark). ── */
 .page-hero {
   position: relative;
-  width: calc(100vw - var(--nav-width));
+  width: calc(100% + 2 * var(--space-10));
   margin-left: calc(-1 * var(--space-10));
-  margin-top: calc(-1 * var(--space-12));
+  margin-top: calc(-1 * var(--space-16));
   height: 64vh;
   min-height: 420px;
   max-height: 720px;
@@ -210,13 +286,21 @@ p {
     linear-gradient(200deg, #06062a 0%, #000000 70%);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
+  .page-hero {
+    width: calc(100% + 2 * var(--space-6));
+    margin-left: calc(-1 * var(--space-6));
+    margin-top: calc(-1 * var(--space-10));
+    height: 56vh;
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 640px) {
   .page-hero {
     width: calc(100% + 2 * var(--space-4));
     margin-left: calc(-1 * var(--space-4));
-    margin-top: calc(-1 * var(--space-6));
-    height: 56vh;
-    min-height: 340px;
+    margin-top: calc(-1 * var(--space-8));
   }
 }
 

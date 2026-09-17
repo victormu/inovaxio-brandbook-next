@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Quicksand, Inter } from "next/font/google";
 import "./globals.css";
-import { SideNav } from "@/components/nav/SideNav";
+import { ManualShell } from "@/components/manual/ManualShell";
 import { Preloader } from "@/components/ui/Preloader";
 
 const quicksand = Quicksand({
@@ -35,16 +35,7 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Ir para o conteúdo principal
         </a>
-        <div className="site-shell">
-          <SideNav />
-          <main id="main-content" className="site-content">
-            {children}
-            {/* Assinatura compartilhada com o site: wordmark gigante esmaecido */}
-            <footer className="brand-footer" aria-hidden="true">
-              <span className="brand-footer__marca">Inovaxio</span>
-            </footer>
-          </main>
-        </div>
+        <ManualShell>{children}</ManualShell>
       </body>
     </html>
   );
