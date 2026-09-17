@@ -1,21 +1,21 @@
 ---
 version: alpha
 name: Inovaxio-design-system
-description: A dark, photography-first brand reference on a pure black canvas. Quicksand display headlines over Inter body, a single blue-to-cyan brand family (Action Blue #2E2EFE moving to Cyan #00C9D5) as the only accent, and near-invisible chrome so content and product imagery lead. No side-stripe accents, no gradient text, no decorative grids. One accent, generous space, semantic color. The site is a brand manual: every element documents what to do and what not to do.
+description: A light, photography-first brand reference on an off-white canvas. Quicksand display headlines over Inter body, Action Blue #2E2EFE as the only accent, and near-invisible chrome so content and product imagery lead. Cyan #00C9D5 exists only inside the documented brand gradient, never as UI accent. Dark is a contextual inversion (.ctx-dark) for covers and the nav overlay, not the default. No side-stripe accents, no gradient text, no decorative grids. One accent, generous space, semantic color. The site is a brand manual: every element documents what to do and what not to do.
 colors:
   primary: "#2E2EFE"
   accent: "#3245FD"
   primary-text: "#7186FE"
   cyan: "#00C9D5"
-  ink: "#FFFFFF"
-  body: "#FFFFFF"
-  body-muted: "#9096A2"
-  body-faint: "#888E9B"
-  canvas: "#000000"
-  surface: "#121212"
-  surface-2: "#1C1C1C"
-  border: "rgba(255,255,255,0.08)"
-  border-strong: "rgba(255,255,255,0.16)"
+  ink: "#0A0A0C"
+  body: "#0A0A0C"
+  body-muted: "#51535C"
+  body-faint: "#6B6D78"
+  canvas: "#FFFFFF"
+  surface: "#F4F4F7"
+  surface-2: "#ECEDF4"
+  border: "rgba(10,10,12,0.10)"
+  border-strong: "rgba(10,10,12,0.20)"
   success: "#26CC66"
   warning: "#E5B21A"
   error: "#E53333"
@@ -188,15 +188,15 @@ components:
 
 ## Overview
 
-The Inovaxio brandbook is a **dark, photography-first brand reference built on a pure black canvas**. It is a manual, not a marketing site: every screen documents a rule and, where it matters, the counter-rule (faca / nao faca). Chrome recedes so content and product imagery lead. Quicksand carries the headlines, Inter carries the reading, and a single blue-to-cyan brand family provides the only accent on the page.
+The Inovaxio brandbook is a **light, photography-first brand reference built on an off-white canvas**. It is a manual, not a marketing site: every screen documents a rule and, where it matters, the counter-rule (faca / nao faca). Chrome recedes so content and product imagery lead. Quicksand carries the headlines, Inter carries the reading, and Action Blue provides the only accent on the page. Cyan appears only inside the documented brand gradient.
 
-Density is deliberately low. Sections stack with generous vertical rhythm (48 to 96px), content caps around 900px so paragraphs stay readable, and there is no decorative frame: no side-stripe accents, no gradient text, no decorative grid overlays. Depth comes from surface-color change (black canvas to near-black surface) and from restrained hover elevation on interactive cards, never from chrome for its own sake.
+Density is deliberately low. Sections stack with manual rhythm (160px between entries, 12px between a medium and its caption), content caps at 1200px with descriptive text held to 62ch, and there is no decorative frame: no side-stripe accents, no gradient text, no decorative grid overlays. Depth comes from surface-color change (white canvas to the light grey surface) and from restrained hover elevation on interactive cards, never from chrome for its own sake. Dark blocks (`.ctx-dark`) exist as punctuation: the nav overlay, covers, the footer.
 
 The system is expressed at two volumes. The **site UI** (this reference) is the digital layer: tokens, components, motion. The **brand content** it presents is a graphic manual: logo rules, print CMYK and Pantone, an editorial grid, a typographic hierarchy in points. This DESIGN.md governs the first: how to build the interface consistently.
 
 **Key Characteristics:**
-- Pure black canvas (`{colors.canvas}`) with near-black surfaces (`{colors.surface}`, `{colors.surface-2}`) for cards and rows.
-- One accent family: Action Blue (`{colors.primary}`) moving to Cyan (`{colors.cyan}`). No second brand color. On dark backgrounds, text uses the lighter `{colors.primary-text}` for contrast.
+- Off-white canvas (`{colors.canvas}`) with light grey surfaces (`{colors.surface}`, `{colors.surface-2}`) for cards and rows.
+- One accent: Action Blue (`{colors.primary}`). No second brand color. Cyan (`{colors.cyan}`) lives only in the brand gradient, never as UI accent. Inside `.ctx-dark`, blue text switches to the lighter `{colors.primary-bright}` for contrast.
 - Quicksand (display) + Inter (body). Tight tracking on display, generous leading on body.
 - Hairline borders (`{colors.border}`) do the separating. Elevation is surface change plus a soft hover lift, not stacked shadows.
 - Full do / nao faca grammar via `{component.do-dont-card}`: green check for the correct application, red cross for the banned one.
@@ -214,9 +214,9 @@ The system is expressed at two volumes. The **site UI** (this reference) is the 
 - **Primary Text** (`{colors.primary-text}` - #7186FE): A lighter blue used whenever the brand blue must be TEXT on the black canvas. Action Blue (#2E2EFE) fails contrast as body text on black (2.9:1); this lighter blue clears WCAG AA (about 6.7:1). Use it for active nav labels, eyebrows-as-text, and inline blue copy on dark.
 
 ### Surface
-- **Canvas** (`{colors.canvas}` - #000000): The base. The whole app sits on pure black.
-- **Surface** (`{colors.surface}` - #121212): Cards, the sidebar, copy blocks, download cards. The default raised surface.
-- **Surface 2** (`{colors.surface-2}` - #1C1C1C): Hover fills, secondary buttons, image-placeholder backgrounds, table header rows. One micro-step lighter than Surface.
+- **Canvas** (`{colors.canvas}` - #FFFFFF): The base. The whole manual sits on white.
+- **Surface** (`{colors.surface}` - #F4F4F7): Cards, copy blocks, download cards. The default raised surface.
+- **Surface 2** (`{colors.surface-2}` - #ECEDF4): Hover fills, secondary buttons, image-placeholder backgrounds, table header rows. One micro-step darker than Surface.
 
 ### Text
 - **Ink** (`{colors.ink}` - #FFFFFF): Every headline and primary body line on the dark canvas.
@@ -294,7 +294,7 @@ Space is the pedestal. Sections open with real air and never crowd. The one plac
 | Drawer | `{shadow.lg}` | The mobile nav drawer over its backdrop |
 | Glow (rare) | `{glow.primary}` blue glow | Reserved; used only where a brand moment truly needs it |
 
-**Shadow philosophy.** Depth is primarily surface change: black canvas to `{colors.surface}` card. Interactive cards earn a soft lift on hover (a `translateY` plus a shadow tinted to the background, never pure black). Do not pair a 1px border with a large soft drop shadow on the same element (the "ghost card" tell). Pick the hairline border at rest; let the shadow appear only on hover.
+**Shadow philosophy.** Depth is primarily surface change: white canvas to `{colors.surface}` card. Interactive cards earn a soft lift on hover (a `translateY` plus a shadow tinted to the background, never pure black). Do not pair a 1px border with a large soft drop shadow on the same element (the "ghost card" tell). Pick the hairline border at rest; let the shadow appear only on hover.
 
 ## Shapes
 
@@ -409,9 +409,10 @@ The system uses a single structural breakpoint at **768px**, plus fluid `auto-fi
 
 ## Known Gaps
 
-- **Light mode** is not designed. The system is dark-canvas only; the site documents a light-background exception for the logo, but the UI itself ships dark.
+- **Dark mode** is not a full theme. Dark exists as a contextual inversion (`.ctx-dark`) used by the nav overlay and by cover blocks; the manual itself ships light.
 - **Real imagery** is pending. All product, logo, and application mockups are `IMG --` placeholders for Victor to replace; only the placeholder frame is specified.
 - **Print color proofing** is unresolved by design: CMYK and Pantone are documented as industry-standard conversions and flagged for a physical proof before any large run.
 - **Error and empty states** exist for search (empty result) and copy (success) but are not yet a full family; forms beyond search are undocumented.
 - **Motion is CSS-only.** framer-motion is available in the project but the shipped interactions are CSS transitions; richer scroll motion is not specified here.
 - **The graphic brand grid** (12-column editorial, A4 / social / slide formats) lives in the site content, not in this UI token set; this DESIGN.md governs the site's own layout, which is the two-column shell.
+- **Sections 01, 02, 04 and 05** still use the pre-redesign internal language. Only `/visual` was converted to the `ManualEntry` rhythm in the 2026-09-17 round; the shell (topbar, nav overlay, section rail) is already global.
