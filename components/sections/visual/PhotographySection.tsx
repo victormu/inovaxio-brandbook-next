@@ -1,4 +1,4 @@
-import { SectionHeader } from "@/components/sections/SectionHeader";
+import { ManualEntry } from "@/components/manual/ManualEntry";
 import { PhotoCard } from "@/components/ui/PhotoCard";
 
 const PHOTOS = [
@@ -21,31 +21,12 @@ const PHOTOS = [
 
 export function PhotographySection() {
   return (
-    <section
+    <ManualEntry
       id="fotografia"
-      aria-label="Fotografia"
-      style={{ marginBottom: "var(--space-16)" }}
+      eyebrow="Fotografia"
+      description="Fotografia real, não stock. Sem sorriso posado, sem banco de imagens genérico. Cada foto reforça um atributo da marca: prático, próximo, técnico. Priorize luz natural e ambiente de trabalho real."
+      specs={["3 atributos", "luz natural", "pessoas identificáveis"]}
     >
-      <SectionHeader
-        level={2}
-        eyebrow="Imagem"
-        title="Fotografia"
-        description="Fotografia real, não stock. Pessoas reais em contexto de trabalho técnico."
-      />
-      <p
-        style={{
-          fontSize: "var(--text-base)",
-          color: "var(--color-text-muted)",
-          lineHeight: "var(--leading-normal)",
-          maxWidth: "60ch",
-          marginBottom: "var(--space-8)",
-        }}
-      >
-        Sem sorrisos posados, sem banco de imagens genérico. Cada foto deve
-        reforçar os atributos da marca: prático, próximo, técnico. Priorize luz
-        natural, ambiente de trabalho real e pessoas identificáveis com o setor
-        de tecnologia.
-      </p>
       <div
         className="stack-mobile"
         style={{
@@ -64,6 +45,6 @@ export function PhotographySection() {
           />
         ))}
       </div>
-    </section>
+    </ManualEntry>
   );
 }

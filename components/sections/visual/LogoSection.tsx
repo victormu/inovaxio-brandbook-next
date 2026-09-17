@@ -1,5 +1,4 @@
-import { SectionHeader } from "@/components/sections/SectionHeader";
-import { Reveal } from "@/components/ui/Reveal";
+import { ManualEntry } from "@/components/manual/ManualEntry";
 import { DoDontCard } from "@/components/ui/DoDontCard";
 import { assetExists } from "@/lib/asset";
 
@@ -83,13 +82,12 @@ const LOGO_CONSTRUCTION = [
 
 export function LogoSection() {
   return (
-    <section id="logo" aria-label="Logo" style={{ marginBottom: "var(--space-16)" }}>
-      <SectionHeader
-        level={2}
-        eyebrow="Símbolo"
-        title="Logo"
-        description="O símbolo é a âncora visual da marca. Use sempre os arquivos originais, sem recolorização, distorção ou efeitos adicionais."
-      />
+    <ManualEntry
+      id="logo"
+      eyebrow="Símbolo"
+      lead="O símbolo é a âncora visual da marca. Use sempre os arquivos originais, sem recolorização, distorção ou efeitos adicionais."
+      specs={["SVG e PNG", "4 versões", "área de proteção 1x"]}
+    >
       <div
         style={{
           display: "flex",
@@ -244,6 +242,6 @@ export function LogoSection() {
           </div>
         </div>
       </div>
-    </section>
+    </ManualEntry>
   );
 }

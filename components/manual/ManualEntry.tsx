@@ -5,7 +5,9 @@ interface ManualEntryProps {
   eyebrow: string;
   /** A mídia: imagem, placeholder, grade de amostras, o que for. */
   children: React.ReactNode;
-  /** Texto descritivo. Curto, no máximo 62ch. */
+  /** Intro que vem ANTES da mídia. Use em abertura de capítulo. */
+  lead?: string;
+  /** Texto descritivo que vem DEPOIS da mídia, como legenda. Máx 62ch. */
   description?: string;
   /** Ficha técnica. Ex.: ["SVG", "24 KB", "área de proteção 1x"]. */
   specs?: string[];
@@ -21,6 +23,7 @@ interface ManualEntryProps {
 export function ManualEntry({
   eyebrow,
   children,
+  lead,
   description,
   specs,
   id,
@@ -28,6 +31,7 @@ export function ManualEntry({
   return (
     <Reveal as="section" className="entry" id={id}>
       <p className="entry__eyebrow">{eyebrow}</p>
+      {lead ? <p className="entry__lead">{lead}</p> : null}
       <div className="entry__media">{children}</div>
       {description ? <p className="entry__desc">{description}</p> : null}
       {specs && specs.length > 0 ? (

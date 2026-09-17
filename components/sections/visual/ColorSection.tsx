@@ -1,4 +1,4 @@
-import { SectionHeader } from "@/components/sections/SectionHeader";
+import { ManualEntry } from "@/components/manual/ManualEntry";
 import { TokenChip } from "@/components/ui/TokenChip";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -363,13 +363,12 @@ const monoCell = {
 
 export function ColorSection() {
   return (
-    <section id="cor" aria-label="Cor" style={{ marginBottom: "var(--space-16)" }}>
-      <SectionHeader
-        level={2}
-        eyebrow="Cor"
-        title="Cor"
-        description="A paleta expressa energia e movimento. O azul no núcleo, o preto como base e o ciano como faísca. Clique nos tokens para copiar: os valores CSS são a fonte única de verdade."
-      />
+    <ManualEntry
+      id="cor"
+      eyebrow="Cor"
+      lead="A paleta expressa energia e movimento. O azul no núcleo, o preto como base e o ciano como faísca. Clique nos tokens para copiar: os valores CSS são a fonte única de verdade."
+      specs={["HEX, RGB, CMYK, Pantone", "tokens copiáveis"]}
+    >
 
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
         {/* 1 · Azul no núcleo */}
@@ -549,6 +548,6 @@ export function ColorSection() {
           </div>
         </Block>
       </div>
-    </section>
+    </ManualEntry>
   );
 }

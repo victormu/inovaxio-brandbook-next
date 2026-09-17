@@ -446,6 +446,15 @@ p {
   margin-bottom: var(--space-6);
 }
 
+.entry__lead {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+  max-width: 62ch;
+  margin-bottom: var(--space-12);
+}
+
 .entry__media {
   width: 100%;
 }

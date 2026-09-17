@@ -1,4 +1,4 @@
-import { SectionHeader } from "@/components/sections/SectionHeader";
+import { ManualEntry } from "@/components/manual/ManualEntry";
 
 const FORMATS = [
   { name: "Documento A4", size: "210 x 297 mm", margin: "20 mm", cols: "12 colunas" },
@@ -71,13 +71,12 @@ function ColumnDiagram() {
 
 export function GridSection() {
   return (
-    <section id="grid" aria-label="Grid e layout" style={{ marginBottom: "var(--space-16)" }}>
-      <SectionHeader
-        level={2}
-        eyebrow="Estrutura"
-        title="Grid e layout"
-        description="Um grid organiza qualquer peça da marca: documento, post, apresentação. Margem generosa, alinhamento às colunas e ritmo constante no espaçamento."
-      />
+    <ManualEntry
+      id="grid"
+      eyebrow="Estrutura"
+      lead="Um grid organiza qualquer peça da marca: documento, post, apresentação. Margem generosa, alinhamento às colunas e ritmo constante no espaçamento."
+      specs={["12 colunas", "margem generosa", "ritmo constante"]}
+    >
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-10)" }}>
         <div>
           <p
@@ -247,6 +246,6 @@ export function GridSection() {
           </ul>
         </div>
       </div>
-    </section>
+    </ManualEntry>
   );
 }

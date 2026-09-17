@@ -13,8 +13,6 @@ interface PageBannerProps {
    * nome e ele aparece automaticamente (detecta o formato pela extensão).
    */
   mediaBase?: string;
-  /** Rótulo mostrado enquanto o espaço está vazio */
-  mediaLabel?: string;
 }
 
 const VIDEO_EXTS = ["mp4", "webm"] as const;
@@ -42,7 +40,6 @@ export function PageBanner({
   title,
   description,
   mediaBase,
-  mediaLabel = "BANNER OU VÍDEO -- a definir",
 }: PageBannerProps) {
   const media = resolveMedia(mediaBase);
   const hasMedia = media !== null;

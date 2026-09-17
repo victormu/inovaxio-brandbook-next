@@ -1,4 +1,4 @@
-import { SectionHeader } from "@/components/sections/SectionHeader";
+import { ManualEntry } from "@/components/manual/ManualEntry";
 
 interface TypeLevel {
   role: string;
@@ -324,17 +324,12 @@ function HierarchyRow({ level, isFirst }: { level: TypeLevel; isFirst: boolean }
 
 export function TypographySection() {
   return (
-    <section
+    <ManualEntry
       id="tipografia"
-      aria-label="Tipografia"
-      style={{ marginBottom: "var(--space-16)" }}
+      eyebrow="Texto"
+      lead="Duas famílias. Quicksand carrega os títulos e o display. Inter carrega o texto e a legenda. Os tamanhos em pt são referência e escalam com a peça: um pôster parte da base maior, um cartão da menor."
+      specs={["Quicksand + Inter", "Google Fonts", "2 famílias"]}
     >
-      <SectionHeader
-        level={2}
-        eyebrow="Texto"
-        title="Tipografia"
-        description="Duas famílias. Quicksand carrega os títulos e o display. Inter carrega o texto e a legenda. Os tamanhos em pt são referência e escalam com a peça: um pôster parte da base maior, um cartão da menor."
-      />
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
         {/* Specimens âncora das duas famílias */}
         <div>
@@ -538,6 +533,6 @@ export function TypographySection() {
           </div>
         </div>
       </div>
-    </section>
+    </ManualEntry>
   );
 }

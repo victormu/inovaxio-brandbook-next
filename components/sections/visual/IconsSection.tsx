@@ -1,4 +1,4 @@
-import { SectionHeader } from "@/components/sections/SectionHeader";
+import { ManualEntry } from "@/components/manual/ManualEntry";
 import { Reveal } from "@/components/ui/Reveal";
 
 /* ============================================================
@@ -121,13 +121,12 @@ function Block({
 
 export function IconsSection() {
   return (
-    <section id="icones" aria-label="Ícones" style={{ marginBottom: "var(--space-16)" }}>
-      <SectionHeader
-        level={2}
-        eyebrow="Ícones"
-        title="Ícones"
-        description="Estilo: outline geométrico com terminais suavizados. Base Material Symbols (Rounded), ajustada ao padrão Inovaxio: traço uniforme, cantos sutis e o azul da marca."
-      />
+    <ManualEntry
+      id="icones"
+      eyebrow="Ícones"
+      lead="Estilo: outline geométrico com terminais suavizados. Base Material Symbols (Rounded), ajustada ao padrão Inovaxio: traço uniforme, cantos sutis e o azul da marca."
+      specs={["Material Symbols Rounded", "24x24", "traço 2px"]}
+    >
 
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
         {/* Amostra */}
@@ -310,6 +309,6 @@ export function IconsSection() {
           </div>
         </Block>
       </div>
-    </section>
+    </ManualEntry>
   );
 }
