@@ -6,6 +6,9 @@
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
+    // Node roda os *.test.ts via type stripping nativo e exige a extensao
+    // no import. So e permitido junto de noEmit, que ja e o caso aqui.
+    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
