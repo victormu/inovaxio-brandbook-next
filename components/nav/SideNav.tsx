@@ -2,23 +2,25 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NAV_SECTIONS, type NavSection } from "@/lib/nav";
 
-export function SideNav() {
+interface SideNavProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+/**
+ * Navegação em overlay, em qualquer largura. O conteúdo desmonta ao fechar:
+ * é isso que faz cada grupo reabrir já na seção corrente quando você volta.
+ */
+export function SideNav({ open, onClose }: SideNavProps) {
   const pathname = usePathname();
-  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // Fecha o drawer ao trocar de rota
   useEffect(() => {
-    setDrawerOpen(false);
-  }, [pathname]);
-
-  // Escape para fechar e trava do scroll enquanto o drawer está aberto
-  useEffect(() => {
-    if (!drawerOpen) return;
+    if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setDrawerOpen(false);
+      if (e.key === "Escape") onClose();
     };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -26,78 +28,19 @@ export function SideNav() {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [drawerOpen]);
+  }, [open, onClose]);
+
+  if (!open) return null;
 
   return (
     <>
-      {/* Top bar (somente mobile) */}
-      <header className="mobile-topbar ctx-dark">
-        <Link
-          href="/"
-          aria-label="Inovaxio Brandbook, início"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "var(--space-3)",
-            textDecoration: "none",
-          }}
-        >
-          <BrandMark size={26} />
-          <span
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 700,
-              fontSize: "var(--text-sm)",
-              letterSpacing: "0.1em",
-              color: "var(--color-text)",
-            }}
-          >
-            INOVAXIO
-          </span>
-        </Link>
-        <button
-          type="button"
-          onClick={() => setDrawerOpen(true)}
-          aria-label="Abrir navegação"
-          aria-expanded={drawerOpen}
-          aria-controls="site-nav"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 40,
-            height: 40,
-            background: "var(--color-surface-2)",
-            border: "1px solid var(--color-border)",
-            borderRadius: "var(--radius-md)",
-            color: "var(--color-text)",
-            cursor: "pointer",
-          }}
-        >
-          <HamburgerIcon />
-        </button>
-      </header>
+      <div className="sidenav-backdrop" onClick={onClose} aria-hidden="true" />
 
-      {/* Backdrop do drawer */}
-      {drawerOpen ? (
-        <div
-          className="sidenav-backdrop"
-          onClick={() => setDrawerOpen(false)}
-          aria-hidden="true"
-        />
-      ) : null}
-
-      {/* Navegação lateral (sidebar no desktop, drawer no mobile) */}
-      <nav
-        id="site-nav"
-        className="sidenav ctx-dark"
-        data-open={drawerOpen}
-        aria-label="Navegação principal"
-      >
+      <nav id="site-nav" className="sidenav ctx-dark" aria-label="Navegação principal">
         <button
           type="button"
           className="drawer-close"
-          onClick={() => setDrawerOpen(false)}
+          onClick={onClose}
           aria-label="Fechar navegação"
         >
           <CloseIcon />
@@ -105,6 +48,7 @@ export function SideNav() {
 
         <Link
           href="/"
+          onClick={onClose}
           style={{
             display: "flex",
             alignItems: "center",
@@ -129,10 +73,7 @@ export function SideNav() {
             >
               INOVAXIO
             </span>
-            <span
-              className="label"
-              style={{ display: "block", marginTop: "2px" }}
-            >
+            <span className="label" style={{ display: "block", marginTop: "2px" }}>
               Brandbook 2026
             </span>
           </div>
@@ -143,6 +84,7 @@ export function SideNav() {
             key={section.id}
             section={section}
             isActive={pathname.startsWith(section.href)}
+            onNavigate={onClose}
           />
         ))}
       </nav>
@@ -153,9 +95,10 @@ export function SideNav() {
 interface NavGroupProps {
   section: NavSection;
   isActive: boolean;
+  onNavigate: () => void;
 }
 
-function NavGroup({ section, isActive }: NavGroupProps) {
+function NavGroup({ section, isActive, onNavigate }: NavGroupProps) {
   const [open, setOpen] = useState(isActive);
   const pathname = usePathname();
   const subMenuId = `nav-sub-${section.id}`;
@@ -197,11 +140,14 @@ function NavGroup({ section, isActive }: NavGroupProps) {
           }}
         >
           {section.subitems.map((item) => {
-            const isCurrentPage = pathname === item.href;
+            // item.href pode ser "/visual#logo" ou "/visual/aplicacoes". Compara
+            // só a parte de rota; a âncora exata é trabalho do trilho.
+            const isCurrentPage = pathname === item.href.split("#")[0];
             return (
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  onClick={onNavigate}
                   aria-current={isCurrentPage ? "page" : undefined}
                   className="nav-subitem"
                   style={{
@@ -230,7 +176,6 @@ function NavGroup({ section, isActive }: NavGroupProps) {
 }
 
 function BrandMark({ size = 30 }: { size?: number }) {
-  // Tile azul com o símbolo real (branco) da marca.
   return (
     <span
       aria-hidden="true"
@@ -255,28 +200,10 @@ function BrandMark({ size = 30 }: { size?: number }) {
   );
 }
 
-function HamburgerIcon() {
-  return (
-    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true">
-      <path
-        d="M1 1h16M1 7h16M1 13h16"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 function CloseIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <path
-        d="M1 1l12 12M13 1L1 13"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
+      <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
 }
@@ -295,13 +222,7 @@ function ChevronIcon({ open }: { open: boolean }) {
         flexShrink: 0,
       }}
     >
-      <path
-        d="M2 4l4 4 4-4"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
