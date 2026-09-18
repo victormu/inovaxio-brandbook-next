@@ -1,4 +1,7 @@
-import { SectionHeader } from "@/components/sections/SectionHeader";
+import { ChapterCover } from "@/components/manual/ChapterCover";
+import { Panel } from "@/components/manual/Panel";
+import { Topic } from "@/components/manual/Topic";
+import { ChapterNext } from "@/components/manual/ChapterNext";
 import { DoDontCard } from "@/components/ui/DoDontCard";
 
 interface DoDontItem {
@@ -195,96 +198,66 @@ function TouchpointBlock({ touchpoint }: { touchpoint: Touchpoint }) {
   );
 }
 
-function GroupHeading({ id, kicker, title }: { id: string; kicker: string; title: string }) {
-  return (
-    <div id={id} style={{ scrollMarginTop: "var(--space-16)" }}>
-      <p
-        style={{
-          fontFamily: "monospace",
-          fontSize: "var(--text-xs)",
-          letterSpacing: "0.12em",
-          color: "var(--color-text-faint)",
-          marginBottom: "var(--space-2)",
-        }}
-      >
-        {kicker}
-      </p>
-      <h2
-        style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 700,
-          fontSize: "var(--text-2xl)",
-          color: "var(--color-text)",
-          lineHeight: "var(--leading-tight)",
-        }}
-      >
-        {title}
-      </h2>
-    </div>
-  );
-}
 
 export default function AplicacoesMarcaPage() {
   return (
     <>
-      <SectionHeader
-        level={1}
-        eyebrow="03 Sistema Visual"
+      <ChapterCover
+        num="03"
         title="Aplicações da marca"
-        description="A marca Inovaxio não vive só na tela. Ela aparece em cada ponto de contato, on e off. Aqui está o que fazer e o que não fazer em cada peça."
+        lead="A marca não vive só na tela. Ela aparece em cada ponto de contato, on e off. Aqui está o que fazer e o que não fazer em cada peça."
+        topics={["Digital", "Impresso e físico"]}
       />
 
-      <p
-        style={{
-          fontSize: "var(--text-sm)",
-          color: "var(--color-text-faint)",
-          lineHeight: "var(--leading-relaxed)",
-          maxWidth: "62ch",
-          marginBottom: "var(--space-16)",
-          padding: "var(--space-4) var(--space-5)",
-          background: "var(--color-surface)",
-          border: "1px solid var(--color-border)",
-          borderRadius: "var(--radius-md)",
-        }}
+      <Panel
+        id="online"
+        index="01 / 02"
+        title="Digital"
+        band="light"
+        lead="Os pontos de contato em tela. São os que mais se repetem e os que mais escapam do controle, porque qualquer pessoa publica."
       >
-        As regras abaixo são uma proposta inicial [PROPOSTA: confirmar]. Os
-        mockups reais entram nos espaços marcados. Ajuste ou aprove cada peça
-        com o time de design antes de publicar.
-      </p>
+        <Topic
+          wide
+          title="Antes de usar"
+          lead="As regras abaixo são uma proposta inicial. Os mockups reais entram nos espaços marcados: ajuste ou aprove cada peça com o time de design antes de publicar."
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--space-8)",
+            }}
+          >
+            {DIGITAL.map((tp) => (
+              <TouchpointBlock key={tp.id} touchpoint={tp} />
+            ))}
+          </div>
+        </Topic>
+      </Panel>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "var(--space-16)",
-        }}
+      <Panel
+        id="offline"
+        index="02 / 02"
+        title="Impresso e físico"
+        band="dim"
+        lead="O que sai da tela. Aqui a cor vira CMYK ou Pantone, e o tamanho mínimo do logo deixa de ser sugestão."
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "var(--space-8)",
-          }}
-        >
-          <GroupHeading id="online" kicker="ON" title="Digital" />
-          {DIGITAL.map((tp) => (
-            <TouchpointBlock key={tp.id} touchpoint={tp} />
-          ))}
-        </div>
+        <Topic wide title="Peças" lead="Cada uma com o que fazer e o que não fazer.">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--space-8)",
+            }}
+          >
+            {FISICO.map((tp) => (
+              <TouchpointBlock key={tp.id} touchpoint={tp} />
+            ))}
+          </div>
+        </Topic>
+      </Panel>
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "var(--space-8)",
-          }}
-        >
-          <GroupHeading id="offline" kicker="OFF" title="Impresso e físico" />
-          {FISICO.map((tp) => (
-            <TouchpointBlock key={tp.id} touchpoint={tp} />
-          ))}
-        </div>
-      </div>
+      <ChapterNext current="visual" />
     </>
   );
 }
