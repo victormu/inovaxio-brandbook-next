@@ -1,6 +1,5 @@
 import { Panel } from "@/components/manual/Panel";
 import { Topic } from "@/components/manual/Topic";
-import { Reveal } from "@/components/ui/Reveal";
 
 /* ============================================================
  * Ícones de exemplo (base: Material Symbols, estilo Rounded)

@@ -1,7 +1,6 @@
 import { Panel } from "@/components/manual/Panel";
 import { Topic } from "@/components/manual/Topic";
 import { TokenChip } from "@/components/ui/TokenChip";
-import { Reveal } from "@/components/ui/Reveal";
 
 /* ============================================================
  * Dados
