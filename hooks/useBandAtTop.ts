@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useLayoutEffect, useState } from "react";
 import { bandFromClasses, type BandName } from "@/lib/band";
 
@@ -22,6 +23,11 @@ export function useBandAtTop(
   inicial: BandName,
   topbarHeight = 56,
 ): BandName {
+  // Numa navegação client-side o componente não desmonta e nem `inicial` nem
+  // `topbarHeight` mudam. Sem a rota nas dependências, o observer segue
+  // vigiando as seções da página ANTERIOR, que já saíram do DOM, e a barra
+  // congela na última banda lida.
+  const pathname = usePathname();
   // O valor inicial vem de fora porque ele é renderizado no SERVIDOR, onde
   // não existe DOM para medir. Sem isso a barra nasce clara e o JS corrige
   // depois: a primeira pintura fica com texto escuro sobre a capa escura.
@@ -34,6 +40,11 @@ export function useBandAtTop(
         .find((el) => el.matches(SELETOR));
       if (sob) setBand(bandFromClasses([...sob.classList]));
     };
+
+    // Toda rota abre na banda `inicial`: volta para ela antes de medir, senão
+    // a barra carrega a cor da página anterior até o observer disparar.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setBand(inicial);
 
     // Leitura síncrona antes da pintura, senão a barra nasce com a cor
     // errada sobre a capa e pisca.
@@ -78,7 +89,7 @@ export function useBandAtTop(
       observer?.disconnect();
       window.removeEventListener("resize", onResize);
     };
-  }, [topbarHeight, inicial]);
+  }, [topbarHeight, inicial, pathname]);
 
   return band;
 }

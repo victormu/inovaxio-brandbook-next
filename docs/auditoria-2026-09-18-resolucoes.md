@@ -154,6 +154,38 @@ retângulo do cabeçalho com o do conteúdo em cada passo, em `.topic` e em
 **Lição para a próxima auditoria:** layout com `position: sticky` só pode ser
 auditado em movimento. Uma medição estática prova o repouso e mais nada.
 
+### Header congelando na navegação client-side
+
+**Também encontrado pelo Victor.** A barra ficava com a banda da página
+anterior ao navegar por link, deixando texto branco sobre fundo branco.
+
+**Arquivo:** `hooks/useBandAtTop.ts`.
+
+O `useLayoutEffect` dependia de `[topbarHeight, inicial]`, e numa navegação
+client-side o componente não desmonta e nenhum dos dois muda. O observer
+continuava vigiando as seções da página anterior, que já tinham saído do DOM,
+e a banda congelava na última leitura.
+
+Medido em produção antes da correção:
+
+| Ação | Fundo sob a barra | Barra |
+|---|---|---|
+| carga direta de `/fundamentos` | navy | `ctx-dark` ✓ |
+| rolar até painel branco | branco | claro ✓ |
+| clicar no link de fim de capítulo | navy | **claro** ✗ |
+
+Corrigido colocando `pathname` nas dependências e voltando a banda para o valor
+inicial a cada troca de rota, antes da medição.
+
+**Por que a auditoria não pegou:** toda medição usava `page.goto()`, ou seja,
+carga completa. Navegação por link, pelo overlay e pelo histórico nunca foi
+exercitada. Em app com roteador client-side, carga direta e navegação são dois
+caminhos diferentes, e passar num não diz nada sobre o outro.
+
+A verificação agora percorre uma sessão inteira: carga direta, sumário da home,
+scroll até banda clara, link de fim de capítulo, link do overlay, botão voltar
+do navegador e a marca da topbar. Sete passos, sete acertos.
+
 ---
 
 ## Falsos positivos que vale documentar
