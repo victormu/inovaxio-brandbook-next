@@ -24,9 +24,9 @@ export function CopyBlock({ text, label, variant = "default" }: CopyBlockProps) 
       className="copyblock card-elev"
       style={{
         background: isHighlight
-          ? "hsl(var(--c-primary) / 0.08)"
+          ? "color-mix(in srgb, var(--color-primary) 8%, transparent)"
           : "var(--color-surface)",
-        border: `1px solid ${isHighlight ? "hsl(var(--c-primary) / 0.2)" : "var(--color-border)"}`,
+        border: `1px solid ${isHighlight ? "color-mix(in srgb, var(--color-primary) 20%, transparent)" : "var(--color-border)"}`,
         borderRadius: "var(--radius-lg)",
         padding: "var(--space-4) var(--space-6)",
         display: "flex",

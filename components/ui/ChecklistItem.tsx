@@ -19,9 +19,9 @@ export function ChecklistItem({ id, label }: ChecklistItemProps) {
         gap: "var(--space-3)",
         padding: "var(--space-3) var(--space-4)",
         background: checked
-          ? "hsl(var(--c-success) / 0.06)"
+          ? "color-mix(in srgb, var(--color-success) 6%, transparent)"
           : "var(--color-surface)",
-        border: `1px solid ${checked ? "hsl(var(--c-success) / 0.25)" : "var(--color-border)"}`,
+        border: `1px solid ${checked ? "color-mix(in srgb, var(--color-success) 25%, transparent)" : "var(--color-border)"}`,
         borderRadius: "var(--radius-md)",
         cursor: "pointer",
         transition:

@@ -43,8 +43,8 @@ function ColumnDiagram() {
           <div
             key={i}
             style={{
-              background: "hsl(var(--c-primary) / 0.12)",
-              border: "1px solid hsl(var(--c-primary) / 0.25)",
+              background: "color-mix(in srgb, var(--color-primary) 12%, transparent)",
+              border: "1px solid color-mix(in srgb, var(--color-primary) 25%, transparent)",
               borderRadius: "var(--radius-sm)",
             }}
           />
