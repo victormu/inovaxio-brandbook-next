@@ -3,50 +3,75 @@
 import { useLayoutEffect, useState } from "react";
 import { bandFromClasses, type BandName } from "@/lib/band";
 
-/** Seções que pintam fundo e portanto ficam sob a topbar. */
+/** Seções que pintam fundo e portanto passam sob a topbar. */
 const SELETOR = ".panel, .cover, .chapter-cover, .chapter-next, .index-panel";
 
 /**
  * Descobre qual banda está imediatamente sob a topbar, para ela poder ser
  * transparente e ainda assim ter texto legível.
  *
- * Usa uma faixa de detecção de 1px logo abaixo da barra (via rootMargin),
- * então o browser só avisa quando a seção sob ela muda. Nenhum handler de
- * scroll, nenhum trabalho por frame.
+ * A detecção é uma faixa de 1px logo abaixo da barra, montada em pixels.
+ * Usar `-100%` na margem de baixo produziria um root de altura NEGATIVA
+ * (altura - 56 - altura), que não é definido em spec: alguns motores
+ * toleram, outros nunca reportam interseção e a barra congela numa cor.
+ *
+ * Nenhum handler de scroll: o browser só avisa quando a seção sob a faixa
+ * muda. O observer é remontado no resize, porque a margem depende da altura.
  */
 export function useBandAtTop(topbarHeight = 56): BandName {
   const [band, setBand] = useState<BandName>("light");
 
-  // Layout effect, não effect: o observer só dispara depois da primeira
-  // pintura, e até lá a barra ficaria com texto escuro sobre a capa preta.
   useLayoutEffect(() => {
-    const secoes = [...document.querySelectorAll<HTMLElement>(SELETOR)];
-    if (secoes.length === 0) return;
+    const ler = () => {
+      const sob = document
+        .elementsFromPoint(window.innerWidth / 2, topbarHeight + 1)
+        .find((el) => el.matches(SELETOR));
+      if (sob) setBand(bandFromClasses([...sob.classList]));
+    };
 
-    // Leitura síncrona do que está sob a barra, para não haver flash.
-    const sob = document
-      .elementsFromPoint(window.innerWidth / 2, topbarHeight + 1)
-      .find((el) => el.matches(SELETOR));
-    // Medir o DOM e ajustar o estado antes da pintura é o propósito do
-    // layout effect. Sem isto a barra pisca com texto escuro sobre a capa.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (sob) setBand(bandFromClasses([...sob.classList]));
+    // Leitura síncrona antes da pintura, senão a barra nasce com a cor
+    // errada sobre a capa e pisca.
+    ler();
 
     if (typeof IntersectionObserver === "undefined") return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setBand(bandFromClasses([...entry.target.classList]));
-          }
-        }
-      },
-      { rootMargin: `-${topbarHeight}px 0px -100% 0px`, threshold: 0 },
-    );
+    let observer: IntersectionObserver | null = null;
 
-    for (const s of secoes) observer.observe(s);
-    return () => observer.disconnect();
+    const montar = () => {
+      observer?.disconnect();
+      const secoes = [...document.querySelectorAll<HTMLElement>(SELETOR)];
+      if (secoes.length === 0) return;
+
+      // Faixa de exatamente 1px, começando na base da barra.
+      const base = Math.max(window.innerHeight - topbarHeight - 1, 0);
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              setBand(bandFromClasses([...entry.target.classList]));
+            }
+          }
+        },
+        { rootMargin: `-${topbarHeight}px 0px -${base}px 0px`, threshold: 0 },
+      );
+
+      for (const s of secoes) observer.observe(s);
+    };
+
+    montar();
+
+    // A margem é calculada da altura da janela, então precisa refazer.
+    const onResize = () => {
+      montar();
+      ler();
+    };
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", onResize);
+    };
   }, [topbarHeight]);
 
   return band;
