@@ -1,4 +1,5 @@
 import { Panel } from "@/components/manual/Panel";
+import { Topic } from "@/components/manual/Topic";
 import { DoDontCard } from "@/components/ui/DoDontCard";
 import { assetExists } from "@/lib/asset";
 
@@ -89,12 +90,10 @@ export function LogoSection() {
       band="light"
       lead="O símbolo é a âncora visual da marca. Use sempre os arquivos originais, sem recolorização, distorção ou efeitos adicionais."
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "var(--space-10)",
-        }}
+      <Topic
+        wide
+        title="Assinatura principal"
+        lead="A versão que abre qualquer peça. Só troque por outra quando a proporção ou o fundo exigirem."
       >
         <LogoImage
           src="/assets/logo/inovaxio-vertical-cor.svg"
@@ -103,146 +102,143 @@ export function LogoSection() {
           minHeight={280}
           className="hover-media"
         />
+      </Topic>
 
-        <div>
-          <p
-            className="label"
-            style={{ fontFamily: "var(--font-body)", marginBottom: "var(--space-4)" }}
-          >
-            Versões
-          </p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-              gap: "var(--space-3)",
-            }}
-          >
-            {LOGO_VERSIONS.map((v) => (
-              <div key={v.label}>
-                <LogoImage src={v.src} alt={v.label} bg={v.bg} minHeight={130} className="hover-card hover-media" />
-                <p
-                  style={{
-                    fontSize: "var(--text-xs)",
-                    color: "var(--color-text-faint)",
-                    marginTop: "var(--space-2)",
-                  }}
-                >
-                  {v.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <p
-            className="label"
-            style={{ fontFamily: "var(--font-body)", marginBottom: "var(--space-4)" }}
-          >
-            Construção
-          </p>
-          <div
-            className="stack-mobile"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "var(--space-3)",
-            }}
-          >
-            {LOGO_CONSTRUCTION.map((c) => (
-              <LogoImage
-                key={c.label}
-                src={c.src}
-                alt={c.label}
-                bg="#1a1a1a"
-                minHeight={220}
-                className="hover-card hover-media"
-              />
-            ))}
-          </div>
-        </div>
-
+      <Topic
+        wide
+        title="Versões"
+        lead="Quatro arquivos cobrem todo caso de uso. Escolha pela cor do fundo, não pelo gosto."
+      >
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: "var(--space-6)",
+            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+            gap: "var(--space-3)",
           }}
         >
-          <div>
-            <p
-              className="label"
-              style={{ fontFamily: "var(--font-body)", marginBottom: "var(--space-3)" }}
-            >
-              Área de proteção
-            </p>
-            <div style={{ marginBottom: "var(--space-3)" }}>
-              <LogoImage
-                src="/assets/logo/area-protecao.png"
-                alt="Área de proteção"
-                bg="#1a1a1a"
-                minHeight={220}
-                className="hover-card hover-media"
-              />
+          {LOGO_VERSIONS.map((v) => (
+            <div key={v.label}>
+              <LogoImage src={v.src} alt={v.label} bg={v.bg} minHeight={130} className="hover-card hover-media" />
+              <p
+                style={{
+                  fontSize: "var(--text-caption)",
+                  color: "var(--color-text-faint)",
+                  marginTop: "var(--space-2)",
+                }}
+              >
+                {v.label}
+              </p>
             </div>
-            <p
-              style={{
-                fontSize: "var(--text-sm)",
-                color: "var(--color-text-muted)",
-                lineHeight: "var(--leading-relaxed)",
-              }}
-            >
-              Mantenha ao redor do logo um espaço livre igual à metade da altura
-              do símbolo em todos os lados. Nenhum elemento invade essa área.
-            </p>
-          </div>
-          <div>
-            <p
-              className="label"
-              style={{ fontFamily: "var(--font-body)", marginBottom: "var(--space-3)" }}
-            >
-              Tamanho mínimo
-            </p>
-            <p
-              style={{
-                fontSize: "var(--text-sm)",
-                color: "var(--color-text-muted)",
-                lineHeight: "var(--leading-relaxed)",
-              }}
-            >
-              Símbolo: 24px (digital) ou 10mm (impresso). Assinatura completa:
-              120px ou 25mm. Abaixo disso perde legibilidade.
-            </p>
-          </div>
+          ))}
         </div>
+      </Topic>
 
-        <div>
-          <p
-            className="label"
-            style={{ fontFamily: "var(--font-body)", marginBottom: "var(--space-4)" }}
-          >
-            Proibições
-          </p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-              gap: "var(--space-3)",
-            }}
-          >
-            {LOGO_DONTS.map((caption, i) => (
-              <DoDontCard
-                key={caption}
-                variant="dont"
-                caption={caption}
-                imageLabel={`IMG -- Proibição ${i + 1}`}
-                image={`/assets/logo/proibicoes/proibicao-${i + 1}.png`}
-              />
-            ))}
-          </div>
+      <Topic
+        wide
+        title="Construção"
+        lead="O símbolo nasce de um grid e de proporções áureas. Isso não é decoração: é o que mantém o desenho estável em qualquer tamanho."
+      >
+        <div
+          className="stack-mobile"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "var(--space-3)",
+          }}
+        >
+          {LOGO_CONSTRUCTION.map((c) => (
+            <LogoImage
+              key={c.label}
+              src={c.src}
+              alt={c.label}
+              bg="#1a1a1a"
+              minHeight={220}
+              className="hover-card hover-media"
+            />
+          ))}
         </div>
-      </div>
+      </Topic>
+
+      <Topic
+        title="Área de proteção"
+        lead="Mantenha ao redor do logo um espaço livre igual à metade da altura do símbolo em todos os lados. Nenhum elemento invade essa área."
+      >
+        <LogoImage
+          src="/assets/logo/area-protecao.png"
+          alt="Área de proteção"
+          bg="#1a1a1a"
+          minHeight={220}
+          className="hover-card hover-media"
+        />
+      </Topic>
+
+      <Topic
+        title="Tamanho mínimo"
+        lead="Abaixo desses valores o desenho perde legibilidade e o símbolo vira mancha."
+      >
+        <dl style={{ display: "grid", gap: "var(--space-3)" }}>
+          {[
+            { k: "Símbolo", v: "24px em tela · 10mm impresso" },
+            { k: "Assinatura completa", v: "120px em tela · 25mm impresso" },
+          ].map((item) => (
+            <div
+              key={item.k}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: "var(--space-4)",
+                paddingBottom: "var(--space-3)",
+                borderBottom: "1px solid var(--color-border)",
+              }}
+            >
+              <dt
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 600,
+                  fontSize: "var(--text-sm)",
+                  color: "var(--color-text)",
+                }}
+              >
+                {item.k}
+              </dt>
+              <dd
+                style={{
+                  margin: 0,
+                  fontSize: "var(--text-sm)",
+                  color: "var(--color-text-muted)",
+                  textAlign: "right",
+                }}
+              >
+                {item.v}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </Topic>
+
+      <Topic
+        wide
+        title="Proibições"
+        lead="Seis formas de destruir o logo. Cada uma já aconteceu em alguma peça."
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "var(--space-3)",
+          }}
+        >
+          {LOGO_DONTS.map((caption, i) => (
+            <DoDontCard
+              key={caption}
+              variant="dont"
+              caption={caption}
+              imageLabel={`IMG -- Proibição ${i + 1}`}
+              image={`/assets/logo/proibicoes/proibicao-${i + 1}.png`}
+            />
+          ))}
+        </div>
+      </Topic>
     </Panel>
   );
 }
