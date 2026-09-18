@@ -13,10 +13,10 @@ const LOGO_DONTS = [
 ];
 
 const LOGO_VERSIONS = [
-  { label: "Assinatura cor", src: "/assets/logo/inovaxio-horizontal-cor.svg", bg: "#0d0d0d" },
-  { label: "Negativa (branco)", src: "/assets/logo/inovaxio-horizontal-branco.svg", bg: "#0d0d0d" },
-  { label: "Símbolo", src: "/assets/logo/simbolo-cor.svg", bg: "#ffffff" },
-  { label: "Monocromático (preto)", src: "/assets/logo/inovaxio-horizontal-preto.svg", bg: "#ffffff" },
+  { label: "Assinatura cor", src: "/assets/logo/inovaxio-horizontal-cor.svg", bg: "var(--plate-dark)" },
+  { label: "Negativa (branco)", src: "/assets/logo/inovaxio-horizontal-branco.svg", bg: "var(--plate-dark)" },
+  { label: "Símbolo", src: "/assets/logo/simbolo-cor.svg", bg: "var(--plate-light)" },
+  { label: "Monocromático (preto)", src: "/assets/logo/inovaxio-horizontal-preto.svg", bg: "var(--plate-light)" },
 ];
 
 function LogoImage({
@@ -98,7 +98,7 @@ export function LogoSection() {
         <LogoImage
           src="/assets/logo/inovaxio-vertical-cor.svg"
           alt="Assinatura principal Inovaxio"
-          bg="#0d0d0d"
+          bg="var(--plate-dark)"
           minHeight={280}
           className="hover-media"
         />
@@ -151,7 +151,7 @@ export function LogoSection() {
               key={c.label}
               src={c.src}
               alt={c.label}
-              bg="#1a1a1a"
+              bg="var(--plate-dark-soft)"
               minHeight={220}
               className="hover-card hover-media"
             />
@@ -166,7 +166,7 @@ export function LogoSection() {
         <LogoImage
           src="/assets/logo/area-protecao.png"
           alt="Área de proteção"
-          bg="#1a1a1a"
+          bg="var(--plate-dark-soft)"
           minHeight={220}
           className="hover-card hover-media"
         />

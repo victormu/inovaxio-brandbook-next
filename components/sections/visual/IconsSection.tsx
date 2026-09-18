@@ -244,7 +244,7 @@ export function IconsSection() {
                     height: 22,
                     borderRadius: "var(--radius-full)",
                     background: "var(--color-primary)",
-                    color: "#fff",
+                    color: "var(--color-on-primary)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",

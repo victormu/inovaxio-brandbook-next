@@ -51,6 +51,19 @@
      5,41 no branco. */
   --color-text-faint: #666a75;
 
+  /* O que pinta EM CIMA de uma cor sólida. Existe como token para que
+     trocar a cor de baixo não deixe nenhum ponto para trás.
+     Medido: branco no azul 7,10:1; branco no verde claro 4,99:1. */
+  --color-on-primary: #ffffff;
+  --color-on-success: #ffffff;
+
+  /* Placas de documentação: o fundo contra o qual uma versão do logo é
+     exibida. NÃO trocam por banda, de propósito: uma demonstração de logo
+     branco sobre escuro tem que continuar escura numa página clara. */
+  --plate-dark:      #000000;
+  --plate-dark-soft: #101014;
+  --plate-light:     #ffffff;
+
   --color-success: hsl(var(--c-success));
   --color-warning: hsl(var(--c-warning));
   --color-error:   hsl(var(--c-error));
@@ -179,6 +192,9 @@
   --color-success: hsl(145 60% 55%);
   --color-warning: hsl(40 85% 60%);
   --color-error:   hsl(0 80% 65%);
+  /* O verde da banda escura é claro, então o que vai em cima dele inverte.
+     Medido: #0A0A0C no #47D181 dá 10,08:1; branco daria 1,96:1. */
+  --color-on-success: #0a0a0c;
 
   /* No escuro a sombra projetada não lê: quem separa a superfície do fundo
      é o rim de luz no topo, como no site. */
@@ -211,4 +227,7 @@
   --color-success: hsl(145 60% 55%);
   --color-warning: hsl(40 85% 60%);
   --color-error:   hsl(0 80% 65%);
+  /* O verde da banda escura é claro, então o que vai em cima dele inverte.
+     Medido: #0A0A0C no #47D181 dá 10,08:1; branco daria 1,96:1. */
+  --color-on-success: #0a0a0c;
 }

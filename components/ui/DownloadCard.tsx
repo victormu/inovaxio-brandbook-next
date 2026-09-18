@@ -134,7 +134,7 @@ export function DownloadCard({
             flexShrink: 0,
             padding: "var(--space-2) var(--space-4)",
             background: "var(--color-primary)",
-            color: "#fff",
+            color: "var(--color-on-primary)",
             borderRadius: "var(--radius-md)",
             fontSize: "var(--text-xs)",
             fontWeight: 600,

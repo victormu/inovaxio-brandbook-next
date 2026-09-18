@@ -64,7 +64,7 @@ export function ChecklistItem({ id, label }: ChecklistItemProps) {
           <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
             <path
               d="M1 4l3 3 5-6"
-              stroke="#000"
+              stroke="var(--color-on-success)"
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
