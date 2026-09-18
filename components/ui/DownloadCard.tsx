@@ -1,3 +1,5 @@
+import { assetExists } from "@/lib/asset";
+
 interface DownloadCardProps {
   name: string;
   description: string;
@@ -15,6 +17,11 @@ export function DownloadCard({
   href,
   preview,
 }: DownloadCardProps) {
+  // Rotas geradas (ex: /assets/tokens.css) não existem em public/, mas são
+  // servidas. Só checamos o disco para os arquivos que deveriam estar lá.
+  const isRoute = href === "/assets/tokens.css";
+  const disponivel = isRoute || assetExists(href);
+
   return (
     <div
       style={{
@@ -116,6 +123,7 @@ export function DownloadCard({
           </div>
         </div>
 
+        {disponivel ? (
         <a
           href={href}
           download
@@ -136,6 +144,24 @@ export function DownloadCard({
         >
           Baixar
         </a>
+        ) : (
+          <span
+            title="Arquivo ainda não inserido em public/assets"
+            style={{
+              flexShrink: 0,
+              padding: "var(--space-2) var(--space-4)",
+              background: "var(--color-surface-2)",
+              color: "var(--color-text-faint)",
+              border: "1px dashed var(--color-border-strong)",
+              borderRadius: "var(--radius-md)",
+              fontSize: "var(--text-caption)",
+              fontWeight: 600,
+              whiteSpace: "nowrap",
+            }}
+          >
+            Em breve
+          </span>
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import type { CSSProperties } from "react";
+import { Panel } from "@/components/manual/Panel";
+import { Topic } from "@/components/manual/Topic";
 import { ChapterCover } from "@/components/manual/ChapterCover";
 import { ChapterNext } from "@/components/manual/ChapterNext";
-import { SectionHeader } from "@/components/sections/SectionHeader";
 import { DownloadCard } from "@/components/ui/DownloadCard";
 
 const gridStyle: CSSProperties = {
@@ -10,20 +11,8 @@ const gridStyle: CSSProperties = {
   gap: "var(--space-4)",
 };
 
-const sectionWrapStyle: CSSProperties = {
-  marginBottom: "var(--space-12)",
-};
 
-const anchorStyle: CSSProperties = {
-  display: "block",
-  position: "relative",
-  top: "calc(-1 * var(--space-20, 5rem))",
-  visibility: "hidden",
-};
 
-const cardsWrapStyle: CSSProperties = {
-  marginTop: "var(--space-6)",
-};
 
 const fotosPlaceholderStyle: CSSProperties = {
   marginTop: "var(--space-6)",
@@ -60,9 +49,6 @@ const fotosCodeStyle: CSSProperties = {
   borderRadius: "var(--radius-md)",
 };
 
-function SectionAnchor({ id }: { id: string }) {
-  return <span id={id} style={anchorStyle} aria-hidden="true" />;
-}
 
 export default function RecursosPage() {
   return (
@@ -80,19 +66,17 @@ export default function RecursosPage() {
         ]}
       />
 
-      <div style={{ marginTop: "var(--space-12)" }}>
-
-        <div style={sectionWrapStyle}>
-          <SectionAnchor id="logo" />
-          <SectionHeader
-            level={2}
-            eyebrow="Logo"
-            title="Arquivos de Logo"
-            description="Versões oficiais da marca em formatos vetorial e raster."
-          />
-          <div style={{ ...gridStyle, ...cardsWrapStyle }}>
+      <Panel
+        id="logo"
+        index="01 / 05"
+        title="Arquivos de logo"
+        band="light"
+        lead="Versões oficiais da marca em vetor e raster. Baixe sempre daqui: cópia de cópia perde qualidade e acaba recolorida."
+      >
+        <Topic wide title="Download" lead="SVG para tela e impressão. PNG só quando a ferramenta não aceitar vetor.">
+          <div style={gridStyle}>
             <DownloadCard
-              name="Logo Principal"
+              name="Logo principal"
               description="Símbolo azul e wordmark preto, para fundos claros"
               format="SVG"
               href="/assets/logo/inovaxio-horizontal-cor.svg"
@@ -104,105 +88,116 @@ export default function RecursosPage() {
               href="/assets/logo/inovaxio-horizontal-cor.png"
             />
             <DownloadCard
-              name="Logo Negativo"
+              name="Logo negativo"
               description="Versão branca, para fundos escuros"
               format="SVG"
               href="/assets/logo/inovaxio-horizontal-branco.svg"
             />
           </div>
-        </div>
+        </Topic>
+      </Panel>
 
-        <div style={sectionWrapStyle}>
-          <SectionAnchor id="paleta" />
-          <SectionHeader
-            level={2}
-            eyebrow="Cores"
-            title="Cores e Variáveis"
-            description="Swatches e tokens prontos para uso em ferramentas de design e código."
-          />
-          <div style={{ ...gridStyle, ...cardsWrapStyle }}>
+      <Panel
+        id="paleta"
+        index="02 / 05"
+        title="Cores e variáveis"
+        band="dim"
+        lead="Os tokens CSS são gerados a partir do arquivo real do site, então o que você baixa é sempre o que está no ar."
+      >
+        <Topic wide title="Download" lead="O ASE serve para Illustrator e Photoshop; o CSS, para qualquer front-end.">
+          <div style={gridStyle}>
             <DownloadCard
-              name="Paleta de Cores"
-              description="Swatches e tokens em formato ASE (Adobe Swatch Exchange)"
-              format="ASE"              href="/assets/paleta-inovaxio.ase"
+              name="Paleta de cores"
+              description="Swatches em formato ASE (Adobe Swatch Exchange)"
+              format="ASE"
+              href="/assets/paleta-inovaxio.ase"
             />
             <DownloadCard
               name="Tokens CSS"
-              description="Arquivo tokens.css completo com todas as variáveis"
-              format="CSS"              href="/assets/tokens.css"
+              description="tokens.css completo, gerado do arquivo real do site"
+              format="CSS"
+              href="/assets/tokens.css"
             />
           </div>
-        </div>
+        </Topic>
+      </Panel>
 
-        <div style={sectionWrapStyle}>
-          <SectionAnchor id="templates" />
-          <SectionHeader
-            level={2}
-            eyebrow="Templates"
-            title="Modelos de Comunicação"
-            description="Arquivos editáveis para propostas, apresentações e comunicações digitais."
-          />
-          <div style={{ ...gridStyle, ...cardsWrapStyle }}>
+      <Panel
+        id="templates"
+        index="03 / 05"
+        title="Modelos de comunicação"
+        band="light"
+        lead="Arquivos editáveis para proposta, apresentação e assinatura. Partir do template evita reinventar a marca a cada peça."
+      >
+        <Topic wide title="Download" lead="Abra, salve como cópia e edite. Não altere o master.">
+          <div style={gridStyle}>
             <DownloadCard
-              name="Template de Proposta"
+              name="Template de proposta"
               description="Modelo de proposta comercial com identidade visual"
-              format="PPTX"              href="/assets/template-proposta.pptx"
+              format="PPTX"
+              href="/assets/template-proposta.pptx"
             />
             <DownloadCard
-              name="Template de Apresentação"
+              name="Template de apresentação"
               description="Deck base com slides em branco e cores da marca"
-              format="PPTX"              href="/assets/template-apresentacao.pptx"
+              format="PPTX"
+              href="/assets/template-apresentacao.pptx"
             />
             <DownloadCard
-              name="Template de Email"
-              description="Assinatura de email HTML"
-              format="HTML"              href="/assets/assinatura-email.html"
+              name="Assinatura de email"
+              description="Bloco HTML pronto para colar no cliente de email"
+              format="HTML"
+              href="/assets/assinatura-email.html"
             />
           </div>
-        </div>
+        </Topic>
+      </Panel>
 
-        <div style={sectionWrapStyle}>
-          <SectionAnchor id="fotos" />
-          <SectionHeader
-            level={2}
-            eyebrow="Fotografia"
-            title="Fotografia da Marca"
-          />
+      <Panel
+        id="fotos"
+        index="04 / 05"
+        title="Banco de fotos"
+        band="dark"
+        lead="Fotografia aprovada da marca. Prático, próximo e técnico: se a imagem não carrega nenhum dos três, ela não entra aqui."
+      >
+        <Topic title="Status" lead="O banco será publicado neste espaço assim que as fotos forem aprovadas.">
           <div style={fotosPlaceholderStyle}>
             <span style={fotosLabelStyle}>Aguardando aprovação</span>
             <p style={fotosTextStyle}>
-              O banco de fotos da marca será disponibilizado aqui. Adicione as
-              imagens aprovadas em{" "}
-              <code style={fotosCodeStyle}>/public/assets/fotos/</code>. Use
-              apenas fotografias aprovadas pela marca: não utilize stock photos
-              genéricas.
+              Insira as imagens aprovadas em{" "}
+              <code style={fotosCodeStyle}>/public/assets/fotos/</code> e elas
+              aparecem aqui. Use apenas fotografia aprovada pela marca, nunca
+              stock genérico.
             </p>
           </div>
-        </div>
+        </Topic>
+      </Panel>
 
-        <div style={sectionWrapStyle}>
-          <SectionAnchor id="apresentacoes" />
-          <SectionHeader
-            level={2}
-            eyebrow="Decks"
-            title="Decks Oficiais"
-            description="Materiais institucionais prontos para uso com clientes e parceiros."
-          />
-          <div style={{ ...gridStyle, ...cardsWrapStyle }}>
+      <Panel
+        id="apresentacoes"
+        index="05 / 05"
+        title="Decks oficiais"
+        band="light"
+        lead="Materiais institucionais prontos para cliente e parceiro, já no tom e no visual da marca."
+      >
+        <Topic wide title="Download" lead="Use como estão. Se precisar adaptar, mantenha capa, tipografia e proporção de cor.">
+          <div style={gridStyle}>
             <DownloadCard
-              name="Deck Institucional"
+              name="Deck institucional"
               description="Apresentação oficial da Inovaxio para clientes"
-              format="PPTX"              href="/assets/deck-institucional.pptx"
+              format="PPTX"
+              href="/assets/deck-institucional.pptx"
             />
             <DownloadCard
-              name="One-Pager"
+              name="One-pager"
               description="Resumo de uma página da proposta de valor"
-              format="PDF"              href="/assets/one-pager.pdf"
+              format="PDF"
+              href="/assets/one-pager.pdf"
             />
           </div>
-        </div>
+        </Topic>
+      </Panel>
 
-      </div>
       <ChapterNext current="recursos" />
     </>
   );
