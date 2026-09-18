@@ -93,6 +93,13 @@ body {
 }
 
 .topbar__brand {
+  /* blockificado pelo flex do pai, media 145x21 e ficava abaixo do minimo
+     de 24px do WCAG 2.5.8. O padding leva a area de toque a 24px sem
+     mexer no desenho. */
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+  padding-block: 2px;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--text-xs);

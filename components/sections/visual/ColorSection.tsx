@@ -196,7 +196,10 @@ function ContrastCard({ fg, bg, fgLabel, bgLabel }: { fg: string; bg: string; fg
             height: 22,
             borderRadius: "var(--radius-full)",
             background: statusColor,
-            color: bg,
+            // Branco fixo, não a cor do exemplo: o selo é chrome, e a
+            // legibilidade dele não pode depender das cores que ele julga.
+            // Medido: 4,99:1 no verde e 6,96:1 no vermelho.
+            color: "#ffffff",
             alignItems: "center",
             justifyContent: "center",
             fontSize: 13,

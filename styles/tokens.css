@@ -46,7 +46,10 @@
 
   --color-text:       #0a0a0c;
   --color-text-muted: #51535c;
-  --color-text-faint: #6b6d78;
+  /* #666A75, não #6B6D78: sobre --color-surface-2 (#ECEDF4) o antigo
+     dava 4,40:1, abaixo do mínimo. Agora 4,63:1 ali, 4,93 no #F4F4F7 e
+     5,41 no branco. */
+  --color-text-faint: #666a75;
 
   --color-success: hsl(var(--c-success));
   --color-warning: hsl(var(--c-warning));
