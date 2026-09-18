@@ -213,6 +213,13 @@ body {
   gap: var(--space-6);
 }
 
+/* No modo wide o cabeçalho fica ACIMA do conteúdo, não ao lado. Grudar ali
+   faz o conteúdo subir por baixo dele: medido, 116px de sobreposição. O
+   sticky só faz sentido nas duas colunas. */
+.topic--wide .topic__head {
+  position: static;
+}
+
 .topic__head {
   position: sticky;
   top: var(--sticky-top);

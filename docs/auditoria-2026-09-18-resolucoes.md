@@ -109,6 +109,53 @@ símbolo, o rótulo textual e a razão numérica).
 
 ---
 
+## Defeito que esta auditoria NÃO pegou
+
+**Encontrado pelo Victor depois de eu declarar a varredura limpa.** Registrado
+aqui porque a falha de método importa mais que o bug.
+
+### Cabeçalho de tópico sobrepondo o conteúdo
+
+**Onde:** todo `Topic` no modo `wide`, em todas as rotas. Visível em
+`/visual#grid` ("Grid de colunas") e `/visual#fotografia` ("Faça e não faça").
+**Arquivo:** `app/globals.css`, `.topic__head`.
+
+O `.topic__head` é `position: sticky`. No modo de duas colunas ele fica ao lado
+do conteúdo e grudar é o comportamento desejado. No modo `wide` ele fica
+**acima** do conteúdo, então ao grudar o conteúdo sobe por baixo dele.
+
+Progressão medida, rolando pelo painel Grid:
+
+| Scroll | Sobreposição |
+|---|---|
+| repouso | 0px |
+| +240px | 24px |
+| +360px | 116px |
+| +720px | 116px |
+
+Corrigido com `.topic--wide .topic__head { position: static; }`.
+
+### Por que a varredura de 63 combinações não pegou
+
+Duas lacunas, ambas minhas:
+
+1. **Sobreposição não estava na lista de checagens.** Eu media overflow,
+   conteúdo clipado, contraste e alvo de toque. Elemento por cima de elemento
+   nunca foi verificado, então "63 de 63 limpas" não dizia nada sobre isso.
+
+2. **Tudo era medido com a página parada.** Este defeito só existe *durante* o
+   scroll, porque depende do `sticky` ter saído da posição de repouso. Mesmo
+   que a checagem existisse, medir só no topo da página não teria pego.
+
+A varredura passou a rolar a página inteira em passos de 200px e a comparar o
+retângulo do cabeçalho com o do conteúdo em cada passo, em `.topic` e em
+`.panel`.
+
+**Lição para a próxima auditoria:** layout com `position: sticky` só pode ser
+auditado em movimento. Uma medição estática prova o repouso e mais nada.
+
+---
+
 ## Falsos positivos que vale documentar
 
 Dois achados da primeira passagem não eram defeitos, e ambos vieram de limitação
