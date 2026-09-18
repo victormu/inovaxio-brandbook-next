@@ -7,6 +7,7 @@ import {
   type ElementType,
   type ReactNode,
 } from "react";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 interface RevealProps {
   children: ReactNode;
@@ -35,17 +36,20 @@ export function Reveal({
 }: RevealProps) {
   const Tag = (as ?? "div") as ElementType;
   const [node, setNode] = useState<HTMLElement | null>(null);
-  const [revealed, setRevealed] = useState(false);
+  const [visto, setVisto] = useState(false);
+  const reduzido = usePrefersReducedMotion();
+
+  // Com movimento reduzido nada precisa aparecer aos poucos: já nasce visível.
+  // Derivar em vez de escrever no efeito é o que tira o set-state-in-effect.
+  const revealed = reduzido || visto;
 
   useEffect(() => {
-    if (!node) return;
+    if (!node || reduzido) return;
 
-    const prefersReduced =
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-
-    if (prefersReduced || typeof IntersectionObserver === "undefined") {
-      setRevealed(true);
+    if (typeof IntersectionObserver === "undefined") {
+      // Ambiente sem a API: mostrar é melhor que esconder para sempre.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setVisto(true);
       return;
     }
 
@@ -53,7 +57,7 @@ export function Reveal({
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            setRevealed(true);
+            setVisto(true);
             observer.disconnect();
           }
         }
@@ -63,7 +67,7 @@ export function Reveal({
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [node]);
+  }, [node, reduzido]);
 
   return (
     <Tag

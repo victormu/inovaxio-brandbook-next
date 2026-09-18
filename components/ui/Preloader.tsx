@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -12,18 +13,17 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  */
 export function Preloader() {
   const [loading, setLoading] = useState(true);
-  // Precisa virar estado, não variável local: o @media do CSS só neutraliza
-  // transition e animation, e o Framer escreve transform inline por rAF.
-  // Sem isto a tela desliza ~900px mesmo com movimento reduzido ligado.
-  const [reduzido, setReduzido] = useState(false);
+  // O @media do CSS só neutraliza transition e animation, e o Framer escreve
+  // transform inline por rAF. Sem ler a preferência aqui, a tela desliza
+  // ~900px mesmo com movimento reduzido ligado.
+  const reduzido = usePrefersReducedMotion();
 
   useEffect(() => {
-    const reduce =
-      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
-    setReduzido(reduce);
-
-    // Já rodou nesta sessão: não mostra de novo.
+    // Já rodou nesta sessão: não mostra de novo. sessionStorage não existe
+    // no servidor, então só dá para ler depois da montagem, e useSyncExternal
+    // Store não ajuda: este valor não muda durante a vida da página.
     if (sessionStorage.getItem("inovaxio-preloaded")) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false);
       return;
     }
@@ -39,7 +39,7 @@ export function Preloader() {
         sessionStorage.setItem("inovaxio-preloaded", "1");
         setLoading(false);
       },
-      reduce ? 300 : 1600,
+      reduzido ? 300 : 1600,
     );
 
     return () => {
@@ -47,7 +47,7 @@ export function Preloader() {
       document.body.style.overflow = "";
       main?.removeAttribute("inert");
     };
-  }, []);
+  }, [reduzido]);
 
   return (
     <MotionConfig reducedMotion="user">
