@@ -18,8 +18,14 @@ const SELETOR = ".panel, .cover, .chapter-cover, .chapter-next, .index-panel";
  * Nenhum handler de scroll: o browser só avisa quando a seção sob a faixa
  * muda. O observer é remontado no resize, porque a margem depende da altura.
  */
-export function useBandAtTop(topbarHeight = 56): BandName {
-  const [band, setBand] = useState<BandName>("light");
+export function useBandAtTop(
+  inicial: BandName,
+  topbarHeight = 56,
+): BandName {
+  // O valor inicial vem de fora porque ele é renderizado no SERVIDOR, onde
+  // não existe DOM para medir. Sem isso a barra nasce clara e o JS corrige
+  // depois: a primeira pintura fica com texto escuro sobre a capa escura.
+  const [band, setBand] = useState<BandName>(inicial);
 
   useLayoutEffect(() => {
     const ler = () => {
@@ -72,7 +78,7 @@ export function useBandAtTop(topbarHeight = 56): BandName {
       observer?.disconnect();
       window.removeEventListener("resize", onResize);
     };
-  }, [topbarHeight]);
+  }, [topbarHeight, inicial]);
 
   return band;
 }

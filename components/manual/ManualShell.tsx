@@ -36,7 +36,13 @@ export function ManualShell({ children }: { children: React.ReactNode }) {
 
   // A topbar é transparente: herda a paleta da banda que está sob ela, para
   // o texto inverter sozinho quando o fundo troca de claro para escuro.
-  const band = useBandAtTop();
+  //
+  // O valor inicial é "navy" porque TODA rota abre numa banda escura: a home
+  // numa capa preta, os capítulos numa capa navy. Isso faz o servidor já
+  // mandar a barra certa. Antes ela nascia clara e só o observer corrigia,
+  // então a primeira pintura tinha texto escuro sobre a capa escura.
+  // Se algum dia uma rota abrir clara, este valor precisa vir da página.
+  const band = useBandAtTop("navy");
   const topbarClass = isBandEscura(band) ? "topbar ctx-dark" : "topbar";
 
   return (
