@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test \"**/*.test.ts\""
+    "test": "node --test \"**/*.test.ts\" && node scripts/check-colors.mts"
   },
   "dependencies": {
     "framer-motion": "^12.42.2",
