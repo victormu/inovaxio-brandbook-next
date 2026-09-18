@@ -1,4 +1,5 @@
 import { Panel } from "@/components/manual/Panel";
+import { Topic } from "@/components/manual/Topic";
 
 const FORMATS = [
   { name: "Documento A4", size: "210 x 297 mm", margin: "20 mm", cols: "12 colunas" },
@@ -78,45 +79,27 @@ export function GridSection() {
       band="light"
       lead="Um grid organiza qualquer peça da marca: documento, post, apresentação. Margem generosa, alinhamento às colunas e ritmo constante no espaçamento."
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-10)" }}>
-        <div>
-          <p
-            className="label"
-            style={{ fontFamily: "var(--font-body)", marginBottom: "var(--space-4)" }}
-          >
-            Grid de colunas
-          </p>
-          <ColumnDiagram />
-          <p
+      <Topic
+        wide
+        title="Grid de colunas"
+        lead="A base é um grid de 12 colunas com medianiz constante. Peças menores agrupam colunas (6, 4 ou 3) mantendo o mesmo alinhamento. Todo texto, imagem e logo se apoia nas colunas, nunca solto no espaço."
+      >
+        <ColumnDiagram />
+      </Topic>
+
+      <Topic
+        wide
+        title="Formatos e margens"
+        lead="A margem cresce com o formato. Em dúvida, aumente: o branco é parte da marca."
+      >
+        <div style={{ overflowX: "auto" }}>
+          <table
             style={{
+              width: "100%",
+              borderCollapse: "collapse",
               fontSize: "var(--text-sm)",
-              color: "var(--color-text-muted)",
-              lineHeight: "var(--leading-relaxed)",
-              marginTop: "var(--space-3)",
-              maxWidth: "62ch",
             }}
           >
-            A base é um grid de 12 colunas com medianiz constante. Peças menores
-            agrupam colunas (6, 4 ou 3) mantendo o mesmo alinhamento. Todo texto,
-            imagem e logo se apoia nas colunas, nunca solto no espaço.
-          </p>
-        </div>
-
-        <div>
-          <p
-            className="label"
-            style={{ fontFamily: "var(--font-body)", marginBottom: "var(--space-4)" }}
-          >
-            Formatos e margens
-          </p>
-          <div style={{ overflowX: "auto" }}>
-            <table
-              style={{
-                width: "100%",
-                borderCollapse: "collapse",
-                fontSize: "var(--text-sm)",
-              }}
-            >
               <thead>
                 <tr>
                   {["Formato", "Dimensão", "Margem", "Colunas"].map((h) => (
@@ -178,36 +161,53 @@ export function GridSection() {
                 ))}
               </tbody>
             </table>
-          </div>
+          
         </div>
+      </Topic>
 
-        <div>
-          <p
-            className="label"
-            style={{ fontFamily: "var(--font-body)", marginBottom: "var(--space-4)" }}
-          >
-            Ritmo de espaçamento
-          </p>
-          <p
-            style={{
-              fontSize: "var(--text-base)",
-              color: "var(--color-text-muted)",
-              lineHeight: "var(--leading-relaxed)",
-              maxWidth: "62ch",
-            }}
-          >
-            Todo espaçamento é múltiplo de 8: 8, 16, 24, 32, 48, 64. Isso mantém
-            o ritmo vertical consistente entre um documento, um slide e um post.
-          </p>
+      <Topic
+        title="Ritmo de espaçamento"
+        lead="A escala é de 4pt e sobe em degraus previsíveis: 4, 8, 12, 16, 24, 32, 40, 48, 64, 96. O passo dominante é 8; o 4 e o 12 existem para colar rótulo em objeto. Isso mantém o ritmo vertical consistente entre um documento, um slide e um post."
+      >
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "var(--space-2)",
+            alignItems: "flex-end",
+          }}
+        >
+          {[4, 8, 12, 16, 24, 32, 40, 48, 64, 96].map((v) => (
+            <div key={v} style={{ textAlign: "center" }}>
+              <div
+                style={{
+                  width: 28,
+                  height: v,
+                  background: "var(--color-primary)",
+                  borderRadius: "var(--radius-sm)",
+                  opacity: 0.85,
+                }}
+              />
+              <span
+                style={{
+                  display: "block",
+                  marginTop: "var(--space-2)",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "var(--text-caption)",
+                  color: "var(--color-text-faint)",
+                }}
+              >
+                {v}
+              </span>
+            </div>
+          ))}
         </div>
+      </Topic>
 
-        <div>
-          <p
-            className="label"
-            style={{ fontFamily: "var(--font-body)", marginBottom: "var(--space-4)" }}
-          >
-            Regras
-          </p>
+      <Topic
+        title="Regras"
+        lead="Quatro decisões que resolvem a maioria dos casos de layout."
+      >
           <ul
             style={{
               listStyle: "none",
@@ -245,8 +245,8 @@ export function GridSection() {
               </li>
             ))}
           </ul>
-        </div>
-      </div>
+      </Topic>
+
     </Panel>
   );
 }
