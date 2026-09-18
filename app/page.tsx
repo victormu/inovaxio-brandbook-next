@@ -46,7 +46,7 @@ export default function Home() {
           <div className="cover__rule" />
           <div className="cover__foot">
             <span>Tudo o que a marca diz, mostra e recusa</span>
-            <span>05 capítulos</span>
+            <span>{String(NAV_SECTIONS.length).padStart(2, "0")} capítulos</span>
           </div>
         </div>
       </section>
@@ -59,7 +59,7 @@ export default function Home() {
               Sumário
             </h2>
             <p className="panel__lead">
-              Cinco capítulos. Comece por onde a dúvida está.
+              Comece por onde a dúvida está.
             </p>
             <div style={{ marginTop: "var(--space-8)", maxWidth: 420 }}>
               <SearchBar onSearch={handleSearch} />

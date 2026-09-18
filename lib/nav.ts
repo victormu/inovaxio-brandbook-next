@@ -8,9 +8,20 @@ export interface NavSection {
   label: string;
   href: string;
   subitems: NavSubItem[];
+  /**
+   * Fora do ar: some da navegação, do sumário da home e da corrente de
+   * capítulos. A rota continua existindo e funcionando por URL direta.
+   * Para religar, apague esta linha da seção.
+   */
+  oculta?: boolean;
 }
 
-export const NAV_SECTIONS: NavSection[] = [
+/**
+ * A lista completa, incluindo o que está oculto. Não exporte: quem consome
+ * quer só o que está no ar, e centralizar o filtro aqui significa que
+ * religar um capítulo é apagar uma linha, sem tocar em componente.
+ */
+const TODAS: NavSection[] = [
   {
     id: "fundamentos",
     label: "01 Fundamentos",
@@ -67,6 +78,9 @@ export const NAV_SECTIONS: NavSection[] = [
     id: "recursos",
     label: "05 Recursos",
     href: "/recursos",
+    // Oculto a pedido do Victor: os downloads dependem de arquivos que
+    // ainda não existem, e 7 dos 10 cards mostram "Em breve".
+    oculta: true,
     subitems: [
       { label: "Logo", href: "/recursos#logo" },
       { label: "Paleta", href: "/recursos#paleta" },
@@ -76,3 +90,7 @@ export const NAV_SECTIONS: NavSection[] = [
     ],
   },
 ];
+
+/** Os capítulos que estão no ar. É isto que a navegação, o sumário e a
+    corrente de capítulos enxergam. */
+export const NAV_SECTIONS: NavSection[] = TODAS.filter((s) => !s.oculta);
