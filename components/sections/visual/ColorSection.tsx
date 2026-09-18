@@ -21,21 +21,23 @@ const STATUS_COLORS = [
   { name: "error", hex: "#E53333", cssVar: "--color-error", label: "Erro" },
 ];
 
+// Índigo #6366FF e Roxo #CC66E5 saíram daqui: não existem em tokens.css
+// nem em nenhuma folha de estilo do site. Eram cores que só existiam
+// porque o manual as tinha desenhado, e a marca não tem segunda cor.
 const FAMILIES: { label: string; base: string }[] = [
   { label: "Azul · primário", base: "#2E2EFE" },
   { label: "Acento", base: "#3245FD" },
-  { label: "Índigo", base: "#6366FF" },
-  { label: "Ciano", base: "#00C9D5" },
-  { label: "Roxo", base: "#CC66E5" },
-  { label: "Sucesso", base: "#26CC66" },
-  { label: "Atenção", base: "#E5B21A" },
-  { label: "Erro", base: "#E53333" },
+  { label: "Ciano · só gradiente", base: "#00C9D5" },
+  { label: "Sucesso", base: "#198044" },
+  { label: "Atenção", base: "#916308" },
+  { label: "Erro", base: "#AF1D1D" },
 ];
 
 const USAGE_PROPORTION = [
-  { label: "Preto (fundo)", value: 70, bg: "#000000" },
-  { label: "Superfície", value: 18, bg: "#1C1819" },
-  { label: "Acento", value: 12, gradient: true },
+  { label: "Branco (fundo)", value: 68, bg: "#FFFFFF" },
+  { label: "Superfície", value: 20, bg: "#F4F4F7" },
+  { label: "Escuro (pontuação)", value: 8, bg: "#000000" },
+  { label: "Acento", value: 4, gradient: true },
 ];
 
 const COLOR_SPEC = [
@@ -100,8 +102,11 @@ const NEUTRAL_RAMP = [
   { weight: "400", hex: "#7E828C" },
   { weight: "600", hex: "#4B4E56" },
   { weight: "800", hex: "#26282D" },
-  { weight: "900", hex: "#1C1819" },
-  { weight: "950", hex: "#0F0F0F" },
+  // 900 e 950 são as superfícies reais da banda escura (--color-surface-2
+  // e --color-surface). O #1C1819 que estava aqui era quente e vinha da
+  // paleta antiga, destoando do resto da rampa.
+  { weight: "900", hex: "#17171D" },
+  { weight: "950", hex: "#101014" },
   { weight: "1000", hex: "#000000" },
 ];
 
@@ -368,7 +373,7 @@ export function ColorSection() {
       index="02 / 06"
       title="Cor"
       band="light"
-      lead="A paleta expressa energia e movimento. O azul no núcleo, o preto como base e o ciano como faísca. Clique nos tokens para copiar: os valores CSS são a fonte única de verdade."
+      lead="A paleta expressa energia e movimento. O azul é o acento, o branco é a base e o escuro é pontuação. O ciano existe só dentro do gradiente da marca. Clique nos tokens para copiar: os valores CSS são a fonte única de verdade."
     >
 
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
@@ -402,7 +407,7 @@ export function ColorSection() {
         <Block title="Tokens" lead="Os valores que você usa no dia a dia. Clique para copiar o token CSS.">
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
             <div>
-              <h4 className="label" style={{ marginBottom: "var(--space-3)", fontFamily: "var(--font-body)" }}>Base e marca</h4>
+              <h4 className="label" style={{ marginBottom: "var(--space-3)" }}>Base e marca</h4>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-3)" }}>
                 {PRIMARY_COLORS.map((c) => (
                   <TokenChip key={c.name} name={c.name} hex={c.hex} cssVar={c.cssVar} label={c.label} />
@@ -410,7 +415,7 @@ export function ColorSection() {
               </div>
             </div>
             <div>
-              <h4 className="label" style={{ marginBottom: "var(--space-3)", fontFamily: "var(--font-body)" }}>Status</h4>
+              <h4 className="label" style={{ marginBottom: "var(--space-3)" }}>Status</h4>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-3)" }}>
                 {STATUS_COLORS.map((c) => (
                   <TokenChip key={c.name} name={c.name} hex={c.hex} cssVar={c.cssVar} label={c.label} />
@@ -438,7 +443,7 @@ export function ColorSection() {
         </Block>
 
         {/* 5 · Proporção de uso */}
-        <Block title="Proporção de uso" lead="O preto domina. O acento azul-ciano aparece em pontos e detalhes, nunca como fundo de peça inteira.">
+        <Block title="Proporção de uso" lead="O branco domina. O escuro entra como pontuação (capa, abertura de capítulo, um respiro por capítulo) e o acento azul aparece em pontos e detalhes, nunca como fundo de peça inteira.">
           <div style={{ display: "flex", height: 44, borderRadius: "var(--radius-md)", overflow: "hidden", border: "1px solid var(--color-border)" }}>
             {USAGE_PROPORTION.map((seg) => (
               <div key={seg.label} style={{ width: `${seg.value}%`, background: seg.gradient ? "var(--gradient-brand-h)" : seg.bg }} />
@@ -521,7 +526,7 @@ export function ColorSection() {
         <Block title="Combinações a evitar" lead="Azuis vizinhos e cores de status próximas brigam entre si. Separe com neutro ou preto no meio.">
           <div className="stack-mobile" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--space-4)" }}>
             <BadCombo a="#2E2EFE" b="#3245FD" caption="Primário e acento: quase idênticos, sem hierarquia." />
-            <BadCombo a="#2E2EFE" b="#6366FF" caption="Primário e índigo: vibram e cansam a vista." />
+            <BadCombo a="#2E2EFE" b="#3245FD" caption="Primário e acento lado a lado: quase iguais, vibram e cansam a vista." />
             <BadCombo a="#26CC66" b="#00C9D5" caption="Sucesso e ciano: confundem o significado." />
           </div>
         </Block>
@@ -529,23 +534,23 @@ export function ColorSection() {
         {/* 9 · Acessibilidade */}
         <Block
           title="Acessibilidade"
-          lead="Todo texto precisa passar em contraste (mínimo 4.5:1 para corpo). O azul primário não serve como texto sobre preto: use o token de texto azul claro. Nunca dependa só da cor para transmitir significado."
+          lead="Todo texto precisa passar em contraste (mínimo 4.5:1 para corpo). Os cinco primeiros pares abaixo são os que o sistema realmente produz. O último é o contra-exemplo: o azul primário não serve como texto sobre escuro, e é por isso que as bandas escuras trocam para o azul claro. Nunca dependa só da cor para transmitir significado."
         >
           <div className="stack-mobile" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--space-4)" }}>
-            <ContrastCard fg="#FFFFFF" bg="#2E2EFE" fgLabel="Branco" bgLabel="Primário" />
-            <ContrastCard fg="#000000" bg="#00C9D5" fgLabel="Preto" bgLabel="Ciano" />
-            <ContrastCard fg="#00C9D5" bg="#000000" fgLabel="Ciano" bgLabel="Preto" />
+            <ContrastCard fg="#0A0A0C" bg="#FFFFFF" fgLabel="Texto" bgLabel="Branco" />
+            <ContrastCard fg="#51535C" bg="#F4F4F7" fgLabel="Texto suave" bgLabel="Superfície" />
+            <ContrastCard fg="#2E2EFE" bg="#FFFFFF" fgLabel="Primário" bgLabel="Branco" />
+            <ContrastCard fg="#FFFFFF" bg="#000000" fgLabel="Branco" bgLabel="Preto" />
+            <ContrastCard fg="#9DA8FF" bg="#080830" fgLabel="Azul claro" bgLabel="Navy" />
             <ContrastCard fg="#2E2EFE" bg="#000000" fgLabel="Primário" bgLabel="Preto" />
-            <ContrastCard fg="#FFFFFF" bg="#E5B21A" fgLabel="Branco" bgLabel="Atenção" />
-            <ContrastCard fg="#6366FF" bg="#1C1819" fgLabel="Índigo" bgLabel="Superfície" />
           </div>
         </Block>
 
         {/* 10 · Cor em uso */}
-        <Block title="Cor em uso" lead="Fundo escuro é o padrão. O fundo claro é exceção, para peças que precisam viver em contextos claros.">
+        <Block title="Cor em uso" lead="Fundo claro é o padrão do manual. O fundo escuro é deliberado: capa, abertura de capítulo e um respiro por capítulo. Nunca por acaso.">
           <div className="stack-mobile" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
-            <BackgroundSample bg="#000000" ink="#ffffff" caption="Padrão. Logo e texto em branco." />
-            <BackgroundSample bg="#ffffff" ink="#000000" caption="Exceção. Logo e texto em preto ou azul." />
+            <BackgroundSample bg="#ffffff" ink="#000000" caption="Padrão. Logo e texto em preto ou azul." />
+            <BackgroundSample bg="#000000" ink="#ffffff" caption="Pontuação. Logo e texto em branco." />
           </div>
         </Block>
       </div>
