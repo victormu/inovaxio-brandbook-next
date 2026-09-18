@@ -150,7 +150,7 @@ function PrincipioCard({
         style={{
           fontFamily: "var(--font-display)",
           fontSize: "var(--text-xs)",
-          color: "var(--color-primary)",
+          color: "var(--color-primary-text)",
           letterSpacing: "0.08em",
           textTransform: "uppercase" as const,
           fontWeight: 700,
@@ -199,11 +199,11 @@ function LinguagemPill({
         display: "inline-block",
         fontFamily: "var(--font-body)",
         fontSize: "var(--text-sm)",
-        color: isEvitar ? "hsl(0 60% 65%)" : "hsl(140 50% 60%)",
+        color: isEvitar ? "var(--color-error)" : "var(--color-success)",
         backgroundColor: isEvitar
-          ? "hsl(0 60% 65% / 0.08)"
-          : "hsl(140 50% 60% / 0.08)",
-        border: `1px solid ${isEvitar ? "hsl(0 60% 65% / 0.2)" : "hsl(140 50% 60% / 0.2)"}`,
+          ? "color-mix(in srgb, var(--color-error) 8%, transparent)"
+          : "color-mix(in srgb, var(--color-success) 8%, transparent)",
+        border: `1px solid ${isEvitar ? "color-mix(in srgb, var(--color-error) 20%, transparent)" : "color-mix(in srgb, var(--color-success) 20%, transparent)"}`,
         borderRadius: "var(--radius-md)",
         padding: "var(--space-3) var(--space-4)",
         lineHeight: "var(--leading-snug)",
@@ -247,8 +247,8 @@ export default function VerbalPage() {
       >
         <div
           style={{
-            backgroundColor: "hsl(0 60% 55% / 0.05)",
-            border: "1px solid hsl(0 60% 55% / 0.18)",
+            backgroundColor: "color-mix(in srgb, var(--color-error) 5%, transparent)",
+            border: "1px solid color-mix(in srgb, var(--color-error) 18%, transparent)",
             borderRadius: "var(--radius-lg)",
             padding: "var(--space-8)",
             display: "flex",
@@ -266,7 +266,7 @@ export default function VerbalPage() {
               fontWeight: 600,
               letterSpacing: "var(--tracking-widest)",
               textTransform: "uppercase",
-              color: "hsl(0 60% 68%)",
+              color: "var(--color-error)",
             }}
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -333,7 +333,7 @@ export default function VerbalPage() {
               style={{
                 fontFamily: "var(--font-body)",
                 fontSize: "var(--text-xs)",
-                color: "hsl(0 60% 65%)",
+                color: "var(--color-error)",
                 textTransform: "uppercase" as const,
                 letterSpacing: "0.08em",
                 fontWeight: 600,
@@ -361,7 +361,7 @@ export default function VerbalPage() {
               style={{
                 fontFamily: "var(--font-body)",
                 fontSize: "var(--text-xs)",
-                color: "hsl(140 50% 60%)",
+                color: "var(--color-success)",
                 textTransform: "uppercase" as const,
                 letterSpacing: "0.08em",
                 fontWeight: 600,
@@ -465,7 +465,7 @@ export default function VerbalPage() {
             gap: "var(--space-2)",
             fontFamily: "var(--font-body)",
             fontSize: "var(--text-sm)",
-            color: "var(--color-primary)",
+            color: "var(--color-primary-text)",
             textDecoration: "none",
             fontWeight: 600,
           }}

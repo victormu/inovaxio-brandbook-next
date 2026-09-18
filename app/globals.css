@@ -715,7 +715,7 @@ p {
   border-radius: var(--radius-full);
 }
 
-.nav-subitem[aria-current="page"] {
+.nav-subitem[aria-current] {
   background: rgb(46 46 254 / 0.16);
 }
 

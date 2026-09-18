@@ -41,7 +41,7 @@ const fotosLabelStyle: CSSProperties = {
   fontWeight: 600,
   letterSpacing: "0.08em",
   textTransform: "uppercase" as const,
-  color: "var(--color-primary)",
+  color: "var(--color-primary-text)",
 };
 
 const fotosTextStyle: CSSProperties = {

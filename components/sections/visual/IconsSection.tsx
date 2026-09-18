@@ -153,7 +153,7 @@ export function IconsSection() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "var(--color-primary)",
+                    color: "var(--color-primary-text)",
                   }}
                 >
                   <Icon icon={icon} size={48} />
@@ -190,7 +190,7 @@ export function IconsSection() {
             <span className="label" style={{ fontFamily: "var(--font-body)" }}>
               Em 16px
             </span>
-            <div style={{ display: "flex", gap: "var(--space-4)", color: "var(--color-primary)" }}>
+            <div style={{ display: "flex", gap: "var(--space-4)", color: "var(--color-primary-text)" }}>
               {ICONS.map((icon) => (
                 <Icon key={icon.name} icon={icon} size={16} />
               ))}

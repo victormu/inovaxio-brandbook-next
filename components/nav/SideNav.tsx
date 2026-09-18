@@ -2,31 +2,75 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NAV_SECTIONS, type NavSection } from "@/lib/nav";
 
 interface SideNavProps {
   open: boolean;
   onClose: () => void;
+  /** id da âncora sendo lida agora, vindo do useActiveSection do shell. */
+  activeAnchor?: string | null;
 }
 
 /**
  * Navegação em overlay, em qualquer largura. O conteúdo desmonta ao fechar:
  * é isso que faz cada grupo reabrir já na seção corrente quando você volta.
  */
-export function SideNav({ open, onClose }: SideNavProps) {
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+export function SideNav({ open, onClose, activeAnchor }: SideNavProps) {
   const pathname = usePathname();
+  const navRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
+
+    // Quem tinha o foco antes de abrir, para devolver no fim.
+    const opener = document.activeElement as HTMLElement | null;
+    const main = document.getElementById("main-content");
+    const topbar = document.querySelector<HTMLElement>(".topbar");
+
+    // O overlay é modal: o que está atrás sai do alcance do teclado e do
+    // leitor de tela. Sem isto, Tab passeia pelo conteúdo de fundo com a
+    // rolagem travada.
+    main?.setAttribute("inert", "");
+    topbar?.setAttribute("inert", "");
     document.body.style.overflow = "hidden";
+
+    // O foco entra no overlay, senão o primeiro Tab cai atrás dele.
+    const first = navRef.current?.querySelector<HTMLElement>(FOCUSABLE);
+    first?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const items = [...(navRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE) ?? [])];
+      if (items.length === 0) return;
+      const firstItem = items[0];
+      const lastItem = items[items.length - 1];
+
+      // Ciclo: o Tab nunca sai do overlay enquanto ele estiver aberto.
+      if (e.shiftKey && document.activeElement === firstItem) {
+        e.preventDefault();
+        lastItem.focus();
+      } else if (!e.shiftKey && document.activeElement === lastItem) {
+        e.preventDefault();
+        firstItem.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKey);
     return () => {
       document.removeEventListener("keydown", onKey);
+      main?.removeAttribute("inert");
+      topbar?.removeAttribute("inert");
       document.body.style.overflow = "";
+      opener?.focus?.();
     };
   }, [open, onClose]);
 
@@ -36,7 +80,14 @@ export function SideNav({ open, onClose }: SideNavProps) {
     <>
       <div className="sidenav-backdrop" onClick={onClose} aria-hidden="true" />
 
-      <nav id="site-nav" className="sidenav ctx-dark" aria-label="Navegação principal">
+      <nav
+        id="site-nav"
+        ref={navRef}
+        className="sidenav ctx-dark"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navegação principal"
+      >
         <button
           type="button"
           className="drawer-close"
@@ -84,6 +135,7 @@ export function SideNav({ open, onClose }: SideNavProps) {
             key={section.id}
             section={section}
             isActive={pathname.startsWith(section.href)}
+            activeAnchor={activeAnchor}
             onNavigate={onClose}
           />
         ))}
@@ -95,10 +147,11 @@ export function SideNav({ open, onClose }: SideNavProps) {
 interface NavGroupProps {
   section: NavSection;
   isActive: boolean;
+  activeAnchor?: string | null;
   onNavigate: () => void;
 }
 
-function NavGroup({ section, isActive, onNavigate }: NavGroupProps) {
+function NavGroup({ section, isActive, activeAnchor, onNavigate }: NavGroupProps) {
   const [open, setOpen] = useState(isActive);
   const pathname = usePathname();
   const subMenuId = `nav-sub-${section.id}`;
@@ -140,22 +193,29 @@ function NavGroup({ section, isActive, onNavigate }: NavGroupProps) {
           }}
         >
           {section.subitems.map((item) => {
-            // item.href pode ser "/visual#logo" ou "/visual/aplicacoes". Compara
-            // só a parte de rota; a âncora exata é trabalho do trilho.
-            const isCurrentPage = pathname === item.href.split("#")[0];
+            // Comparar só a rota marcava TODOS os subitens do capítulo de uma
+            // vez, e "página atual" repetido cinco vezes não significa nada.
+            // Com âncora, quem manda é a seção que está sendo lida.
+            const [route, anchor] = item.href.split("#");
+            const isCurrentRoute = pathname === route;
+            const isCurrent = anchor
+              ? isCurrentRoute && anchor === activeAnchor
+              : isCurrentRoute;
             return (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   onClick={onNavigate}
-                  aria-current={isCurrentPage ? "page" : undefined}
+                  aria-current={
+                    isCurrent ? (anchor ? "location" : "page") : undefined
+                  }
                   className="nav-subitem"
                   style={{
                     display: "block",
                     padding: "6px 14px",
                     fontFamily: "var(--font-display)",
                     fontSize: "var(--text-xs)",
-                    color: isCurrentPage
+                    color: isCurrent
                       ? "var(--color-primary-text)"
                       : "var(--color-text-faint)",
                     textDecoration: "none",

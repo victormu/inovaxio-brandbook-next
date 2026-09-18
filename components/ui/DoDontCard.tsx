@@ -10,9 +10,11 @@ interface DoDontCardProps {
 const CONFIG = {
   do: {
     label: "Faça",
-    color: "hsl(140 50% 60%)",
-    tint: "hsl(140 50% 60% / 0.06)",
-    border: "hsl(140 50% 60% / 0.22)",
+    // Os tokens trocam sozinhos por banda; o hsl literal que estava aqui
+    // dava 1,81:1 sobre fundo claro, que é praticamente invisível.
+    color: "var(--color-success)",
+    tint: "color-mix(in srgb, var(--color-success) 6%, transparent)",
+    border: "color-mix(in srgb, var(--color-success) 24%, transparent)",
     icon: (
       <svg width="12" height="10" viewBox="0 0 12 10" fill="none" aria-hidden="true">
         <path
@@ -27,9 +29,9 @@ const CONFIG = {
   },
   dont: {
     label: "Não faça",
-    color: "hsl(0 60% 66%)",
-    tint: "hsl(0 60% 60% / 0.06)",
-    border: "hsl(0 60% 60% / 0.22)",
+    color: "var(--color-error)",
+    tint: "color-mix(in srgb, var(--color-error) 6%, transparent)",
+    border: "color-mix(in srgb, var(--color-error) 24%, transparent)",
     icon: (
       <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
         <path

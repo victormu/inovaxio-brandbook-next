@@ -444,7 +444,7 @@ export function TypographySection() {
                   style={{
                     flexShrink: 0,
                     marginTop: 2,
-                    color: rule.ok ? "hsl(140 50% 60%)" : "hsl(0 60% 66%)",
+                    color: rule.ok ? "var(--color-success)" : "var(--color-error)",
                     fontWeight: 700,
                   }}
                 >

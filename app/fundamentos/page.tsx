@@ -35,7 +35,7 @@ function PillarItem({ number, text }: PillarItemProps) {
           fontFamily: "var(--font-display)",
           fontWeight: 700,
           fontSize: "var(--text-sm)",
-          color: "var(--color-primary)",
+          color: "var(--color-primary-text)",
         }}
       >
         {number}
@@ -75,7 +75,7 @@ function DimensionCard({ tag, title, description }: DimensionCardProps) {
       <div
         className="label"
         style={{
-          color: "var(--color-primary)",
+          color: "var(--color-primary-text)",
           letterSpacing: "var(--tracking-widest)",
           textTransform: "uppercase",
         }}

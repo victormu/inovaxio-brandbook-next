@@ -62,7 +62,11 @@ export function ManualShell({ children }: { children: React.ReactNode }) {
         </span>
       </header>
 
-      <SideNav open={navOpen} onClose={() => setNavOpen(false)} />
+      <SideNav
+        open={navOpen}
+        onClose={() => setNavOpen(false)}
+        activeAnchor={activeId}
+      />
 
       <div className="manual">
         <main id="main-content" className="manual__content">

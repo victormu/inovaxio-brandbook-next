@@ -13,15 +13,19 @@
 
 :root {
   /* ── Primitivos ── */
-  --c-primary:        231 99% 59%;   /* #2E2EFE */
+  --c-primary:        240 99% 59%;   /* #2E2EFE (matiz 240: em 231 renderizava #2F4EFE) */
   --c-accent:         228 98% 59%;   /* #3245FD */
   --c-primary-bright: 233 100% 81%;  /* #9DA8FF */
   --c-navy:           240 71% 11%;   /* #080830 */
   --c-cyan:           185 100% 42%;  /* #00C9D5 — SÓ gradiente/amostra */
 
-  --c-success:        145 67% 40%;   /* verde com contraste no claro */
-  --c-warning:        40 90% 38%;
-  --c-error:          0 72% 46%;
+  /* Status calibrado para o CLARO, que é a banda padrão. Medido:
+     verde 4,99:1 no branco e 4,54:1 no #F4F4F7; vermelho 6,96 e 6,34;
+     amarelo 5,26 e 4,79. As bandas escuras sobrescrevem lá embaixo,
+     porque nenhum valor único passa nas quatro bandas. */
+  --c-success:        145 67% 30%;
+  --c-warning:         40 90% 30%;
+  --c-error:            0 72% 40%;
 
   /* ── Semânticos (contexto CLARO, padrão do manual) ── */
   --color-bg:            #ffffff;
@@ -153,6 +157,12 @@
   --color-text-faint: #8c8f9b;
   --color-primary-text: var(--color-primary-bright);
 
+  /* Status repactuado para fundo escuro: medido >= 5,7:1 em preto,
+     navy e surface. Os valores do claro dariam 2 a 3:1 aqui. */
+  --color-success: hsl(145 60% 55%);
+  --color-warning: hsl(40 85% 60%);
+  --color-error:   hsl(0 80% 65%);
+
   --shadow-sm:  0 1px 2px rgb(0 0 0 / 0.4);
   --shadow-md:  0 14px 30px rgb(0 0 0 / 0.5);
   --shadow-lg:  0 24px 50px rgb(0 0 0 / 0.6);
@@ -170,4 +180,10 @@
   --color-text-muted: #c2c4cb;
   --color-text-faint: #9294a6;
   --color-primary-text: var(--color-primary-bright);
+
+  /* Status repactuado para fundo escuro: medido >= 5,7:1 em preto,
+     navy e surface. Os valores do claro dariam 2 a 3:1 aqui. */
+  --color-success: hsl(145 60% 55%);
+  --color-warning: hsl(40 85% 60%);
+  --color-error:   hsl(0 80% 65%);
 }

@@ -75,7 +75,7 @@ function TagLine({ tag, value }: { tag: string; value: string }) {
     >
       <span
         style={{
-          color: "var(--color-primary)",
+          color: "var(--color-primary-text)",
           fontWeight: 600,
           fontSize: "var(--text-sm)",
           minWidth: "5rem",
