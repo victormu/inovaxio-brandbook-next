@@ -309,7 +309,7 @@ Space is the pedestal. Sections open with real air and never crowd. The one plac
 | `{rounded.md}` | 10px | Buttons, small callouts, chips |
 | `{rounded.lg}` | 14px | Media frames, logo plates, image containers |
 | `{rounded.xl}` | 20px | Cards: download-card, copy-block, do-dont-card |
-| `{rounded.xxl}` | 28px | The site signature radius, for large feature surfaces |
+| `{rounded.xxl}` | 28px | A assinatura do site. Vale em superfície grande (placa de logo a partir de 200px de altura, cartão de destaque), onde 28px lê como intenção. Nunca em card pequeno, onde vira bolha. |
 | `{rounded.pill}` | 9999px | Search input, clear button, circular controls |
 
 **Shape lock.** Cards are 20px, media frames 14px, buttons 10px, and the search field and circular controls are pill. Do not mix radii within a family.

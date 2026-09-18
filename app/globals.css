@@ -98,6 +98,9 @@ body {
      mexer no desenho. */
   display: flex;
   align-items: center;
+  /* O flex descarta o nó de espaço entre "INOVAXIO" e o span, então o
+     respiro vem daqui. Sem isto sai "INOVAXIOBrandbook". */
+  gap: 0.4em;
   min-height: 24px;
   padding-block: 2px;
   font-family: var(--font-display);

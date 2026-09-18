@@ -50,7 +50,10 @@ function LogoImage({
         ...(hasImage
           ? {
               background: bg,
-              borderRadius: "var(--radius-md)",
+              // --radius-2xl é a assinatura do site e só lê como intenção em
+              // superfície grande: numa placa pequena vira bolha.
+              borderRadius:
+                minHeight >= 200 ? "var(--radius-2xl)" : "var(--radius-md)",
               border: "1px solid var(--color-border)",
             }
           : {}),
