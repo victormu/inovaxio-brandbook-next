@@ -127,6 +127,8 @@
   --content-max:  1200px;
   --topbar-h:     56px;
   --gutter:       clamp(1.25rem, 4vw, 3rem);
+  --sticky-top:   calc(var(--topbar-h) + var(--space-6));
+  --topbar-bg:    #ffffff;
   /* ritmo de banda do site institucional: padding-top medido em 150px */
   --space-section: clamp(5rem, 4rem + 6vw, 10rem);
 }
@@ -156,6 +158,7 @@
   --color-text-muted: #c2c4cb;
   --color-text-faint: #8c8f9b;
   --color-primary-text: var(--color-primary-bright);
+  --topbar-bg: #000000;
 
   /* Status repactuado para fundo escuro: medido >= 5,7:1 em preto,
      navy e surface. Os valores do claro dariam 2 a 3:1 aqui. */
@@ -180,6 +183,7 @@
   --color-text-muted: #c2c4cb;
   --color-text-faint: #9294a6;
   --color-primary-text: var(--color-primary-bright);
+  --topbar-bg: #000000;
 
   /* Status repactuado para fundo escuro: medido >= 5,7:1 em preto,
      navy e surface. Os valores do claro dariam 2 a 3:1 aqui. */

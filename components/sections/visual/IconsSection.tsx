@@ -1,4 +1,5 @@
 import { Panel } from "@/components/manual/Panel";
+import { Topic } from "@/components/manual/Topic";
 import { Reveal } from "@/components/ui/Reveal";
 
 /* ============================================================
@@ -70,54 +71,6 @@ function Icon({ icon, size = 40 }: { icon: IconSpec; size?: number }) {
   );
 }
 
-function Block({
-  title,
-  lead,
-  children,
-  first = false,
-}: {
-  title: string;
-  lead?: string;
-  children: React.ReactNode;
-  first?: boolean;
-}) {
-  return (
-    <Reveal
-      as="section"
-      style={{
-        borderTop: first ? "none" : "1px solid var(--color-border)",
-        paddingTop: first ? 0 : "var(--space-12)",
-      }}
-    >
-      <h3
-        style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 600,
-          fontSize: "var(--text-2xl)",
-          color: "var(--color-text)",
-          letterSpacing: "var(--tracking-tight)",
-          marginBottom: lead ? "var(--space-3)" : "var(--space-6)",
-        }}
-      >
-        {title}
-      </h3>
-      {lead ? (
-        <p
-          style={{
-            fontSize: "var(--text-base)",
-            color: "var(--color-text-muted)",
-            lineHeight: "var(--leading-relaxed)",
-            maxWidth: "62ch",
-            marginBottom: "var(--space-6)",
-          }}
-        >
-          {lead}
-        </p>
-      ) : null}
-      {children}
-    </Reveal>
-  );
-}
 
 export function IconsSection() {
   return (
@@ -131,7 +84,7 @@ export function IconsSection() {
 
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
         {/* Amostra */}
-        <Block first title="Amostra" lead="Ícones em 24×24, traço no azul da marca, com respiro nas bordas.">
+        <Topic wide title="Amostra" lead="Ícones em 24×24, traço no azul da marca, com respiro nas bordas.">
           <div
             className="stack-mobile"
             style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--space-4)" }}
@@ -199,10 +152,10 @@ export function IconsSection() {
               Precisa se manter legível neste tamanho.
             </span>
           </div>
-        </Block>
+        </Topic>
 
         {/* Especificações técnicas */}
-        <Block title="Especificações técnicas">
+        <Topic wide title="Especificações técnicas">
           <dl style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--space-3)", margin: 0 }}>
             {SPECS.map(([term, value]) => (
               <div
@@ -232,10 +185,10 @@ export function IconsSection() {
               </div>
             ))}
           </dl>
-        </Block>
+        </Topic>
 
         {/* Regras de construção */}
-        <Block title="Regras de construção">
+        <Topic title="Regras de construção">
           <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-3)", margin: 0, padding: 0 }}>
             {RULES.map((rule) => (
               <li
@@ -263,10 +216,10 @@ export function IconsSection() {
               </li>
             ))}
           </ul>
-        </Block>
+        </Topic>
 
         {/* Checklist */}
-        <Block title="Checklist para validar um novo ícone" lead="Todo ícone novo precisa passar nesses seis pontos antes de entrar no sistema.">
+        <Topic title="Checklist para validar um novo ícone" lead="Todo ícone novo precisa passar nesses seis pontos antes de entrar no sistema.">
           <div
             className="stack-mobile"
             style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-3)" }}
@@ -308,7 +261,7 @@ export function IconsSection() {
               </div>
             ))}
           </div>
-        </Block>
+        </Topic>
       </div>
     </Panel>
   );

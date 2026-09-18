@@ -1,4 +1,5 @@
 import { Panel } from "@/components/manual/Panel";
+import { Topic } from "@/components/manual/Topic";
 import { TokenChip } from "@/components/ui/TokenChip";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -135,54 +136,6 @@ function ink(hex: string): string {
  * Blocos reutilizáveis
  * ========================================================== */
 
-function Block({
-  title,
-  lead,
-  children,
-  first = false,
-}: {
-  title: string;
-  lead?: string;
-  children: React.ReactNode;
-  first?: boolean;
-}) {
-  return (
-    <Reveal
-      as="section"
-      style={{
-        borderTop: first ? "none" : "1px solid var(--color-border)",
-        paddingTop: first ? 0 : "var(--space-12)",
-      }}
-    >
-      <h3
-        style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 600,
-          fontSize: "var(--text-2xl)",
-          color: "var(--color-text)",
-          letterSpacing: "var(--tracking-tight)",
-          marginBottom: lead ? "var(--space-3)" : "var(--space-6)",
-        }}
-      >
-        {title}
-      </h3>
-      {lead ? (
-        <p
-          style={{
-            fontSize: "var(--text-base)",
-            color: "var(--color-text-muted)",
-            lineHeight: "var(--leading-relaxed)",
-            maxWidth: "62ch",
-            marginBottom: "var(--space-6)",
-          }}
-        >
-          {lead}
-        </p>
-      ) : null}
-      {children}
-    </Reveal>
-  );
-}
 
 function RampRow({ label, swatches }: { label: string; swatches: { weight: number | string; hex: string }[] }) {
   return (
@@ -378,8 +331,8 @@ export function ColorSection() {
 
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
         {/* 1 · Azul no núcleo */}
-        <Block
-          first
+        <Topic
+          
           title="Azul no núcleo"
           lead="O azul primário carrega a marca: conduz ações e presença. O ciano não é cor principal, ele existe apenas dentro do gradiente da marca, nunca como acento sozinho."
         >
@@ -401,10 +354,10 @@ export function ColorSection() {
               </div>
             ))}
           </div>
-        </Block>
+        </Topic>
 
         {/* 2 · Tokens copiáveis */}
-        <Block title="Tokens" lead="Os valores que você usa no dia a dia. Clique para copiar o token CSS.">
+        <Topic wide title="Tokens" lead="Os valores que você usa no dia a dia. Clique para copiar o token CSS.">
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
             <div>
               <h4 className="label" style={{ marginBottom: "var(--space-3)" }}>Base e marca</h4>
@@ -423,10 +376,11 @@ export function ColorSection() {
               </div>
             </div>
           </div>
-        </Block>
+        </Topic>
 
         {/* 3 · Famílias de cor / paleta */}
-        <Block
+        <Topic
+          wide
           title="A paleta"
           lead="Cada cor da marca se abre em uma rampa de tons claros a escuros (10 a 90). Use os tons médios em interface e os extremos para estados, fundos e realces."
         >
@@ -435,15 +389,15 @@ export function ColorSection() {
               <RampRow key={f.label} label={f.label} swatches={ramp(f.base)} />
             ))}
           </div>
-        </Block>
+        </Topic>
 
         {/* 4 · Neutros */}
-        <Block title="Neutros" lead="A escala de cinzas estrutura fundos, superfícies e texto. O preto puro é o piso; os cinzas dão profundidade sem competir com o azul.">
+        <Topic wide title="Neutros" lead="A escala de cinzas estrutura fundos, superfícies e texto. O preto puro é o piso; os cinzas dão profundidade sem competir com o azul.">
           <RampRow label="Neutro" swatches={NEUTRAL_RAMP} />
-        </Block>
+        </Topic>
 
         {/* 5 · Proporção de uso */}
-        <Block title="Proporção de uso" lead="O branco domina. O escuro entra como pontuação (capa, abertura de capítulo, um respiro por capítulo) e o acento azul aparece em pontos e detalhes, nunca como fundo de peça inteira.">
+        <Topic wide title="Proporção de uso" lead="O branco domina. O escuro entra como pontuação (capa, abertura de capítulo, um respiro por capítulo) e o acento azul aparece em pontos e detalhes, nunca como fundo de peça inteira.">
           <div style={{ display: "flex", height: 44, borderRadius: "var(--radius-md)", overflow: "hidden", border: "1px solid var(--color-border)" }}>
             {USAGE_PROPORTION.map((seg) => (
               <div key={seg.label} style={{ width: `${seg.value}%`, background: seg.gradient ? "var(--gradient-brand-h)" : seg.bg }} />
@@ -457,10 +411,10 @@ export function ColorSection() {
               </span>
             ))}
           </div>
-        </Block>
+        </Topic>
 
         {/* 6 · Especificações */}
-        <Block title="Especificações" lead="Valores para tela (HEX, RGB) e impressão (CMYK, Pantone). O Pantone é referência: confirme em prova antes de uma tiragem grande.">
+        <Topic wide title="Especificações" lead="Valores para tela (HEX, RGB) e impressão (CMYK, Pantone). O Pantone é referência: confirme em prova antes de uma tiragem grande.">
           <div style={{ overflowX: "auto" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "var(--text-sm)" }}>
               <thead>
@@ -505,10 +459,10 @@ export function ColorSection() {
           <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)", lineHeight: "var(--leading-relaxed)", marginTop: "var(--space-4)", maxWidth: "62ch" }}>
             Preto em texto: K100. Preto em grandes áreas impressas: rich black C70 M50 Y30 K100 (preto frio, coerente com a marca).
           </p>
-        </Block>
+        </Topic>
 
         {/* 7 · Gradientes */}
-        <Block title="Gradientes" lead="Do azul primário ao ciano. Use em faixas, realces e fundos de destaque, nunca atrás de blocos longos de texto.">
+        <Topic title="Gradientes" lead="Do azul primário ao ciano. Use em faixas, realces e fundos de destaque, nunca atrás de blocos longos de texto.">
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
             {GRADIENTS.map((g) => (
               <div key={g.token} className="hover-card" style={{ borderRadius: "var(--radius-lg)", overflow: "hidden", border: "1px solid var(--color-border)" }}>
@@ -520,19 +474,20 @@ export function ColorSection() {
               </div>
             ))}
           </div>
-        </Block>
+        </Topic>
 
         {/* 8 · Combinações a evitar */}
-        <Block title="Combinações a evitar" lead="Azuis vizinhos e cores de status próximas brigam entre si. Separe com neutro ou preto no meio.">
+        <Topic title="Combinações a evitar" lead="Azuis vizinhos e cores de status próximas brigam entre si. Separe com neutro ou preto no meio.">
           <div className="stack-mobile" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--space-4)" }}>
             <BadCombo a="#2E2EFE" b="#3245FD" caption="Primário e acento: quase idênticos, sem hierarquia." />
             <BadCombo a="#2E2EFE" b="#3245FD" caption="Primário e acento lado a lado: quase iguais, vibram e cansam a vista." />
             <BadCombo a="#26CC66" b="#00C9D5" caption="Sucesso e ciano: confundem o significado." />
           </div>
-        </Block>
+        </Topic>
 
         {/* 9 · Acessibilidade */}
-        <Block
+        <Topic
+          wide
           title="Acessibilidade"
           lead="Todo texto precisa passar em contraste (mínimo 4.5:1 para corpo). Os cinco primeiros pares abaixo são os que o sistema realmente produz. O último é o contra-exemplo: o azul primário não serve como texto sobre escuro, e é por isso que as bandas escuras trocam para o azul claro. Nunca dependa só da cor para transmitir significado."
         >
@@ -544,15 +499,15 @@ export function ColorSection() {
             <ContrastCard fg="#9DA8FF" bg="#080830" fgLabel="Azul claro" bgLabel="Navy" />
             <ContrastCard fg="#2E2EFE" bg="#000000" fgLabel="Primário" bgLabel="Preto" />
           </div>
-        </Block>
+        </Topic>
 
         {/* 10 · Cor em uso */}
-        <Block title="Cor em uso" lead="Fundo claro é o padrão do manual. O fundo escuro é deliberado: capa, abertura de capítulo e um respiro por capítulo. Nunca por acaso.">
+        <Topic title="Cor em uso" lead="Fundo claro é o padrão do manual. O fundo escuro é deliberado: capa, abertura de capítulo e um respiro por capítulo. Nunca por acaso.">
           <div className="stack-mobile" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
             <BackgroundSample bg="#ffffff" ink="#000000" caption="Padrão. Logo e texto em preto ou azul." />
             <BackgroundSample bg="#000000" ink="#ffffff" caption="Pontuação. Logo e texto em branco." />
           </div>
-        </Block>
+        </Topic>
       </div>
     </Panel>
   );

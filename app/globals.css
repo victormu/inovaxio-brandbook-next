@@ -46,9 +46,9 @@ body {
   gap: var(--space-4);
   height: 56px;
   padding: 0 var(--space-6);
-  background: rgb(255 255 255 / 0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  /* Opaca e por token: translucidez só compensa com fundo estável, e
+     aqui o fundo troca de banda seis vezes por capítulo. */
+  background: var(--topbar-bg);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -118,34 +118,35 @@ body {
 }
 
 .panel__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
-  gap: var(--space-16);
-  align-items: start;
+  /* Coluna única. A versão de duas colunas reservava 360px para um título
+     de uma linha, espremendo o conteúdo em 680px de 1440 (47% da tela) e
+     deixando milhares de pixels de vazio pinado ao lado. */
   max-width: var(--content-max);
   margin: 0 auto;
   padding: 0 var(--gutter);
-  min-height: calc(100dvh - 2 * var(--space-section));
 }
 
-/* a coluna que gruda: número, título e lead do tópico */
+/* Abertura do tópico: faixa de largura inteira, número na margem. */
 .panel__head {
-  position: sticky;
-  top: calc(var(--topbar-h) + var(--space-10));
-  align-self: start;
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  gap: var(--space-4);
+  padding-bottom: var(--space-10);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-16);
 }
 
 .panel__num {
-  display: block;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--text-xs);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   color: var(--color-primary-text);
-  margin-bottom: var(--space-6);
+  padding-top: 0.6em;
 }
 
 .panel__title {
+  grid-column: 2;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--text-4xl);
@@ -157,27 +158,79 @@ body {
 }
 
 .panel__lead {
+  grid-column: 2;
   font-family: var(--font-body);
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
   color: var(--color-text-muted);
-  max-width: 46ch;
+  max-width: 62ch;
   margin-top: var(--space-6);
 }
 
+/* ── Tópico: o nível que realmente organiza a leitura, e onde o sticky
+      é honesto (acompanha 600 a 1200px, não 5000). ── */
+.topic {
+  display: grid;
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.topic--wide {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+.topic__head {
+  position: sticky;
+  top: var(--sticky-top);
+  align-self: start;
+}
+
+.topic__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.topic__lead {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+  max-width: 62ch;
+  margin-top: var(--space-3);
+}
+
+.topic--wide .topic__lead {
+  max-width: 62ch;
+}
+
+.topic__body {
+  min-width: 0;
+}
+
+/* O único ritmo entre tópicos. Substitui os filetes e marginBottom
+   ad hoc que cada seção inventava por conta. */
 .panel__flow > * + * {
-  margin-top: var(--space-16);
+  margin-top: var(--space-24);
 }
 
 /* ── Painel-declaração: o tópico é a própria frase ── */
 .panel--statement .panel__inner {
-  grid-template-columns: minmax(0, 1fr);
+  display: grid;
   align-items: center;
+  min-height: calc(100dvh - 2 * var(--space-section));
 }
 
 .panel--statement .panel__head {
-  position: static;
-  max-width: 24ch;
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .panel--statement .panel__title {
@@ -192,16 +245,24 @@ body {
 }
 
 @media (max-width: 1023px) {
-  .panel__inner {
+  .topic {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-10);
-    min-height: 0;
+    gap: var(--space-6);
   }
-  .panel__head {
+  .topic__head {
     position: static;
   }
   .panel {
     padding: var(--space-16) 0;
+  }
+  .panel__head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-2);
+    margin-bottom: var(--space-12);
+  }
+  .panel__title,
+  .panel__lead {
+    grid-column: 1;
   }
 }
 
