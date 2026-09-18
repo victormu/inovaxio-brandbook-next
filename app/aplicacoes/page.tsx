@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
+import { Panel } from "@/components/manual/Panel";
+import { Topic } from "@/components/manual/Topic";
 import { ChapterCover } from "@/components/manual/ChapterCover";
 import { ChapterNext } from "@/components/manual/ChapterNext";
-import { SectionHeader } from "@/components/sections/SectionHeader";
 import { CopyBlock } from "@/components/ui/CopyBlock";
 
 const CHANNEL_ROWS = [
@@ -39,27 +40,6 @@ const CHANNEL_ROWS = [
 
 const TABLE_HEADERS = ["Canal", "Tom", "Formato", "Evitar"] as const;
 
-function SecIntro({
-  id,
-  eyebrow,
-  label,
-  lead,
-}: {
-  id: string;
-  eyebrow: string;
-  label: string;
-  lead: string;
-}) {
-  return (
-    <SectionHeader
-      level={2}
-      eyebrow={eyebrow}
-      titleId={id}
-      title={label}
-      description={lead}
-    />
-  );
-}
 
 function TagLine({ tag, value }: { tag: string; value: string }) {
   return (
@@ -116,127 +96,147 @@ function TagList({ children }: { children: ReactNode }) {
 
 function AnunciosSection() {
   return (
-    <section aria-labelledby="anuncios">
-      <SecIntro
-        id="anuncios"
-        eyebrow="Anúncios"
-        label="Anúncios digitais"
-        lead="O formato para anúncios digitais segue a trinca de reconhecimento: headline que nomeia o gap, body com a credencial principal, CTA direto sem urgência forçada."
-      />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "var(--space-4)",
-        }}
+    <Panel
+      id="anuncios"
+      index="01 / 05"
+      title="Anúncios digitais"
+      band="light"
+      lead="O anúncio segue a trinca de reconhecimento: headline que nomeia o gap, body com a credencial principal, CTA direto sem urgência forçada."
+    >
+      <Topic
+        wide
+        title="Exemplo pronto"
+        lead="Copie e adapte. A estrutura importa mais que as palavras exatas."
       >
         <CopyBlock
           label="Anúncio de lançamento"
           text="Tem a ideia. Tem o capital. Falta só o software. A Inovaxio é a parceira técnica que constrói o software que você quer lançar no mercado, com o time já montado desde o primeiro dia."
           variant="highlight"
         />
-      </div>
-      <TagList>
-        <TagLine
-          tag="Headline"
-          value="Duas afirmações + gap (o que falta). Padrão: Tem X. Tem Y. Falta Z."
-        />
-        <TagLine
-          tag="Body"
-          value="Nomeia o serviço e a credencial principal. Ex: construímos e sustentamos sistemas críticos em produção."
-        />
-        <TagLine
-          tag="CTA"
-          value='Direto, sem urgência forçada. "Fale com a gente" ou "Conheça como trabalhamos".'
-        />
-      </TagList>
-    </section>
+      </Topic>
+
+      <Topic
+        title="Anatomia"
+        lead="As três partes de qualquer anúncio da marca, na ordem."
+      >
+        <TagList>
+          <TagLine
+            tag="Headline"
+            value="Duas afirmações mais o gap (o que falta). Padrão: Tem X. Tem Y. Falta Z."
+          />
+          <TagLine
+            tag="Body"
+            value="Nomeia o serviço e a credencial principal. Ex: construímos e sustentamos sistemas críticos em produção."
+          />
+          <TagLine
+            tag="CTA"
+            value='Direto, sem urgência forçada. "Fale com a gente" ou "Conheça como trabalhamos".'
+          />
+        </TagList>
+      </Topic>
+    </Panel>
   );
 }
 
 function LegendasSection() {
   return (
-    <section aria-labelledby="legendas">
-      <SecIntro
-        id="legendas"
-        eyebrow="Redes"
-        label="Legendas para redes sociais"
-        lead="Tom profissional e direto, sem hashtag excessiva. Máximo três hashtags por post. Abrir sempre com gancho de reconhecimento ou dado concreto."
-      />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "var(--space-4)",
-        }}
+    <Panel
+      id="legendas"
+      index="02 / 05"
+      title="Legendas para redes"
+      band="dim"
+      lead="Tom profissional e direto, sem hashtag em excesso. Abre sempre com gancho de reconhecimento ou dado concreto, nunca com saudação."
+    >
+      <Topic
+        wide
+        title="Exemplos por dimensão"
+        lead="Um para quem está lançando, outro para quem já opera um sistema crítico."
       >
-        <CopyBlock
-          label="LinkedIn: lançamento"
-          text="Quem vai construir o software da sua próxima ideia? A Inovaxio monta o time técnico e começa a construir. Capital aplicado em produto, não em estruturação de equipe. #software #tecnologia #inovaxio"
-        />
-        <CopyBlock
-          label="LinkedIn: crítico"
-          text="Sistemas financeiros não podem cair. A Inovaxio sustenta operações críticas com monitoramento contínuo e processo. Não como um fornecedor, como parceira técnica de longo prazo. #fintech #sistemas #inovaxio"
-        />
-      </div>
-      <TagList>
-        <TagLine
-          tag="Abertura"
-          value="Gancho de reconhecimento ou dado concreto. Nunca saudação genérica."
-        />
-        <TagLine
-          tag="Hashtags"
-          value="Máximo três por post. Relevantes e específicas."
-        />
-        <TagLine
-          tag="Evitar"
-          value='"Somos apaixonados por tecnologia", "Transformamos o futuro", "Nós entregamos resultados".'
-        />
-      </TagList>
-    </section>
+        <div style={{ display: "grid", gap: "var(--space-4)" }}>
+          <CopyBlock
+            label="LinkedIn: lançamento"
+            text="Quem vai construir o software da sua próxima ideia? A Inovaxio monta o time técnico e começa a construir. Capital aplicado em produto, não em estruturação de equipe. #software #tecnologia #inovaxio"
+          />
+          <CopyBlock
+            label="LinkedIn: crítico"
+            text="Sistemas financeiros não podem cair. A Inovaxio sustenta operações críticas com monitoramento contínuo e processo. Não como um fornecedor, como parceira técnica de longo prazo. #fintech #sistemas #inovaxio"
+          />
+        </div>
+      </Topic>
+
+      <Topic
+        title="Regras do formato"
+        lead="O que decide se a legenda soa como a marca ou como qualquer agência."
+      >
+        <TagList>
+          <TagLine
+            tag="Abertura"
+            value="Gancho de reconhecimento ou dado concreto. Nunca saudação genérica."
+          />
+          <TagLine
+            tag="Hashtags"
+            value="Máximo três por post. Relevantes e específicas."
+          />
+          <TagLine
+            tag="Evitar"
+            value='"Somos apaixonados por tecnologia", "Transformamos o futuro", "Nós entregamos resultados".'
+          />
+        </TagList>
+      </Topic>
+    </Panel>
   );
 }
 
 function SiteSection() {
   return (
-    <section aria-labelledby="site">
-      <SecIntro
-        id="site"
-        eyebrow="Site"
-        label="Copy para o site"
-        lead='Hierarquia no hero: Big Idea como headline, trinca de reconhecimento como subtítulo ou abertura. CTA principal é sempre "Fale com a gente".'
-      />
-      <TagList>
-        <TagLine
-          tag="Hero"
-          value="Big Idea como headline. Trinca de reconhecimento como subtítulo ou abertura da primeira seção."
-        />
-        <TagLine
-          tag="Seções"
-          value="Hero, o que fazemos, como trabalhamos, cases ou experiência, contato."
-        />
-        <TagLine
-          tag="CTA"
-          value='"Fale com a gente". Nunca "Compre agora" ou "Assine".'
-        />
-        <TagLine
-          tag="Tom"
-          value="Consultivo e direto. Frases curtas. Zero jargão de agência."
-        />
-      </TagList>
-    </section>
+    <Panel
+      id="site"
+      index="03 / 05"
+      title="Copy para o site"
+      band="light"
+      lead="Big Idea como headline do hero, trinca de reconhecimento como subtítulo. O CTA principal é sempre Fale com a gente."
+    >
+      <Topic
+        title="Estrutura da página"
+        lead="Cada bloco tem um papel. Trocar a ordem quebra o argumento."
+      >
+        <TagList>
+          <TagLine
+            tag="Hero"
+            value="Big Idea como headline. Trinca de reconhecimento como subtítulo ou abertura da primeira seção."
+          />
+          <TagLine
+            tag="Seções"
+            value="Hero, o que fazemos, como trabalhamos, cases ou experiência, contato."
+          />
+          <TagLine
+            tag="CTA"
+            value='"Fale com a gente". Nunca "Compre agora" ou "Assine".'
+          />
+          <TagLine
+            tag="Tom"
+            value="Consultivo e direto. Frases curtas. Zero jargão de agência."
+          />
+        </TagList>
+      </Topic>
+    </Panel>
   );
 }
 
 function CanaisSection() {
   return (
-    <section aria-labelledby="canais">
-      <SecIntro
-        id="canais"
-        eyebrow="Canais"
-        label="Voz por canal"
-        lead="Cada canal tem um tom e um formato adequado. A consistência é na essência, não na repetição literal do mesmo texto."
-      />
+    <Panel
+      id="canais"
+      index="04 / 05"
+      title="Voz por canal"
+      band="dark"
+      lead="Cada canal tem um tom e um formato adequado. A consistência é na essência, não na repetição literal do mesmo texto."
+    >
+      <Topic
+        wide
+        title="A tabela de canais"
+        lead="O que muda de um canal para o outro, e o que nunca muda."
+      >
       <div style={{ overflowX: "auto" }}>
         <table
           style={{
@@ -320,23 +320,24 @@ function CanaisSection() {
           </tbody>
         </table>
       </div>
-    </section>
+      </Topic>
+    </Panel>
   );
 }
 
 function LicitacaoSection() {
   return (
-    <section aria-labelledby="licitacao">
-      <SecIntro
-        id="licitacao"
-        eyebrow="Licitação"
-        label="Setor público e licitação"
-        lead='Em documentos de licitação, use a terminologia exigida pelo edital. A proibição de termos como "engenharia" e "produto digital" é regra de copy de marca, não de documento técnico-jurídico. No edital, a linguagem segue o padrão legal.'
-      />
+    <Panel
+      id="licitacao"
+      index="05 / 05"
+      title="Setor público e licitação"
+      band="light"
+      lead="Em documento de licitação vale a terminologia exigida pelo edital. A proibição de termos como engenharia e produto digital é regra de copy de marca, não de documento técnico-jurídico."
+    >
       <div
         style={{
-          background: "hsl(var(--c-primary) / 0.06)",
-          border: "1px solid hsl(var(--c-primary) / 0.2)",
+          background: "color-mix(in srgb, var(--color-primary) 6%, transparent)",
+          border: "1px solid color-mix(in srgb, var(--color-primary) 20%, transparent)",
           borderRadius: "var(--radius-lg)",
           padding: "var(--space-6)",
         }}
@@ -364,7 +365,7 @@ function LicitacaoSection() {
           Linguagem de marca na vitrine. Linguagem técnico-jurídica no documento.
         </p>
       </div>
-    </section>
+    </Panel>
   );
 }
 
