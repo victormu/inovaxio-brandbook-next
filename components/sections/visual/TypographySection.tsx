@@ -1,4 +1,5 @@
 import { Panel } from "@/components/manual/Panel";
+import { Topic } from "@/components/manual/Topic";
 
 interface TypeLevel {
   role: string;
@@ -331,16 +332,15 @@ export function TypographySection() {
       band="dim"
       lead="Duas famílias. Quicksand carrega os títulos e o display. Inter carrega o texto e a legenda. Os tamanhos em pt são referência e escalam com a peça: um pôster parte da base maior, um cartão da menor."
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
-        {/* Specimens âncora das duas famílias */}
+      <Topic wide
+        title="As duas famílias"
+        lead="Quicksand carrega título e display. Inter carrega leitura e legenda. A fronteira entre as duas não se move."
+      >
         <div>
-          <p className="label" style={labelStyle}>
-            As duas famílias
-          </p>
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))",
               gap: "var(--space-4)",
             }}
           >
@@ -358,12 +358,16 @@ export function TypographySection() {
             />
           </div>
         </div>
+      </Topic>
 
-        {/* Escada de pesos com texto de exemplo */}
+      <Topic wide
+        title="Pesos"
+        lead="Cinco pesos em Quicksand, quatro em Inter. Use 600 e 700 no display, 400 e 500 no corpo."
+      >
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(320px, 100%), 1fr))",
             gap: "var(--space-6)",
           }}
         >
@@ -380,24 +384,26 @@ export function TypographySection() {
             phrase="Tem a ideia"
           />
         </div>
+      </Topic>
 
-        {/* Hierarquia */}
+      <Topic wide
+        title="Hierarquia"
+        lead="Cada degrau tem um papel. Pular um degrau achata a leitura; usar dois seguidos com o mesmo peso confunde."
+      >
         <div>
-          <p className="label" style={labelStyle}>
-            Hierarquia
-          </p>
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
             {TYPE_HIERARCHY.map((level, i) => (
               <HierarchyRow key={level.role} level={level} isFirst={i === 0} />
             ))}
           </div>
         </div>
+      </Topic>
 
-        {/* Pareamento */}
+      <Topic
+        title="Pareamento"
+        lead="As combinações que funcionam, e o tamanho relativo entre título e corpo em cada uma."
+      >
         <div>
-          <p className="label" style={labelStyle}>
-            Pareamento
-          </p>
           <p
             style={{
               fontSize: "var(--text-base)",
@@ -411,12 +417,13 @@ export function TypographySection() {
             corpo em Inter. Nunca o contrário, nunca as duas no mesmo papel.
           </p>
         </div>
+      </Topic>
 
-        {/* Regras */}
+      <Topic
+        title="Regras"
+        lead="O que decide legibilidade antes de qualquer escolha estética."
+      >
         <div>
-          <p className="label" style={labelStyle}>
-            Regras
-          </p>
           <ul
             style={{
               listStyle: "none",
@@ -455,12 +462,13 @@ export function TypographySection() {
             ))}
           </ul>
         </div>
+      </Topic>
 
-        {/* Fallbacks */}
+      <Topic wide
+        title="Fontes de fallback"
+        lead="Quando Quicksand ou Inter não carregam, a peça precisa continuar de pé."
+      >
         <div>
-          <p className="label" style={labelStyle}>
-            Fontes de fallback
-          </p>
           <p
             style={{
               fontSize: "var(--text-sm)",
@@ -533,7 +541,7 @@ export function TypographySection() {
             </table>
           </div>
         </div>
-      </div>
+      </Topic>
     </Panel>
   );
 }
