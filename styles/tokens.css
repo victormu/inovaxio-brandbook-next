@@ -112,6 +112,17 @@
   --radius-full: 9999px;
 
   /* ── Sombras (contexto claro, azuladas como no site) ── */
+  /* Elevação de REPOUSO. O manual vinha chapado: as sombras existiam como
+     token e só apareciam no hover. Valores calcados no site institucional,
+     que usa sombra azulada mais rim de luz interno. */
+  --elev-1:
+    0 1px 2px rgb(10 10 40 / 0.06),
+    inset 0 1px 0 rgb(255 255 255 / 0.9);
+  --elev-2:
+    0 10px 24px rgb(10 10 40 / 0.10),
+    0 2px 6px rgb(10 10 40 / 0.05),
+    inset 0 1px 0 rgb(255 255 255 / 0.9);
+
   --shadow-sm:  0 1px 2px rgb(10 10 40 / 0.08);
   --shadow-md:  0 14px 30px rgb(10 10 40 / 0.12);
   --shadow-lg:  0 24px 50px rgb(10 10 40 / 0.16);
@@ -165,6 +176,13 @@
   --color-success: hsl(145 60% 55%);
   --color-warning: hsl(40 85% 60%);
   --color-error:   hsl(0 80% 65%);
+
+  /* No escuro a sombra projetada não lê: quem separa a superfície do fundo
+     é o rim de luz no topo, como no site. */
+  --elev-1: inset 0 1px 0 rgb(255 255 255 / 0.08);
+  --elev-2:
+    0 12px 28px rgb(0 0 0 / 0.5),
+    inset 0 1px 0 rgb(255 255 255 / 0.10);
 
   --shadow-sm:  0 1px 2px rgb(0 0 0 / 0.4);
   --shadow-md:  0 14px 30px rgb(0 0 0 / 0.5);

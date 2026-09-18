@@ -1,24 +1,25 @@
 ---
 version: alpha
 name: Inovaxio-design-system
-description: A dark, photography-first brand reference on a pure black canvas. Quicksand display headlines over Inter body, a single blue-to-cyan brand family (Action Blue #2E2EFE moving to Cyan #00C9D5) as the only accent, and near-invisible chrome so content and product imagery lead. No side-stripe accents, no gradient text, no decorative grids. One accent, generous space, semantic color. The site is a brand manual: every element documents what to do and what not to do.
+description: A light, photography-first brand manual punctuated by dark. Off-white canvas, Quicksand display headlines over Inter body, Action Blue #2E2EFE as the only accent, and near-invisible chrome so content and product imagery lead. Cyan #00C9D5 lives only inside the documented brand gradient, never as UI accent. Dark (.ctx-dark, .ctx-navy) is deliberate punctuation: the cover, each chapter opener, the chapter-end link, and at most one breathing panel per chapter. No side-stripe accents, no gradient text, no decorative grids. One accent, generous space, semantic color. The site is a brand manual: every element documents what to do and what not to do.
 colors:
   primary: "#2E2EFE"
   accent: "#3245FD"
-  primary-text: "#7186FE"
+  primary-bright: "#9DA8FF"
   cyan: "#00C9D5"
-  ink: "#FFFFFF"
-  body: "#FFFFFF"
-  body-muted: "#9096A2"
-  body-faint: "#888E9B"
-  canvas: "#000000"
-  surface: "#121212"
-  surface-2: "#1C1C1C"
-  border: "rgba(255,255,255,0.08)"
-  border-strong: "rgba(255,255,255,0.16)"
-  success: "#26CC66"
-  warning: "#E5B21A"
-  error: "#E53333"
+  navy: "#080830"
+  ink: "#0A0A0C"
+  body: "#0A0A0C"
+  body-muted: "#51535C"
+  body-faint: "#6B6D78"
+  canvas: "#FFFFFF"
+  surface: "#F4F4F7"
+  surface-2: "#ECEDF4"
+  border: "rgba(10,10,12,0.10)"
+  border-strong: "rgba(10,10,12,0.20)"
+  success: "#198044"
+  warning: "#916308"
+  error: "#AF1D1D"
   on-primary: "#FFFFFF"
 typography:
   display:
@@ -78,10 +79,10 @@ typography:
 rounded:
   none: 0px
   sm: 4px
-  md: 8px
-  lg: 12px
-  xl: 16px
-  xxl: 24px
+  md: 10px
+  lg: 14px
+  xl: 20px
+  xxl: 28px
   pill: 9999px
   full: 9999px
 spacing:
@@ -190,7 +191,7 @@ components:
 
 The Inovaxio brandbook is a **light, photography-first brand reference punctuated by dark**. The canvas is white; black and navy are used deliberately, not as the default. It is a manual, not a marketing site: every screen documents a rule and, where it matters, the counter-rule (faca / nao faca). Chrome recedes so content and product imagery lead. Quicksand carries the headlines, Inter carries the reading, and a single blue-to-cyan brand family provides the only accent on the page.
 
-Density is deliberately low. Sections stack with generous vertical rhythm (48 to 96px), content caps around 900px so paragraphs stay readable, and there is no decorative frame: no side-stripe accents, no gradient text, no decorative grid overlays. Depth comes from surface-color change (black canvas to near-black surface) and from restrained hover elevation on interactive cards, never from chrome for its own sake.
+Density is deliberately low. Every topic is a full-bleed panel, subtopics are separated by 96px, chapters by 150px, content caps at 1200px and descriptive text at 62ch, and there is no decorative frame: no side-stripe accents, no gradient text, no decorative grid overlays. Depth comes from band change (white canvas to `{colors.surface}`), from a light resting elevation on cards, and from a restrained hover lift, never from chrome for its own sake.
 
 The system is expressed at two volumes. The **site UI** (this reference) is the digital layer: tokens, components, motion. The **brand content** it presents is a graphic manual: logo rules, print CMYK and Pantone, an editorial grid, a typographic hierarchy in points. This DESIGN.md governs the first: how to build the interface consistently.
 
@@ -198,7 +199,7 @@ The system is expressed at two volumes. The **site UI** (this reference) is the 
 - White canvas (`{colors.canvas}`) with light surfaces for cards and rows. Dark appears in four places only: the cover, each chapter opener, the chapter-end link, and at most one breathing panel per chapter.
 - One accent family: Action Blue (`{colors.primary}`) moving to Cyan (`{colors.cyan}`). No second brand color. On dark backgrounds, text uses the lighter `{colors.primary-text}` for contrast.
 - Quicksand (display) + Inter (body). Tight tracking on display, generous leading on body.
-- Hairline borders (`{colors.border}`) do the separating. Elevation is surface change plus a soft hover lift, not stacked shadows.
+- Hairline borders (`{colors.border}`) do most of the separating. Elevation is band change plus `--elev-1` at rest and `--elev-2` on hover, never stacked shadows.
 - Full do / nao faca grammar via `{component.do-dont-card}`: green check for the correct application, red cross for the banned one.
 - Fixed left sidebar on desktop; a fixed top bar plus off-canvas drawer on mobile.
 - Zero travessao (em-dash) anywhere in visible copy: it is a hard brand rule, on the site and in this document.
@@ -211,12 +212,12 @@ The system is expressed at two volumes. The **site UI** (this reference) is the 
 - **Action Blue** (`{colors.primary}` - #2E2EFE): The single brand-level interactive color. Primary buttons, active nav, the left accent of the brand mark, focus intent. It is the one "this is Inovaxio, click here" signal.
 - **Accent Blue** (`{colors.accent}` - #3245FD): A near-sibling of Action Blue used inside gradients and hover transitions. Digital-only distinction from primary; on print they share a Pantone family.
 - **Cyan** (`{colors.cyan}` - #00C9D5): The far end of the brand gradient and the focus-ring color (`:focus-visible` outline). Also the eyebrow color on section headers. It is a partner to blue, never a second competing accent.
-- **Primary Text** (`{colors.primary-text}` - #7186FE): A lighter blue used whenever the brand blue must be TEXT on the black canvas. Action Blue (#2E2EFE) fails contrast as body text on black (2.9:1); this lighter blue clears WCAG AA (about 6.7:1). Use it for active nav labels, eyebrows-as-text, and inline blue copy on dark.
+- **Primary Bright** (`{colors.primary-bright}` - #9DA8FF): The blue used whenever brand blue must be TEXT on a dark band. Action Blue fails as body text on black (measured 2.9:1); this one clears AA (measured 9.6:1 on black, 8.8:1 on navy). The `--color-primary-text` token resolves to the plain primary on light bands and to this on `.ctx-dark` and `.ctx-navy`, so components never choose by hand.
 
 ### Surface
 - **Canvas** (`{colors.canvas}` - #FFFFFF): The base. The manual sits on white; `.ctx-dim`, `.ctx-dark` and `.ctx-navy` are the bands that punctuate it.
-- **Surface** (`{colors.surface}` - #121212): Cards, the sidebar, copy blocks, download cards. The default raised surface.
-- **Surface 2** (`{colors.surface-2}` - #1C1C1C): Hover fills, secondary buttons, image-placeholder backgrounds, table header rows. One micro-step lighter than Surface.
+- **Surface** (`{colors.surface}` - #F4F4F7): Cards, copy blocks, download cards. The default raised surface. Inside `.ctx-dark` it becomes #101014.
+- **Surface 2** (`{colors.surface-2}` - #ECEDF4): Hover fills, secondary buttons, image-placeholder backgrounds, table header rows. One micro-step darker than Surface on light bands, one step lighter on dark ones.
 
 ### Text
 - **Ink** (`{colors.ink}` - #FFFFFF): Every headline and primary body line on the dark canvas.
@@ -224,9 +225,9 @@ The system is expressed at two volumes. The **site UI** (this reference) is the 
 - **Body Faint** (`{colors.body-faint}` - #888E9B): Tertiary copy, captions, sub-item links, spec-table labels. Held at ~6.7:1 on black. Do not go fainter; the fainter gray that once shipped failed contrast.
 
 ### Status
-- **Success** (`{colors.success}` - #26CC66): The "faca" / correct state (checklist checked, do-cards).
-- **Warning** (`{colors.warning}` - #E5B21A): Attention states.
-- **Error** (`{colors.error}` - #E53333): The "nao faca" / avoid state, and the red-tinted "Evitar" chips.
+- **Success** (`{colors.success}` - #198044): The "faca" / correct state (checklist checked, do-cards). Measured 4,99:1 on white. Dark bands raise it to #47D181, because no single value clears 4.5:1 on white, #F4F4F7, black and navy at once.
+- **Warning** (`{colors.warning}` - #916308): Attention states. Dark bands raise it to #F0B642.
+- **Error** (`{colors.error}` - #AF1D1D): The "nao faca" / avoid state, and the red-tinted "Evitar" chips. Measured 6,96:1 on white. Dark bands raise it to #ED5E5E.
 
 ### Hairlines & Borders
 - **Border** (`{colors.border}` - white at 8%): The universal hairline. Card edges, row dividers, table lines, sidebar separator. It reads as a whisper on black, not a hard line.
@@ -288,13 +289,14 @@ Space is the pedestal. Sections open with real air and never crowd. The one plac
 
 | Level | Treatment | Use |
 |---|---|---|
-| Flat | No shadow, hairline border only | Cards, rows, tables, nav at rest |
-| Hover lift | `translateY(-1 to -2px)` + soft tinted shadow | `{component.nav-block}`, `{component.token-chip}`, download button on hover |
+| Flat | Hairline border only | Rows, tables, section dividers |
+| Rest (`--elev-1`) | Soft 1px shadow + inner light rim | Every card at rest: download-card, copy-block, photo-card, do-dont-card |
+| Hover (`--elev-2`) | `translateY(-4px)` + 10/24px blue-tinted shadow + 1px brand ring | The same cards on hover |
 | Active press | `scale(0.97)` | Every button and chip on `:active` |
-| Drawer | `{shadow.lg}` | The mobile nav drawer over its backdrop |
+| Drawer | `{shadow.lg}` | The nav overlay above its backdrop |
 | Glow (rare) | `{glow.primary}` blue glow | Reserved; used only where a brand moment truly needs it |
 
-**Shadow philosophy.** Depth is primarily surface change: black canvas to `{colors.surface}` card. Interactive cards earn a soft lift on hover (a `translateY` plus a shadow tinted to the background, never pure black). Do not pair a 1px border with a large soft drop shadow on the same element (the "ghost card" tell). Pick the hairline border at rest; let the shadow appear only on hover.
+**Shadow philosophy.** Two things carry depth: the band change (white to `{colors.surface}`) and a light resting elevation. Cards are not flat: `--elev-1` gives a 1px shadow plus an inner white rim at the top edge, which is what separates the card from the surface without shouting. Hover raises it to `--elev-2`. On dark bands the projected shadow does not read, so the rim alone does the work, and `--elev-1` becomes an inset highlight only. Shadows are always tinted to the background (`rgb(10 10 40 / …)` on light), never pure black.
 
 ## Shapes
 
@@ -304,13 +306,13 @@ Space is the pedestal. Sections open with real air and never crowd. The one plac
 |---|---|---|
 | `{rounded.none}` | 0px | Full-bleed brand blocks, section dividers |
 | `{rounded.sm}` | 4px | Checkboxes, focus outline radius, small swatches |
-| `{rounded.md}` | 8px | Buttons, small callouts, chips |
-| `{rounded.lg}` | 12px | Cards: nav-block, token-chip, copy-block, download-card, do-dont-card |
-| `{rounded.xl}` | 16px | The brand-blue positioning block on the home page |
-| `{rounded.xxl}` | 24px | Reserved for larger feature surfaces |
+| `{rounded.md}` | 10px | Buttons, small callouts, chips |
+| `{rounded.lg}` | 14px | Media frames, logo plates, image containers |
+| `{rounded.xl}` | 20px | Cards: download-card, copy-block, do-dont-card |
+| `{rounded.xxl}` | 28px | The site signature radius, for large feature surfaces |
 | `{rounded.pill}` | 9999px | Search input, clear button, circular controls |
 
-**Shape lock.** Cards are 12px. Buttons are 8px. The search field and circular controls are pill. Do not mix radii within a family. Do not exceed 16px on a standard card (over-rounding is a tell).
+**Shape lock.** Cards are 20px, media frames 14px, buttons 10px, and the search field and circular controls are pill. Do not mix radii within a family.
 
 ## Components
 

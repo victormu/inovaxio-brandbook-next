@@ -21,7 +21,7 @@ export function CopyBlock({ text, label, variant = "default" }: CopyBlockProps) 
 
   return (
     <div
-      className="copyblock"
+      className="copyblock card-elev"
       style={{
         background: isHighlight
           ? "hsl(var(--c-primary) / 0.08)"

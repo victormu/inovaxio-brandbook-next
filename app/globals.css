@@ -38,8 +38,13 @@ body {
 /* ── Layout shell ── */
 /* ── Topbar ── */
 .topbar {
-  position: sticky;
+  /* fixed, não sticky: sticky reserva 56px no fluxo e o que aparecia atrás
+     da barra transparente era o fundo da página, não a seção. Fixa, o
+     conteúdo corre por baixo e a barra herda a cor certa. */
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
   display: flex;
   align-items: center;
@@ -471,7 +476,7 @@ p {
 
 /* ── Sumário da home: um capítulo por linha, tela cheia ── */
 .index-panel {
-  min-height: calc(100dvh - var(--topbar-h));
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   background: var(--color-bg);
@@ -578,7 +583,7 @@ p {
 
 /* ── Abertura de capítulo em tela cheia ── */
 .chapter-cover {
-  min-height: calc(100dvh - var(--topbar-h));
+  min-height: 100dvh;
   display: flex;
   align-items: flex-end;
   background: var(--color-bg);
@@ -652,7 +657,7 @@ p {
       Sem gradiente e sem imagem: a capa de um manual impresso. ── */
 .cover {
   position: relative;
-  min-height: calc(100dvh - var(--topbar-h));
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -951,17 +956,27 @@ p {
   }
 }
 
+/* ── Elevação de repouso ──
+   O card já nasce destacado da superfície; o hover sobe um degrau, não
+   inventa a profundidade do zero. */
+.hover-card,
+.card-elev {
+  box-shadow: var(--elev-1);
+}
+
 /* ── Hover premium (contexto claro: sombras azuladas suaves) ── */
-.hover-card {
+.hover-card,
+.card-elev {
   transition: transform var(--duration-normal) var(--ease-out),
     box-shadow var(--duration-normal) var(--ease-out),
     border-color var(--duration-normal) var(--ease-out);
   will-change: transform;
 }
-.hover-card:hover {
+.hover-card:hover,
+.card-elev:hover {
   transform: translateY(-4px);
-  border-color: rgb(46 46 254 / 0.35);
-  box-shadow: var(--shadow-md), 0 0 0 1px rgb(46 46 254 / 0.22);
+  border-color: color-mix(in srgb, var(--color-primary) 35%, transparent);
+  box-shadow: var(--elev-2), 0 0 0 1px color-mix(in srgb, var(--color-primary) 22%, transparent);
 }
 .hover-media img {
   transition: transform var(--duration-slow) var(--ease-out);

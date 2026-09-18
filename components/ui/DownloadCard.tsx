@@ -24,10 +24,11 @@ export function DownloadCard({
 
   return (
     <div
+      className="card-elev"
       style={{
         background: "var(--color-surface)",
         border: "1px solid var(--color-border)",
-        borderRadius: "var(--radius-lg)",
+        borderRadius: "var(--radius-xl)",
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
