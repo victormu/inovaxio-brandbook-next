@@ -31,9 +31,18 @@ export default function Home() {
         </div>
 
         <div>
-          <h1 id="cover-title" className="cover__title">
-            Brandbook
-          </h1>
+          <div className="cover__lockup">
+            <h1 id="cover-title" className="cover__title">
+              Brandbook
+            </h1>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className="cover__mark"
+              src="/assets/logo/simbolo-cor.svg"
+              alt=""
+              aria-hidden="true"
+            />
+          </div>
           <div className="cover__rule" />
           <div className="cover__foot">
             <span>Tudo o que a marca diz, mostra e recusa</span>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -12,10 +12,15 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  */
 export function Preloader() {
   const [loading, setLoading] = useState(true);
+  // Precisa virar estado, não variável local: o @media do CSS só neutraliza
+  // transition e animation, e o Framer escreve transform inline por rAF.
+  // Sem isto a tela desliza ~900px mesmo com movimento reduzido ligado.
+  const [reduzido, setReduzido] = useState(false);
 
   useEffect(() => {
     const reduce =
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    setReduzido(reduce);
 
     // Já rodou nesta sessão: não mostra de novo.
     if (sessionStorage.getItem("inovaxio-preloaded")) {
@@ -23,8 +28,11 @@ export function Preloader() {
       return;
     }
 
-    // Trava o scroll enquanto carrega.
+    // Trava o scroll e tira o conteúdo de trás do alcance do teclado:
+    // sem inert, Tab move o foco para elementos invisíveis durante 1,6s.
     document.body.style.overflow = "hidden";
+    const main = document.getElementById("main-content");
+    main?.setAttribute("inert", "");
 
     const timer = setTimeout(
       () => {
@@ -37,19 +45,22 @@ export function Preloader() {
     return () => {
       clearTimeout(timer);
       document.body.style.overflow = "";
+      main?.removeAttribute("inert");
     };
   }, []);
 
   return (
-    <AnimatePresence>
+    <MotionConfig reducedMotion="user">
+      <AnimatePresence>
       {loading ? (
         <motion.div
           key="preloader"
           initial={{ opacity: 1 }}
-          exit={{ y: "-100%" }}
-          transition={{ duration: 0.7, ease: EASE }}
+          exit={reduzido ? { opacity: 0 } : { y: "-100%" }}
+          transition={{ duration: reduzido ? 0.15 : 0.7, ease: EASE }}
           onAnimationComplete={() => {
             document.body.style.overflow = "";
+            document.getElementById("main-content")?.removeAttribute("inert");
           }}
           aria-hidden="true"
           style={{
@@ -71,7 +82,7 @@ export function Preloader() {
             height={67}
             initial={{ opacity: 0, scale: 0.85, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: EASE }}
+            transition={{ duration: reduzido ? 0 : 0.6, ease: EASE }}
             style={{ width: 132, height: "auto", display: "block" }}
           />
 
@@ -87,7 +98,7 @@ export function Preloader() {
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ duration: 1.3, ease: "easeInOut" }}
+              transition={{ duration: reduzido ? 0 : 1.3, ease: "easeInOut" }}
               style={{
                 height: "100%",
                 background: "var(--gradient-brand-h)",
@@ -97,6 +108,7 @@ export function Preloader() {
           </div>
         </motion.div>
       ) : null}
-    </AnimatePresence>
+      </AnimatePresence>
+    </MotionConfig>
   );
 }

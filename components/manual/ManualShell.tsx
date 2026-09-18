@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
 import { SideNav } from "@/components/nav/SideNav";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { useBandAtTop } from "@/hooks/useBandAtTop";
+import { isBandEscura } from "@/lib/band";
 import { NAV_SECTIONS } from "@/lib/nav";
 
 /** "/visual#logo" -> "logo"; "/visual/aplicacoes" -> null. */
@@ -32,9 +34,14 @@ export function ManualShell({ children }: { children: React.ReactNode }) {
   const activeId = useActiveSection(ids);
   const activeLabel = topics.find((t) => t.anchor === activeId)?.label ?? null;
 
+  // A topbar é transparente: herda a paleta da banda que está sob ela, para
+  // o texto inverter sozinho quando o fundo troca de claro para escuro.
+  const band = useBandAtTop();
+  const topbarClass = isBandEscura(band) ? "topbar ctx-dark" : "topbar";
+
   return (
     <>
-      <header className="topbar">
+      <header className={topbarClass}>
         <button
           type="button"
           className="topbar__menu"

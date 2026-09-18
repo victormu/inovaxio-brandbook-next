@@ -46,10 +46,13 @@ body {
   gap: var(--space-4);
   height: 56px;
   padding: 0 var(--space-6);
-  /* Opaca e por token: translucidez só compensa com fundo estável, e
-     aqui o fundo troca de banda seis vezes por capítulo. */
-  background: var(--topbar-bg);
-  border-bottom: 1px solid var(--color-border);
+  /* Transparente: a barra herda a paleta da banda que está sob ela (via
+     .ctx-dark aplicado pelo shell), então o texto inverte sozinho quando o
+     fundo troca de claro para escuro. */
+  background: transparent;
+  color: var(--color-text);
+  transition: color var(--duration-normal) var(--ease-out);
+  border-bottom: none;
 }
 
 .topbar__menu {
@@ -677,12 +680,29 @@ p {
   gap: var(--space-1);
 }
 
+.cover__lockup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gutter);
+  font-size: min(calc((100vw - 2 * var(--gutter) - 1.4em) / 6.1), 14rem);
+}
+
+/* O símbolo fecha a linha do título, na altura da caixa alta do B. */
+.cover__mark {
+  flex-shrink: 0;
+  height: 0.52em;
+  width: auto;
+  display: block;
+  font-size: inherit;
+}
+
 .cover__title {
   font-family: var(--font-display);
   font-weight: 700;
-  /* "Brandbook" mede ~6,1em em Quicksand 700: a fonte deriva da largura
-     disponível e o nome enche a linha inteira, sem corte. */
-  font-size: min(calc((100vw - 2 * var(--gutter)) / 6.1), 16rem);
+  /* "Brandbook" mede ~6,1em em Quicksand 700. Descontando o símbolo e o
+     respiro ao lado dele, a fonte deriva da largura que sobra. */
+  font-size: min(calc((100vw - 2 * var(--gutter) - 1.4em) / 6.1), 14rem);
   line-height: 0.9;
   letter-spacing: -0.03em;
   color: var(--color-text);
