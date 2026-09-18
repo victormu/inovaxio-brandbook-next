@@ -27,9 +27,9 @@ export function useBandAtTop(topbarHeight = 56): BandName {
     const sob = document
       .elementsFromPoint(window.innerWidth / 2, topbarHeight + 1)
       .find((el) => el.matches(SELETOR));
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- medir o DOM
-    // e ajustar o estado antes da pintura é o motivo de existir o layout
-    // effect. Sem isto a barra pisca com texto escuro sobre a capa preta.
+    // Medir o DOM e ajustar o estado antes da pintura é o propósito do
+    // layout effect. Sem isto a barra pisca com texto escuro sobre a capa.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (sob) setBand(bandFromClasses([...sob.classList]));
 
     if (typeof IntersectionObserver === "undefined") return;
