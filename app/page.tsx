@@ -33,7 +33,7 @@ export default function Home() {
         <div>
           <div className="cover__lockup">
             <h1 id="cover-title" className="cover__title">
-              <span className="cover__title-sub">Manual de Marca</span>
+              <span className="cover__title-sub">Manual da Marca</span>
               Inovaxio
             </h1>
             {/* eslint-disable-next-line @next/next/no-img-element */}
