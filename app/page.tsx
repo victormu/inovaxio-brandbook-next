@@ -25,7 +25,7 @@ export default function Home() {
         <div className="cover__meta">
           <span>Inovaxio</span>
           <span className="cover__meta-right">
-            <span>Manual de Marca</span>
+            <span>Brandbook</span>
             <span>2026 · v1.0</span>
           </span>
         </div>
@@ -33,7 +33,8 @@ export default function Home() {
         <div>
           <div className="cover__lockup">
             <h1 id="cover-title" className="cover__title">
-              Brandbook
+              <span className="cover__title-sub">Manual de Marca</span>
+              Inovaxio
             </h1>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

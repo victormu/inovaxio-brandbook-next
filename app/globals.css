@@ -721,13 +721,13 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: var(--gutter);
-  font-size: min(calc((100vw - 2 * var(--gutter) - 1.4em) / 6.1), 14rem);
+  font-size: min(calc((100vw - 3 * var(--gutter) - 1.2em) / 4.8), 14rem);
 }
 
 /* O símbolo fecha a linha do título, na altura da caixa alta do B. */
 .cover__mark {
   flex-shrink: 0;
-  height: 0.52em;
+  height: 0.6em;
   width: auto;
   display: block;
   font-size: inherit;
@@ -736,14 +736,25 @@ p {
 .cover__title {
   font-family: var(--font-display);
   font-weight: 700;
-  /* "Brandbook" mede ~6,1em em Quicksand 700. Descontando o símbolo e o
-     respiro ao lado dele, a fonte deriva da largura que sobra. */
-  font-size: min(calc((100vw - 2 * var(--gutter) - 1.4em) / 6.1), 14rem);
+  /* "Inovaxio" mede ~4em em Quicksand 700; "Manual de Marca" a 0,6em mede
+     ~4,8em e é a linha mais larga. Descontando o símbolo (1,2em de largura)
+     e o respiro (1 gutter) ao lado dele, a fonte deriva da largura que sobra. */
+  font-size: min(calc((100vw - 3 * var(--gutter) - 1.2em) / 4.8), 14rem);
   line-height: 0.9;
   letter-spacing: -0.03em;
   color: var(--color-text);
   margin: 0;
   white-space: nowrap;
+}
+
+/* Linha de cima menor e mais leve, para o nome ter o peso da capa. */
+.cover__title-sub {
+  display: block;
+  font-size: 0.6em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 0.15em;
 }
 
 .cover__rule {
